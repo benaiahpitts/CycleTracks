@@ -136,7 +136,7 @@
 - (void)initUniqueIDHash
 {
 	unsigned char result[CC_MD5_DIGEST_LENGTH];
-	const char * uniqueIDStr = [[UIDevice currentDevice].uniqueIdentifier UTF8String];
+	const char * uniqueIDStr = [UIDevice currentDevice].identifierForVendor.UUIDString.UTF8String;
 	CC_MD5(uniqueIDStr, strlen(uniqueIDStr), result);
 	NSString *uniqueID = [NSString stringWithFormat:@"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
 						  result[0], result[1], result[2], result[3],
@@ -145,7 +145,7 @@
 						  result[12], result[13], result[14], result[15]
 						  ];
 	
-	NSLog(@"uniqueID: %@", [UIDevice currentDevice].uniqueIdentifier);	
+	NSLog(@"uniqueID: %@", [UIDevice currentDevice].identifierForVendor);	
 	NSLog(@"Hashed uniqueID: %@", uniqueID);
 	self.uniqueIDHash = uniqueID; // save for later.
 }

@@ -46,6 +46,7 @@
 		// Nab the unique device id hash from our delegate.
 		CycleTracksAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
 		self.deviceUniqueIdHash = delegate.uniqueIDHash;
+        NSString *kSaveURL= @"http://www.urs.com/";
 		
 		// create request.
 		self.request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kSaveURL]]; // prop set retains
