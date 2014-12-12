@@ -30,7 +30,7 @@
 
 #import <CommonCrypto/CommonDigest.h>
 
-
+#import "constants.h"
 #import "CycleTracksAppDelegate.h"
 #import "PersonalInfoViewController.h"
 #import "RecordTripViewController.h"
@@ -52,7 +52,16 @@
 {
 	// disable screen lock
 	[UIApplication sharedApplication].idleTimerDisabled = YES;
-	[UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+	//[UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+	if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+		UIUserNotificationType types = UIUserNotificationTypeSound | UIUserNotificationTypeBadge | UIUserNotificationTypeAlert;
+		UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+		[[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+	} else {
+		[[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+		
+		[application setApplicationIconBadgeNumber:0];
+	}
 	
 	[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
 	
@@ -129,6 +138,7 @@
 	// Add the tab bar controller's current view as a subview of the window
     [window setFrame:[[UIScreen mainScreen] bounds]];
     [window addSubview:tabBarController.view];
+	[window setRootViewController:tabBarController];
 	[window makeKeyAndVisible];	
 }
 
@@ -137,7 +147,7 @@
 {
 	unsigned char result[CC_MD5_DIGEST_LENGTH];
 	const char * uniqueIDStr = [UIDevice currentDevice].identifierForVendor.UUIDString.UTF8String;
-	CC_MD5(uniqueIDStr, strlen(uniqueIDStr), result);
+	CC_MD5(uniqueIDStr, (int) strlen(uniqueIDStr), result);
 	NSString *uniqueID = [NSString stringWithFormat:@"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
 						  result[0], result[1], result[2], result[3],
 						  result[4], result[5], result[6], result[7],
@@ -162,7 +172,7 @@
     
     // If we're not recording -- don't bother with the background task
     if (recordVC && ![recordVC recording]) {
-        NSLog(@"applicationDidEnterBackground - bgTask=%d (should be zero)", bgTask);
+        //NSLog(@"applicationDidEnterBackground - bgTask=%d (should be zero)", bgTask);
         return;
     }
     
@@ -176,11 +186,11 @@
         });
     }];
 
-    NSLog(@"applicationDidEnterBackground - bgTask=%d", bgTask);
+    //NSLog(@"applicationDidEnterBackground - bgTask=%d", bgTask);
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    NSLog(@"applicationWillEnterForeground - bgTask=%d", bgTask);
+    //NSLog(@"applicationWillEnterForeground - bgTask=%d", bgTask);
     if (bgTask) {
         [application endBackgroundTask:bgTask];        
     }
@@ -295,6 +305,11 @@
  */
 - (NSString *)applicationDocumentsDirectory {
 	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+}
+
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+	[application registerForRemoteNotifications];
+	[application setApplicationIconBadgeNumber:0];
 }
 
 

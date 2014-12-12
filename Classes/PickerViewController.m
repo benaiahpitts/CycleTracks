@@ -97,7 +97,7 @@
 - (IBAction)save:(id)sender
 {
 	NSInteger row = [customPickerView selectedRowInComponent:0];
-	[delegate didPickPurpose:row];
+	[delegate didPickPurpose: (int)row];
 }
 
 

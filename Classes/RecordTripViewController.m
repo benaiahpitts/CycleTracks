@@ -401,7 +401,7 @@
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (alertView.tag == kResumeInterruptedRecording) {
-        NSLog(@"recording interrupted didDismissWithButtonIndex: %d", buttonIndex);
+        //NSLog(@"recording interrupted didDismissWithButtonIndex: %d", buttonIndex);
         if (buttonIndex == 0) {
             // new trip => do nothing
         }
@@ -420,7 +420,7 @@
     // go to the map view of the trip
     // not relevant if we weren't recording
     if (alertView.tag != kBatteryLowNotRecording) {
-        NSLog(@"saving didDismissWithButtonIndex: %d", buttonIndex);
+        //NSLog(@"saving didDismissWithButtonIndex: %d", buttonIndex);
 			
         // keep a pointer to our trip to pass to map view below
         Trip *trip = tripManager.trip;

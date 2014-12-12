@@ -162,7 +162,7 @@
 	
 	NSError *error;
 	NSInteger count = [managedObjectContext countForFetchRequest:request error:&error];
-	NSLog(@"saved user count  = %d", count);
+	//NSLog(@"saved user count  = %d", count);
 	if ( count == 0 )
 	{
 		// create an empty User entity
@@ -555,7 +555,7 @@
 			cell.accessoryType = UITableViewCellAccessoryCheckmark;
 
 			// store cycling freq
-			cyclingFreq = [NSNumber numberWithInt:[indexPath indexAtPosition:1]];
+			cyclingFreq = [NSNumber numberWithInt:(int)[indexPath indexAtPosition:1]];
 			NSLog(@"setting instance variable cycling freq: %d", [cyclingFreq intValue]);
 		}
 	}

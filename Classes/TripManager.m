@@ -89,7 +89,7 @@
 		NSArray *sortDescriptors	= [NSArray arrayWithObjects:dateDescriptor, nil];
 		self.coords					= [[[_trip.coords allObjects] sortedArrayUsingDescriptors:sortDescriptors] mutableCopy];
 		
-		NSLog(@"loading %d coords completed.", [self.coords count]);
+		//NSLog(@"loading %d coords completed.", [self.coords count]);
 
 		// recalculate duration
 		if ( coords && [coords count] > 1 )
@@ -401,7 +401,7 @@
 
 - (void)saveTrip
 {
-	NSLog(@"about to save trip with %d coords...", [coords count]);
+	//NSLog(@"about to save trip with %d coords...", [coords count]);
 	[activityDelegate updateSavingMessage:kPreparingData];
 	NSLog(@"%@", trip);
 
@@ -549,8 +549,7 @@
 - (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten 
  totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite
 {
-	NSLog(@"%d bytesWritten, %d totalBytesWritten, %d totalBytesExpectedToWrite",
-		  bytesWritten, totalBytesWritten, totalBytesExpectedToWrite );
+	//NSLog(@"%d bytesWritten, %d totalBytesWritten, %d totalBytesExpectedToWrite", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite );
 	
 	[activityDelegate updateBytesWritten:totalBytesWritten
 			   totalBytesExpectedToWrite:totalBytesExpectedToWrite];
@@ -660,7 +659,7 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
 	// do something with the data
-    NSLog(@"Succeeded! Received %d bytes of data", [receivedData length]);
+    NSLog(@"Succeeded! Received %lu bytes of data", (unsigned long)[receivedData length]);
 	NSLog(@"%@", [[[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding] autorelease] );
 
 	[activityDelegate dismissSaving];
@@ -674,7 +673,7 @@
 
 - (NSInteger)getPurposeIndex
 {
-	NSLog(@"%d", purposeIndex);
+	//NSLog(@"%d", purposeIndex);
 	return purposeIndex;
 }
 
@@ -773,7 +772,7 @@
 	// determine if we're processing tripNotes or saving alert
 	if ( alertView == tripNotes )
 	{
-		NSLog(@"tripNotes didDismissWithButtonIndex: %d", buttonIndex);
+		//NSLog(@"tripNotes didDismissWithButtonIndex%ld%d"(long), buttonIndex);
 		
 		// save trip notes
 		if ( buttonIndex == 1 )
@@ -831,7 +830,7 @@
  totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite
 {
 	if ( saving )
-		saving.message = [NSString stringWithFormat:@"Sent %d of %d bytes", totalBytesWritten, totalBytesExpectedToWrite];
+		saving.message = [NSString stringWithFormat:@"Sent %ld of %ld bytes", (long)totalBytesWritten, (long)totalBytesExpectedToWrite];
 }
 
 
@@ -864,10 +863,10 @@
 	
 	NSError *error;
 	NSInteger count = [managedObjectContext countForFetchRequest:request error:&error];
-	NSLog(@"countUnSavedTrips = %d", count);
+	//NSLog(@"countUnSavedTrips = %d", count);
 	
 	[request release];
-	return count;
+	return (int)count;
 }
 
 // count trips that have been saved but not uploaded
@@ -889,10 +888,10 @@
 	
 	NSError *error;
 	NSInteger count = [managedObjectContext countForFetchRequest:request error:&error];
-	NSLog(@"countUnSyncedTrips = %d", count);
+	//NSLog(@"countUnSyncedTrips = %d", count);
 	
 	[request release];
-	return count;
+	return (int)count;
 }
 
 // count trips that have been saved but have zero distance
@@ -914,10 +913,10 @@
 	
 	NSError *error;
 	NSInteger count = [managedObjectContext countForFetchRequest:request error:&error];
-	NSLog(@"countZeroDistanceTrips = %d", count);
+	//NSLog(@"countZeroDistanceTrips = %d", count);
 	
 	[request release];
-	return count;
+	return (int)count;
 }
 
 - (BOOL)loadMostRecentUnSavedTrip
@@ -965,7 +964,7 @@
 // filter and sort all trip coords before calculating distance in post-processing
 - (CLLocationDistance)calculateTripDistance:(Trip*)_trip
 {
-	NSLog(@"calculateTripDistance for trip started %@ having %d coords", _trip.start, [_trip.coords count]);
+	//NSLog(@"calculateTripDistance for trip started %@ having %lu coords", _trip.start, (unsigned long)[_trip.coords count]);
 	
 	CLLocationDistance newDist = 0.;
 
@@ -975,7 +974,7 @@
 	// filter coords by hAccuracy
 	NSPredicate *filterByAccuracy	= [NSPredicate predicateWithFormat:@"hAccuracy < 100.0"];
 	NSArray		*filteredCoords		= [[_trip.coords allObjects] filteredArrayUsingPredicate:filterByAccuracy];
-	NSLog(@"count of filtered coords = %d", [filteredCoords count]);
+	//NSLog(@"count of filtered coords = %d", [filteredCoords count]);
 	
 	if ( [filteredCoords count] )
 	{
@@ -1025,7 +1024,7 @@
 		if ( error != nil )
 			NSLog(@"Unresolved error2 %@, %@", error, [error userInfo]);
 	}
-	int count = [mutableFetchResults count];
+	int count = (int)[mutableFetchResults count];
 
 	NSLog(@"found %d trip(s) in need of distance recalcuation", count);
 

@@ -143,8 +143,8 @@
 	[sortDescriptor release];
 	
 	NSError *error;
-	NSInteger count = [tripManager.managedObjectContext countForFetchRequest:request error:&error];
-	NSLog(@"count = %d", count);
+	//NSInteger count = [tripManager.managedObjectContext countForFetchRequest:request error:&error];
+	//NSLog(@"count = %d", count);
 	
 	NSMutableArray *mutableFetchResults = [[tripManager.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
 	if (mutableFetchResults == nil) {
@@ -345,7 +345,7 @@
 	{
 		cell = [[[TripCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier] autorelease];
 		cell.detailTextLabel.numberOfLines = 2;
-		if ( reuseIdentifier == kCellReuseIdentifierCheck )
+		if ( [reuseIdentifier  isEqual: kCellReuseIdentifierCheck] )
 		{
 			/*
 			// add check mark
@@ -357,7 +357,7 @@
 			cell.accessoryView = imageView;
 			 */
 		}
-		else if ( reuseIdentifier == kCellReuseIdentifierExclamation )
+		else if ( [reuseIdentifier  isEqual: kCellReuseIdentifierExclamation] )
 		{
 			// add exclamation point
 			UIImage		*image		= [UIImage imageNamed:@"exclamation_point.png"];
@@ -367,7 +367,7 @@
 			//[cell.contentView addSubview:imageView];
 			cell.accessoryView = imageView;
 		}
-		else if ( reuseIdentifier == kCellReuseIdentifierInProgress )
+		else if ( [reuseIdentifier  isEqual: kCellReuseIdentifierInProgress] )
 		{
 			// prevent user from selecting the current recording in progress
 			cell.selectionStyle = UITableViewCellSelectionStyleNone; 
@@ -632,7 +632,7 @@
  - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-	return ( cell.reuseIdentifier != kCellReuseIdentifierInProgress );
+	return ( ![cell.reuseIdentifier  isEqual: kCellReuseIdentifierInProgress] );
 }
 
 
@@ -711,7 +711,7 @@
 //- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-	NSLog(@"actionSheet clickedButtonAtIndex %d", buttonIndex);
+	//NSLog(@"actionSheet clickedButtonAtIndex %d", buttonIndex);
 	switch ( buttonIndex )
 	{
 			/*
@@ -795,7 +795,7 @@
 	switch (alertView.tag) {
 		case 202:
 		{
-			NSLog(@"zeroDistance didDismissWithButtonIndex: %d", buttonIndex);
+			//NSLog(@"zeroDistance didDismissWithButtonIndex: %d", buttonIndex);
 			switch (buttonIndex) {
 				case 0:
 					// nothing to do
@@ -810,7 +810,7 @@
 			break;
 		case 303:
 		{
-			NSLog(@"unSyncedTrips didDismissWithButtonIndex: %d", buttonIndex);
+			//NSLog(@"unSyncedTrips didDismissWithButtonIndex: %d", buttonIndex);
 			switch (buttonIndex) {
 				case 0:
 					// Nevermind
@@ -825,7 +825,7 @@
 			break;
 		default:
 		{
-			NSLog(@"SavedTripsView alertView: didDismissWithButtonIndex: %d", buttonIndex);
+			//NSLog(@"SavedTripsView alertView: didDismissWithButtonIndex: %d", buttonIndex);
 			[self displaySelectedTripMap];
 		}
 	}

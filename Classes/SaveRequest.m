@@ -65,9 +65,9 @@
 		for(NSString * key in postVars)
 			[postBody appendString:[NSString stringWithFormat:@"%@=%@&", key, [postVars objectForKey:key]]];
 
-		NSLog(@"initializing HTTP POST request to %@ with %d bytes", 
+		/*NSLog(@"initializing HTTP POST request to %@ with %d bytes",
 			  kSaveURL,
-			  [[postBody dataUsingEncoding:NSUTF8StringEncoding] length]);
+			  [[postBody dataUsingEncoding:NSUTF8StringEncoding] length]);*/
 		[request setHTTPBody:[postBody dataUsingEncoding:NSUTF8StringEncoding]];
 	}
 	
