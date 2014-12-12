@@ -71,6 +71,10 @@
     //locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
     locationManager.delegate = self;
 	
+	if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+		[locationManager requestAlwaysAuthorization];
+	}
+	
     return locationManager;
 }
 

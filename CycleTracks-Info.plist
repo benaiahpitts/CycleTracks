@@ -52,5 +52,7 @@
 	</array>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleBlackTranslucent</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>The app needs to be able to record your location for the trip survey even if your device goes to sleep or you use a different app during recording.</string>
 </dict>
 </plist>
