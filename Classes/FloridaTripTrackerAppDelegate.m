@@ -20,7 +20,7 @@
  */
 
 //
-//  CycleTracksAppDelegate.m
+//  FloridaTripTrackerAppDelegate.m
 //  CycleTracks
 //
 //  Copyright 2009-2013 SFCTA. All rights reserved.
@@ -31,14 +31,14 @@
 #import <CommonCrypto/CommonDigest.h>
 
 #import "constants.h"
-#import "CycleTracksAppDelegate.h"
+#import "FloridaTripTrackerAppDelegate.h"
 #import "PersonalInfoViewController.h"
 #import "RecordTripViewController.h"
 #import "SavedTripsViewController.h"
 #import "TripManager.h"
 
 
-@implementation CycleTracksAppDelegate
+@implementation FloridaTripTrackerAppDelegate
 
 @synthesize window;
 @synthesize tabBarController;

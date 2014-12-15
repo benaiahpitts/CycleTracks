@@ -20,7 +20,7 @@
  */
 
 //
-//  CycleTracksAppDelegate.h
+//  FloridaTripTrackerAppDelegate.h
 //  CycleTracks
 //
 //  Copyright 2009-2013 SFCTA. All rights reserved.
@@ -31,7 +31,7 @@
 
 @class RecordTripViewController;
 
-@interface CycleTracksAppDelegate : NSObject <UIApplicationDelegate>
+@interface FloridaTripTrackerAppDelegate : NSObject <UIApplicationDelegate>
 {
     NSManagedObjectModel *managedObjectModel;
     NSManagedObjectContext *managedObjectContext;	    

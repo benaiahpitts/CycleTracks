@@ -29,7 +29,7 @@
 //	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
 
 #import "constants.h"
-#import "CycleTracksAppDelegate.h"
+#import "FloridaTripTrackerAppDelegate.h"
 #import "SaveRequest.h"
 
 
@@ -44,7 +44,7 @@
 	if (self = [super init])
 	{
 		// Nab the unique device id hash from our delegate.
-		CycleTracksAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+		FloridaTripTrackerAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
 		self.deviceUniqueIdHash = delegate.uniqueIDHash;
         NSString *kSaveURL= @"http://www.urs.com/";
 		
