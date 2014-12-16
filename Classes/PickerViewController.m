@@ -170,13 +170,6 @@
 }
 
 
-- (void)dealloc
-{
-	[customPickerDataSource release];
-	[customPickerView release];
-	
-	[super dealloc];
-}
 
 
 #pragma mark UIPickerViewDelegate

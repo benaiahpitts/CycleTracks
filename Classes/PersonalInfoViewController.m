@@ -73,12 +73,12 @@
 }
 */
 
-- (UITextField*)initTextFieldAlpha
+- (UITextField*)createTextFieldAlpha
 {
 	CGRect frame = CGRectMake( 152, 7, 138, 29 );
 	UITextField *textField = [[UITextField alloc] initWithFrame:frame];
 	textField.borderStyle = UITextBorderStyleRoundedRect;
-	textField.textAlignment = UITextAlignmentRight;
+	//textField.textAlignment = UITextAlignmentRight;
 	textField.placeholder = @"";
 	textField.keyboardType = UIKeyboardTypeDefault;
 	textField.returnKeyType = UIReturnKeyDone;
@@ -87,13 +87,13 @@
 }
 
 
-- (UITextField*)initTextFieldEmail
+- (UITextField*)createTextFieldEmail
 {
 	CGRect frame = CGRectMake( 152, 7, 138, 29 );
 	UITextField *textField = [[UITextField alloc] initWithFrame:frame];
 	textField.autocapitalizationType = UITextAutocapitalizationTypeNone,
 	textField.borderStyle = UITextBorderStyleRoundedRect;
-	textField.textAlignment = UITextAlignmentRight;
+	//textField.textAlignment = UITextAlignmentRight;
 	textField.placeholder = @"";
 	textField.keyboardType = UIKeyboardTypeEmailAddress;
 	textField.returnKeyType = UIReturnKeyDone;
@@ -102,12 +102,12 @@
 }
 
 
-- (UITextField*)initTextFieldNumeric
+- (UITextField*)createTextFieldNumeric
 {
 	CGRect frame = CGRectMake( 152, 7, 138, 29 );
 	UITextField *textField = [[UITextField alloc] initWithFrame:frame];
 	textField.borderStyle = UITextBorderStyleRoundedRect;
-	textField.textAlignment = UITextAlignmentRight;
+	//textField.textAlignment = UITextAlignmentRight;
 	textField.placeholder = @"12345";
 	textField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
 	textField.returnKeyType = UIReturnKeyDone;
@@ -119,7 +119,7 @@
 - (User *)createUser
 {
 	// Create and configure a new instance of the User entity
-	User *noob = (User *)[[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:managedObjectContext] retain];
+	User *noob = (User *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:managedObjectContext];
 	
 	NSError *error;
 	if (![managedObjectContext save:&error]) {
@@ -139,12 +139,12 @@
 	// self.title = @"Personal Info";
 	
 	// initialize text fields
-	self.age		= [self initTextFieldNumeric];
-	self.email		= [self initTextFieldEmail];
-	self.gender		= [self initTextFieldAlpha];
-	self.homeZIP	= [self initTextFieldNumeric];
-	self.workZIP	= [self initTextFieldNumeric];
-	self.schoolZIP	= [self initTextFieldNumeric];
+	self.age		= [self createTextFieldNumeric];
+	self.email		= [self createTextFieldEmail];
+	self.gender		= [self createTextFieldAlpha];
+	self.homeZIP	= [self createTextFieldNumeric];
+	self.workZIP	= [self createTextFieldNumeric];
+	self.schoolZIP	= [self createTextFieldNumeric];
 
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -199,8 +199,6 @@
 	else
 		NSLog(@"init FAIL");
 	
-	[mutableFetchResults release];
-	[request release];
 }
 
 
@@ -406,7 +404,7 @@
 			static NSString *CellIdentifier = @"CellTextField";
 			cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 			if (cell == nil) {
-				cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+				cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 			}
 
 			// inner switch statement identifies row
@@ -435,7 +433,7 @@
 			static NSString *CellIdentifier = @"CellTextField";
 			cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 			if (cell == nil) {
-				cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+				cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 			}
 
 			switch ([indexPath indexAtPosition:1])
@@ -463,7 +461,7 @@
 			static NSString *CellIdentifier = @"CellCheckmark";
 			cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 			if (cell == nil) {
-				cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+				cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 			}
 			
 			switch ([indexPath indexAtPosition:1])
@@ -602,9 +600,6 @@
 */
 
 
-- (void)dealloc {
-    [super dealloc];
-}
 
 
 @end

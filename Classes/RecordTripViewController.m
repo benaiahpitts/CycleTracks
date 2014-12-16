@@ -89,20 +89,20 @@
     switch (device.batteryState)
     {
         case UIDeviceBatteryStateUnknown:
-            NSLog(@"battery state = UIDeviceBatteryStateUnknown");
+            //NSLog(@"battery state = UIDeviceBatteryStateUnknown");
             break;
         case UIDeviceBatteryStateUnplugged:
-            NSLog(@"battery state = UIDeviceBatteryStateUnplugged");
+            //NSLog(@"d = UIDeviceBatteryStateUnplugged");
             break;
         case UIDeviceBatteryStateCharging:
-            NSLog(@"battery state = UIDeviceBatteryStateCharging");
+            //NSLog(@"battery state = UIDeviceBatteryStateCharging");
             break;
         case UIDeviceBatteryStateFull:
-            NSLog(@"battery state = UIDeviceBatteryStateFull");
+            //NSLog(@"battery state = UIDeviceBatteryStateFull");
             break;
     }
 		
-    NSLog(@"battery level = %f%%", device.batteryLevel * 100.0 );
+    //NSLog(@"battery level = %f%%", device.batteryLevel * 100.0 );
     if ( (device.batteryState == UIDeviceBatteryStateUnknown) ||
          (device.batteryLevel >= kBatteryLevelThreshold) )
     {
@@ -135,14 +135,12 @@
                                                   otherButtonTitles:nil];
             alert.tag = alert_tag;
             [alert show];
-            [alert release];
         }
         else {
             UILocalNotification *localNotif = [[UILocalNotification alloc] init];
             localNotif.alertBody = kBatteryMessage;
             localNotif.soundName = @"bicycle-bell-normalized.aiff";
             [[UIApplication sharedApplication] presentLocalNotificationNow:localNotif];
-            [localNotif release];
         }
         
         lastBatteryWarning = [[NSDate date] timeIntervalSince1970];
@@ -155,9 +153,9 @@
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
-	NSLog(@"location update: %@", [newLocation description]);
+	//NSLog(@"location update: %@", [newLocation description]);
 	CLLocationDistance deltaDistance = [newLocation distanceFromLocation:oldLocation];
-	NSLog(@"deltaDistance = %f", deltaDistance);
+	//NSLog(@"deltaDistance = %f", deltaDistance);
 	
 	if ( !didUpdateUserLocation )
 	{
@@ -183,9 +181,7 @@
 		self.distCounter.text = [NSString stringWithFormat:@"%.1f mi", distance / 1609.344];
 	} else {
         // save the location for when we do start
-        if (lastLocation) [lastLocation release];
         lastLocation = newLocation;
-        [lastLocation retain];
     }
 	
 	// 	double mph = ( [trip.distance doubleValue] / 1609.344 ) / ( [trip.duration doubleValue] / 3600. );
@@ -282,7 +278,6 @@
 	else
 		NSLog(@"no saved user");
 	
-	[request release];
 	return response;
 }
 
@@ -297,7 +292,6 @@
 											  otherButtonTitles:@"Continue", nil];
 		alert.tag = kResumeInterruptedRecording;
 		[alert show];
-		[alert release];
 	}
 	else
 		NSLog(@"no unsaved trips found");
@@ -336,20 +330,20 @@
 	switch (device.batteryState)
 	{
 		case UIDeviceBatteryStateUnknown:
-			NSLog(@"battery state = UIDeviceBatteryStateUnknown");
+			//NSLog(@"battery state = UIDeviceBatteryStateUnknown");
 			break;
 		case UIDeviceBatteryStateUnplugged:
-			NSLog(@"battery state = UIDeviceBatteryStateUnplugged");
+			//NSLog(@"battery state = UIDeviceBatteryStateUnplugged");
 			break;
 		case UIDeviceBatteryStateCharging:
-			NSLog(@"battery state = UIDeviceBatteryStateCharging");
+			//NSLog(@"battery state = UIDeviceBatteryStateCharging");
 			break;
 		case UIDeviceBatteryStateFull:
-			NSLog(@"battery state = UIDeviceBatteryStateFull");
+			//NSLog(@"battery state = UIDeviceBatteryStateFull");
 			break;
 	}
 
-	NSLog(@"battery level = %f%%", device.batteryLevel * 100.0 );
+	//NSLog(@"battery level = %f%%", device.batteryLevel * 100.0 );
 
 	// check if any user data has already been saved and pre-select personal info cell accordingly
 	if ( [self hasUserInfoBeenSaved] )
@@ -385,7 +379,6 @@
 	
 	if ( reminderManager )
 	{
-		[reminderManager release];
 		reminderManager = nil;
 	}
 	
@@ -433,7 +426,6 @@
         // load map view of saved trip
         MapViewController *mvc = [[MapViewController alloc] initWithTrip:trip];
         [[self navigationController] pushViewController:mvc animated:YES];
-        [mvc release];
 	}
 }
 
@@ -448,8 +440,7 @@
                                                     //initWithPurpose:[tripManager getPurposeIndex]];
 													  initWithNibName:@"TripPurposePicker" bundle:nil];
     [pickerViewController setDelegate:self];
-    [self.navigationController presentModalViewController:pickerViewController animated:YES];
-    [pickerViewController release];
+	[self.navigationController presentViewController:pickerViewController animated:YES completion:nil];
 	
 }
 
@@ -531,7 +522,6 @@
 	// init reminder manager
 	if ( reminderManager )
         [reminderManager disableReminders];
-		[reminderManager release];
 	
 	reminderManager = [[ReminderManager alloc] init];
 	
@@ -554,7 +544,6 @@
         NSLog(@"tripManager = %@", tripManager);
         CLLocationDistance distance = [tripManager addCoord:lastLocation];
         self.distCounter.text = [NSString stringWithFormat:@"%.1f mi", distance / 1609.344];
-        [lastLocation release];
         lastLocation = nil;
     }
 	
@@ -731,13 +720,6 @@
 }
 
 
-- (void)dealloc {
-    [managedObjectContext release];
-    //[coords release];
-    [locationManager release];
-    [startButton release];
-    [super dealloc];
-}
 
 
 #pragma mark UINavigationController
@@ -802,7 +784,7 @@
 
 - (void)didCancelPurpose
 {
-	[self.navigationController dismissModalViewControllerAnimated:YES];
+	[self.navigationController dismissViewControllerAnimated:YES completion:nil];
 	recording = YES;
 	shouldUpdateCounter = YES;
 }
@@ -810,7 +792,7 @@
 
 - (void)didPickPurpose:(unsigned int)index
 {
-	[self.navigationController dismissModalViewControllerAnimated:YES];
+	[self.navigationController dismissViewControllerAnimated:YES completion:nil];
 	[self doneRecordingDidCancel:FALSE];
     
 	[tripManager setPurpose:index];

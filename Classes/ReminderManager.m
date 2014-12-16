@@ -49,7 +49,7 @@
 	if ( self = [super init] )
 	{
 		//NSLog(@"ReminderManager init");
-		reminders = [[NSMutableArray arrayWithCapacity:kNumReminders*2] retain];
+		reminders = [NSMutableArray arrayWithCapacity:kNumReminders*2];
 		
 		// add reminders here
 		if ( kEnableTestReminder )
@@ -61,17 +61,13 @@
 	return self;
 }
 
-- (void)dealloc {
-    [reminders release];
-    [super dealloc];
-}
 
 - (void)addRemindersWithFirstFireInterval:(NSTimeInterval)first_seconds
                                  interval:(NSTimeInterval)seconds
 {
     NSLog(@"Reminder initWithFirstFireInterval: %f interval: %f", first_seconds, seconds);
-	if ( self = [super init] )
-	{
+	/*if ( self = [super init] )		// I don't understand why this is here
+	{*/
         // schedule all of our reminders to fire
         for (int reminder_num=0; reminder_num < kNumReminders; reminder_num++) {
             NSTimeInterval reminder_secs = (reminder_num==0 ? first_seconds :
@@ -87,7 +83,6 @@
             localNotif.soundName = @"bicycle-bell-normalized.aiff"; // 
             
             [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
-            [localNotif release];
             
             // Timer will trigger if it's in the foreground
             [reminders addObject:[NSTimer scheduledTimerWithTimeInterval:reminder_secs
@@ -96,7 +91,7 @@
                                                                 userInfo:nil
                                                                  repeats:NO]];
         }
-    }
+    //}
 }
 
 - (void)remindBell:(NSTimer*)theTimer
