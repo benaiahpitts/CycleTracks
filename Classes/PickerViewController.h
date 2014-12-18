@@ -31,15 +31,16 @@
 #import <UIKit/UIKit.h>
 #import "CustomPickerDataSource.h"
 #import "TripPurposeDelegate.h"
+@class TravelModePickerViewDataSource;
 
 
-@interface PickerViewController : UIViewController <UIPickerViewDelegate>
+@interface PickerViewController : UIViewController <UIPickerViewDelegate, UIScrollViewDelegate>
 {
 	id <TripPurposeDelegate> delegate;
 	UIPickerView			*customPickerView;
 	CustomPickerDataSource	*customPickerDataSource;
 	
-	UITextView				*description;
+	//UITextView				*description;
 }
 
 
@@ -47,7 +48,22 @@
 @property (nonatomic, strong) IBOutlet UIPickerView *customPickerView;
 @property (nonatomic, strong) CustomPickerDataSource *customPickerDataSource;
 
-@property (nonatomic, strong) UITextView *description;
+@property (weak, nonatomic) IBOutlet UITextView *description;
+//@property (nonatomic, strong) UITextView *description;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIPickerView *travelModePicker;
+@property (weak, nonatomic) IBOutlet UITextField *householdMembers;
+@property (weak, nonatomic) IBOutlet UITextField *nonHouseholdMembers;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *accidentSegment;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *tollSegment;
+@property (weak, nonatomic) IBOutlet UITextField *tollCost;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *parkingSegment;
+@property (weak, nonatomic) IBOutlet UITextField *parkingCost;
+@property (weak, nonatomic) IBOutlet UILabel *fareQuestion;
+@property (weak, nonatomic) IBOutlet UITextField *fareCost;
+
+@property (nonatomic, strong) TravelModePickerViewDataSource *tmDataSource;
+
 
 - (id)initWithPurpose:(NSInteger)index;
 

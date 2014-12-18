@@ -31,11 +31,14 @@
 
 #import "CustomView.h"
 #import "PickerViewController.h"
+#import "TravelModePickerViewDataSource.h"
 
 
 @implementation PickerViewController
 
 @synthesize customPickerView, customPickerDataSource, delegate, description;
+
+@synthesize accidentSegment, fareCost, fareQuestion, householdMembers,nonHouseholdMembers, parkingCost, parkingSegment, scrollView, tollCost, tollSegment, travelModePicker, tmDataSource;
 
 
 // return the picker frame based on its size
@@ -112,6 +115,16 @@
 		// picker defaults to top-most item => update the description
 		[self pickerView:customPickerView didSelectRow:0 inComponent:0];
 	}
+    
+    CGSize cg;
+    cg.height= fareCost.frame.size.height + fareCost.frame.origin.y;
+    cg.width= scrollView.frame.size.width;
+    [scrollView setContentSize:cg];
+	
+	tmDataSource= [[TravelModePickerViewDataSource alloc] init];
+	travelModePicker.dataSource= tmDataSource;
+	travelModePicker.delegate= tmDataSource;
+    
 	return self;
 }
 
@@ -151,10 +164,10 @@
 	//[self.navigationController setNavigationBarHidden:NO animated:YES];
 	
 	//description = [[UITextView alloc] initWithFrame:CGRectMake( 18.0, 280.0, 284.0, 130.0 )];
-	description = [[UITextView alloc] initWithFrame:CGRectMake( 18.0, 314.0, 284.0, 120.0 )];
+	//description = [[UITextView alloc] initWithFrame:CGRectMake( 18.0, 314.0, 284.0, 120.0 )];
 	description.editable = NO;
 	description.font = [UIFont fontWithName:@"Arial" size:16];
-	[self.view addSubview:description];
+	//[self.view addSubview:description];
 }
 
 
