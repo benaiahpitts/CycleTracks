@@ -103,6 +103,32 @@
 	[delegate didPickPurpose: (int)row];
 }
 
+- (IBAction)backgroundTouched:(id)sender {
+	[fareCost resignFirstResponder];
+	[householdMembers resignFirstResponder];
+	[nonHouseholdMembers resignFirstResponder];
+	[parkingCost resignFirstResponder];
+	[tollCost resignFirstResponder];
+}
+
+- (IBAction)segmentChanged:(id)sender {
+	if ([sender tag] == 1) {
+		if ([sender selectedSegmentIndex] == 1) {
+			[tollCost setText:@""];
+			[tollCost setHidden:NO];
+		}
+		else [tollCost setHidden:YES];
+	}
+	
+	else if ([sender tag] == 2) {
+		if ([sender selectedSegmentIndex] == 1) {
+			[parkingCost setText:@""];
+			[parkingCost setHidden:NO];
+		}
+		else [parkingCost setHidden:YES];
+	}
+}
+
 
 - (id)initWithNibName:(NSString *)nibName bundle:(NSBundle *)nibBundle
 {
@@ -117,14 +143,18 @@
 	}
     
     CGSize cg;
-    cg.height= fareCost.frame.size.height + fareCost.frame.origin.y;
+    cg.height= fareCost.frame.size.height + fareCost.frame.origin.y + 20;
     cg.width= scrollView.frame.size.width;
     [scrollView setContentSize:cg];
 	
 	tmDataSource= [[TravelModePickerViewDataSource alloc] init];
 	travelModePicker.dataSource= tmDataSource;
 	travelModePicker.delegate= tmDataSource;
-    
+	
+	// hide conditional fields
+	[parkingCost setHidden:YES];
+	[tollCost setHidden:YES];
+	
 	return self;
 }
 
@@ -182,7 +212,12 @@
 	self.customPickerDataSource = nil;
 }
 
-
+# pragma mark - UITextFieldDelegate
+-(BOOL) textFieldShouldReturn:(UITextField *)textField{
+	[textField endEditing:YES];
+	[textField resignFirstResponder];
+	return YES;
+}
 
 
 #pragma mark UIPickerViewDelegate
@@ -195,28 +230,51 @@
 	switch (row) {
 		case 0:
 			description.text = kDescCommute;
+			[fareQuestion setHidden:NO];
+			[fareCost setHidden:NO];
 			break;
 		case 1:
 			description.text = kDescSchool;
+			[fareCost setText:@""];
+			[fareQuestion setHidden:YES];
+			[fareCost setHidden:YES];
 			break;
 		case 2:
 			description.text = kDescWork;
+			[fareCost setText:@""];
+			[fareQuestion setHidden:YES];
+			[fareCost setHidden:YES];
 			break;
 		case 3:
 			description.text = kDescExercise;
+			[fareCost setText:@""];
+			[fareQuestion setHidden:YES];
+			[fareCost setHidden:YES];
 			break;
 		case 4:
 			description.text = kDescSocial;
+			[fareCost setText:@""];
+			[fareQuestion setHidden:YES];
+			[fareCost setHidden:YES];
 			break;
 		case 5:
 			description.text = kDescShopping;
+			[fareCost setText:@""];
+			[fareQuestion setHidden:YES];
+			[fareCost setHidden:YES];
 			break;
 		case 6:
 			description.text = kDescErrand;
+			[fareCost setText:@""];
+			[fareQuestion setHidden:YES];
+			[fareCost setHidden:YES];
 			break;
 		case 7:
 		default:
 			description.text = kDescOther;
+			[fareCost setText:@""];
+			[fareQuestion setHidden:YES];
+			[fareCost setHidden:YES];
 			break;
 	}
 }

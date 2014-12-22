@@ -34,7 +34,7 @@
 
 @implementation CustomPickerDataSource
 
-@synthesize customPickerArray, parent;
+@synthesize customPickerArrayText, customPickerArrayViews, parent;
 
 - (id)init
 {
@@ -43,7 +43,6 @@
 	if (self)
 	{
 		// create the data source for this custom picker
-		NSMutableArray *viewArray = [[NSMutableArray alloc] init];
 
 		/*
 		 * Commute
@@ -55,49 +54,10 @@
 		 * Errand
 		 * Other
 		 */
+		customPickerArrayText = [[NSArray alloc] initWithObjects:@"Commute", @"School",@"Work-Related",@"Exercise",@"Social", @"Shopping", @"Errand", @"Other", nil];
 		
-		CustomView *view;
-		view = [[CustomView alloc] initWithFrame:CGRectZero];
-		view.title = @"Commute";
-		view.image = [UIImage imageNamed:kTripPurposeCommuteIcon];
-		[viewArray addObject:view];
+		customPickerArrayViews = [[NSArray alloc] initWithObjects:kTripPurposeCommuteIcon, kTripPurposeSchoolIcon, kTripPurposeWorkIcon, kTripPurposeExerciseIcon, kTripPurposeSocialIcon, kTripPurposeShoppingIcon,kTripPurposeErrandIcon, kTripPurposeOtherIcon,nil];
 		
-		view = [[CustomView alloc] initWithFrame:CGRectZero];
-		view.title = @"School";
-		view.image = [UIImage imageNamed:kTripPurposeSchoolIcon];
-		[viewArray addObject:view];
-		
-		view = [[CustomView alloc] initWithFrame:CGRectZero];
-		view.title = @"Work-Related";
-		view.image = [UIImage imageNamed:kTripPurposeWorkIcon];
-		[viewArray addObject:view];
-		
-		view = [[CustomView alloc] initWithFrame:CGRectZero];
-		view.title = @"Exercise";
-		view.image = [UIImage imageNamed:kTripPurposeExerciseIcon];
-		[viewArray addObject:view];
-		
-		view = [[CustomView alloc] initWithFrame:CGRectZero];
-		view.title = @"Social";
-		view.image = [UIImage imageNamed:kTripPurposeSocialIcon];
-		[viewArray addObject:view];
-		
-		view = [[CustomView alloc] initWithFrame:CGRectZero];
-		view.title = @"Shopping";
-		view.image = [UIImage imageNamed:kTripPurposeShoppingIcon];
-		[viewArray addObject:view];
-		
-		view = [[CustomView alloc] initWithFrame:CGRectZero];
-		view.title = @"Errand";
-		view.image = [UIImage imageNamed:kTripPurposeErrandIcon];
-		[viewArray addObject:view];
-		
-		view = [[CustomView alloc] initWithFrame:CGRectZero];
-		view.title = @"Other";
-		view.image = [UIImage imageNamed:kTripPurposeOtherIcon];
-		[viewArray addObject:view];
-
-		self.customPickerArray = viewArray;
 	}
 	return self;
 }
@@ -119,7 +79,7 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-	return [customPickerArray count];
+	return [customPickerArrayText count];
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
@@ -135,7 +95,12 @@
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row
 		  forComponent:(NSInteger)component reusingView:(UIView *)view
 {
-	return [customPickerArray objectAtIndex:row];
+	//return [customPickerArray objectAtIndex:row];
+	CustomView *kview;
+	kview = [[CustomView alloc] initWithFrame:CGRectZero];
+	kview.title = [customPickerArrayText objectAtIndex:row];
+	kview.image = [UIImage imageNamed:[customPickerArrayViews objectAtIndex:row]];
+	return kview;
 }
 
 

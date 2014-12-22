@@ -34,7 +34,7 @@
 @class TravelModePickerViewDataSource;
 
 
-@interface PickerViewController : UIViewController <UIPickerViewDelegate, UIScrollViewDelegate>
+@interface PickerViewController : UIViewController <UIPickerViewDelegate, UIScrollViewDelegate, UITextFieldDelegate>
 {
 	id <TripPurposeDelegate> delegate;
 	UIPickerView			*customPickerView;
@@ -69,5 +69,7 @@
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)save:(id)sender;
+- (IBAction)backgroundTouched:(id)sender;
+- (IBAction)segmentChanged:(id)sender;
 
 @end
