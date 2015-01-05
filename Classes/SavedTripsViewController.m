@@ -33,7 +33,7 @@
 #import "Coord.h"
 #import "LoadingView.h"
 #import "MapViewController.h"
-#import "PickerViewController.h"
+#import "TripQuestionsViewController.h"
 #import "SavedTripsViewController.h"
 #import "Trip.h"
 #import "TripManager.h"
@@ -745,7 +745,7 @@
 			
 			// Trip Purpose
 			NSLog(@"INIT + PUSH");
-			PickerViewController *pickerViewController = [[PickerViewController alloc]
+			TripQuestionsViewController *pickerViewController = [[TripQuestionsViewController alloc]
 														  initWithNibName:@"TripPurposePicker" bundle:nil];
 			[pickerViewController setDelegate:self];
 			//[[self navigationController] pushViewController:pickerViewController animated:YES];

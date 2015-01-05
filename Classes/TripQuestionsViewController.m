@@ -30,11 +30,11 @@
 
 
 #import "CustomView.h"
-#import "PickerViewController.h"
+#import "TripQuestionsViewController.h"
 #import "TravelModePickerViewDataSource.h"
 
 
-@implementation PickerViewController
+@implementation TripQuestionsViewController
 
 @synthesize customPickerView, customPickerDataSource, delegate, description;
 

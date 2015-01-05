@@ -32,7 +32,7 @@
 #import "constants.h"
 #import "MapViewController.h"
 #import "PersonalInfoViewController.h"
-#import "PickerViewController.h"
+#import "TripQuestionsViewController.h"
 #import "RecordTripViewController.h"
 #import "ReminderManager.h"
 #import "TripManager.h"
@@ -436,7 +436,7 @@
 	NSLog(@"save");
 	
     // Trip Purpose
-    PickerViewController *pickerViewController = [[PickerViewController alloc]
+    TripQuestionsViewController *pickerViewController = [[TripQuestionsViewController alloc]
                                                     //initWithPurpose:[tripManager getPurposeIndex]];
 													  initWithNibName:@"TripPurposePicker" bundle:nil];
     [pickerViewController setDelegate:self];
