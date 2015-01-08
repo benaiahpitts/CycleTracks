@@ -33,6 +33,7 @@
 #import "constants.h"
 #import "FloridaTripTrackerAppDelegate.h"
 #import "PersonalInfoViewController.h"
+#import "OneTimeQuestionsViewController.h"
 #import "RecordTripViewController.h"
 #import "SavedTripsViewController.h"
 #import "TripManager.h"
@@ -134,11 +135,14 @@
 	PersonalInfoViewController *vc	= (PersonalInfoViewController *)[nav topViewController];
 	vc.managedObjectContext			= context;
 	
+	OneTimeQuestionsViewController *test= [[OneTimeQuestionsViewController alloc] initWithNibName:@"OneTimeQuestionsViewController" bundle:nil];
+	
 		
 	// Add the tab bar controller's current view as a subview of the window
     [window setFrame:[[UIScreen mainScreen] bounds]];
     [window addSubview:tabBarController.view];
 	[window setRootViewController:tabBarController];
+	//[window setRootViewController:test];
 	[window makeKeyAndVisible];	
 }
 

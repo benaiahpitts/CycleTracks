@@ -16,7 +16,7 @@
 
 @implementation OneTimeQuestionsViewController
 
-@synthesize agePicker, disabledPassSwitch, empFullTimeSwitch, empHomeMakerSwitch, empPartTimeSwitch, empPartYearSwitch, empRetiredSwitch, empSelfEmployedSwitch, empUnemployedSwitch, empWorkAtHomeSwitch, gender, licenseSwitch, studentStatusPicker, studentSwitch, workTripNumber, workTripStepper;
+@synthesize agePicker, disabledPassSwitch, empFullTimeSwitch, empHomeMakerSwitch, empPartTimeSwitch, empPartYearSwitch, empRetiredSwitch, empSelfEmployedSwitch, empUnemployedSwitch, empWorkAtHomeSwitch, gender, licenseSwitch, studentStatusPicker, studentStatusLabel, studentSwitch, workTripNumber, workTripStepper;
 @synthesize scrollView;
 @synthesize agePickerDataSource, studentStatusPickerDataSource, test;
 
@@ -46,6 +46,11 @@
 	
 	studentStatusPicker.dataSource= studentStatusPickerDataSource;
 	studentStatusPicker.delegate= studentStatusPickerDataSource;
+	
+	[studentStatusLabel setHidden:YES];
+	[studentStatusPicker setHidden:YES];
+	
+	[[self navigationController] setNavigationBarHidden:YES animated:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,5 +70,21 @@
 
 - (IBAction)workTripStepperChanged:(id)sender {
 	[workTripNumber setText:[NSString stringWithFormat:@"%d",(int)[workTripStepper value]]];
+}
+
+- (IBAction)studentSwitchChanged:(id)sender {
+	if ([studentSwitch isOn]) {
+		[studentStatusLabel setHidden:NO];
+		[studentStatusPicker setHidden:NO];
+	}
+	else {
+		[studentStatusLabel setHidden:YES];
+		[studentStatusPicker setHidden:YES];
+	}
+}
+
+- (IBAction)saveButtonTapped:(id)sender {
+	[[self navigationController] setNavigationBarHidden:NO animated:NO];
+	[[self navigationController] popToRootViewControllerAnimated:YES];
 }
 @end

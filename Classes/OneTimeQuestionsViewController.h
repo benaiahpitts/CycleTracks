@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIStepper *workTripStepper;
 @property (weak, nonatomic) IBOutlet UILabel *workTripNumber;
 @property (weak, nonatomic) IBOutlet UISwitch *studentSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *studentStatusLabel;
 @property (weak, nonatomic) IBOutlet UIPickerView *studentStatusPicker;
 @property (weak, nonatomic) IBOutlet UISwitch *licenseSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *transitPassSwitch;
@@ -36,4 +37,6 @@
 @property (nonatomic, strong) TravelModePickerViewDataSource *test;
 
 - (IBAction)workTripStepperChanged:(id)sender;
+- (IBAction)studentSwitchChanged:(id)sender;
+- (IBAction)saveButtonTapped:(id)sender;
 @end

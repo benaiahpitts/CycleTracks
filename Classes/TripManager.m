@@ -523,6 +523,8 @@
 							  [NSString stringWithFormat:@"%d", kSaveProtocolVersion], @"version",
 							  nil];
 	
+	//NSLog(@"ACTUAL DATA SENT %@",postVars);
+	//NSLog(@"ACTUAL DATA SENT END");
 	// create save request
 	SaveRequest *saveRequest = [[SaveRequest alloc] initWithPostVars:postVars];
 	

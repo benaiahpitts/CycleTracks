@@ -38,6 +38,7 @@
 #import "TripManager.h"
 #import "Trip.h"
 #import "User.h"
+#import "OneTimeQuestionsViewController.h"
 
 #define kBatteryLevelThreshold	0.20
 
@@ -308,49 +309,58 @@
 {
 	NSLog(@"RecordTripViewController viewDidLoad");
     [super viewDidLoad];
-	[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
-	self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-
-    [startButton setBackgroundImage:[[UIImage imageNamed:@"start_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(48,20,48,20) resizingMode: UIImageResizingModeStretch] forState:UIControlStateNormal];
-    [cancelButton setBackgroundImage:[[UIImage imageNamed:@"cancel_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(48,20,48,20) resizingMode: UIImageResizingModeStretch] forState:UIControlStateNormal];
 	
-	// init map region to San Francisco
-	MKCoordinateRegion region = { { 37.7620, -122.4350 }, { 0.10825, 0.10825 } };
-	[mapView setRegion:region animated:NO];
-	
-	self.recording = NO;
-	self.shouldUpdateCounter = NO;
-	
-	// Start the location manager.
-	[[self getLocationManager] startUpdatingLocation];
-	
-	// Start receiving updates as to battery level
-	UIDevice *device = [UIDevice currentDevice];
-	device.batteryMonitoringEnabled = YES;
-	switch (device.batteryState)
-	{
-		case UIDeviceBatteryStateUnknown:
-			//NSLog(@"battery state = UIDeviceBatteryStateUnknown");
-			break;
-		case UIDeviceBatteryStateUnplugged:
-			//NSLog(@"battery state = UIDeviceBatteryStateUnplugged");
-			break;
-		case UIDeviceBatteryStateCharging:
-			//NSLog(@"battery state = UIDeviceBatteryStateCharging");
-			break;
-		case UIDeviceBatteryStateFull:
-			//NSLog(@"battery state = UIDeviceBatteryStateFull");
-			break;
+	if (true /*!userInfoSaved*/) {
+		// launch One Time Questions
+		OneTimeQuestionsViewController *test= [[OneTimeQuestionsViewController alloc] initWithNibName:@"OneTimeQuestionsViewController" bundle:nil];
+		[[self navigationController] setNavigationBarHidden:YES animated:NO];
+		[[self navigationController] pushViewController:test animated:NO];
 	}
+	else {
+		[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
+		self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
 
-	//NSLog(@"battery level = %f%%", device.batteryLevel * 100.0 );
+		[startButton setBackgroundImage:[[UIImage imageNamed:@"start_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(48,20,48,20) resizingMode: UIImageResizingModeStretch] forState:UIControlStateNormal];
+		[cancelButton setBackgroundImage:[[UIImage imageNamed:@"cancel_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(48,20,48,20) resizingMode: UIImageResizingModeStretch] forState:UIControlStateNormal];
+		
+		// init map region to San Francisco
+		MKCoordinateRegion region = { { 37.7620, -122.4350 }, { 0.10825, 0.10825 } };
+		[mapView setRegion:region animated:NO];
+		
+		self.recording = NO;
+		self.shouldUpdateCounter = NO;
+		
+		// Start the location manager.
+		[[self getLocationManager] startUpdatingLocation];
+		
+		// Start receiving updates as to battery level
+		UIDevice *device = [UIDevice currentDevice];
+		device.batteryMonitoringEnabled = YES;
+		switch (device.batteryState)
+		{
+			case UIDeviceBatteryStateUnknown:
+				//NSLog(@"battery state = UIDeviceBatteryStateUnknown");
+				break;
+			case UIDeviceBatteryStateUnplugged:
+				//NSLog(@"battery state = UIDeviceBatteryStateUnplugged");
+				break;
+			case UIDeviceBatteryStateCharging:
+				//NSLog(@"battery state = UIDeviceBatteryStateCharging");
+				break;
+			case UIDeviceBatteryStateFull:
+				//NSLog(@"battery state = UIDeviceBatteryStateFull");
+				break;
+		}
 
-	// check if any user data has already been saved and pre-select personal info cell accordingly
-	if ( [self hasUserInfoBeenSaved] )
-		[self setSaved:YES];
+		//NSLog(@"battery level = %f%%", device.batteryLevel * 100.0 );
+
+		// check if any user data has already been saved and pre-select personal info cell accordingly
+		if ( [self hasUserInfoBeenSaved] )
+			[self setSaved:YES];
 	
-	// check for any unsaved trips / interrupted recordings
-	[self hasRecordingBeenInterrupted];
+		// check for any unsaved trips / interrupted recordings
+		[self hasRecordingBeenInterrupted];
+	}
 }
 
 
