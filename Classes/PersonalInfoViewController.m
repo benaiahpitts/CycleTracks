@@ -182,19 +182,8 @@
 	{
 		// initialize text fields to saved personal info
 		age.text		= user.age;
-		email.text		= user.email;
 		gender.text		= user.gender;
-		homeZIP.text	= user.homeZIP;
-		workZIP.text	= user.workZIP;
-		schoolZIP.text	= user.schoolZIP;
 		
-		// init cycling frequency
-		NSLog(@"init cycling freq: %d", [user.cyclingFreq intValue]);
-		cyclingFreq		= [NSNumber numberWithInt:[user.cyclingFreq intValue]];
-		
-		if ( !([user.cyclingFreq intValue] > kMaxCyclingFreq) )
-			[self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:[user.cyclingFreq integerValue] 
-																					  inSection:2]];
 	}
 	else
 		NSLog(@"init FAIL");
@@ -227,30 +216,11 @@
 			NSLog(@"saving age: %@", age.text);
 			[user setAge:age.text];
 		}
-		if ( textField == email )
-		{
-			NSLog(@"saving email: %@", email.text);
-			[user setEmail:email.text];
-		}
+		
 		if ( textField == gender )
 		{
 			NSLog(@"saving gender: %@", gender.text);
 			[user setGender:gender.text];
-		}
-		if ( textField == homeZIP )
-		{
-			NSLog(@"saving homeZIP: %@", homeZIP.text);
-			[user setHomeZIP:homeZIP.text];
-		}
-		if ( textField == schoolZIP )
-		{
-			NSLog(@"saving schoolZIP: %@", schoolZIP.text);
-			[user setSchoolZIP:schoolZIP.text];
-		}
-		if ( textField == workZIP )
-		{
-			NSLog(@"saving workZIP: %@", workZIP.text);
-			[user setWorkZIP:workZIP.text];
 		}
 		
 		NSError *error;
@@ -269,23 +239,8 @@
 		NSLog(@"saving age: %@", age.text);
 		[user setAge:age.text];
 
-		NSLog(@"saving email: %@", email.text);
-		[user setEmail:email.text];
-
 		NSLog(@"saving gender: %@", gender.text);
 		[user setGender:gender.text];
-
-		NSLog(@"saving homeZIP: %@", homeZIP.text);
-		[user setHomeZIP:homeZIP.text];
-
-		NSLog(@"saving schoolZIP: %@", schoolZIP.text);
-		[user setSchoolZIP:schoolZIP.text];
-
-		NSLog(@"saving workZIP: %@", workZIP.text);
-		[user setWorkZIP:workZIP.text];
-		
-		NSLog(@"saving cycling freq: %d", [cyclingFreq intValue]);
-		[user setCyclingFreq:cyclingFreq];
 
 		NSError *error;
 		if (![managedObjectContext save:&error]) {
