@@ -35,12 +35,8 @@
 @implementation User 
 
 @dynamic age;
-@dynamic email;
 @dynamic gender;
-@dynamic cyclingFreq;
-@dynamic schoolZIP;
-@dynamic workZIP;
-@dynamic homeZIP;
+@dynamic empFullTime, empHomemaker, empLess5Months, empPartTime, empRetired, empSelfEmployed, empUnemployed, empWorkAtHome, hasADisabledParkingPass, hasADriversLicense, hasATransitPass, isAStudent, numWorkTrips, studentStatus;
 @dynamic trips;
 
 @end
