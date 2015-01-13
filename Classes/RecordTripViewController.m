@@ -806,7 +806,7 @@
 	[self doneRecordingDidCancel:FALSE];
     
 	[tripManager setPurpose:index];
-	[tripManager promptForTripNotes];
+	//[tripManager promptForTripNotes];
 }
 
 
