@@ -120,7 +120,7 @@
 	notesText.backgroundColor	= [UIColor clearColor];
 	notesText.editable			= NO;
 	notesText.font				= [UIFont systemFontOfSize:16.0];
-	notesText.text				= trip.notes;
+	notesText.text				= @"";
 	notesText.textColor			= [UIColor whiteColor];
 	[infoView addSubview:notesText];
 }
@@ -165,7 +165,7 @@
 		
 		//self.title = trip.purpose;
 		
-		// only add info view for trips with non-null notes
+		/* only add info view for trips with non-null notes
 		if ( trip.notes )
 		{
 			doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(infoAction:)];
@@ -177,7 +177,7 @@
 			self.navigationItem.rightBarButtonItem = flipButton;
 			
 			[self initInfoView];
-		}
+		}*/
 
 		// sort coords by recorded date
 		/*
