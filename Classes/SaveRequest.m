@@ -46,7 +46,7 @@
 		// Nab the unique device id hash from our delegate.
 		FloridaTripTrackerAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
 		self.deviceUniqueIdHash = delegate.uniqueIDHash;
-        NSString *kSaveURL= @"http://www.urs.com/";
+        NSString *kSaveURL= @"http://www.example.com/";
 		
 		// create request.
 		self.request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kSaveURL]]; // prop set retains
@@ -63,7 +63,7 @@
 		NSMutableString *postBody = [NSMutableString string];
 
 		for(NSString * key in postVars)
-			[postBody appendString:[NSString stringWithFormat:@"%@=%@&", key, [postVars objectForKey:key]]];
+			[postBody appendString:[NSString stringWithFormat:@"%@:%@&", key, [postVars objectForKey:key]]];
 
 		/**/NSLog(@"initializing HTTP POST request to %@ with %d bytes",
 			  kSaveURL,
