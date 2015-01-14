@@ -37,6 +37,8 @@
 #import "RecordTripViewController.h"
 #import "SavedTripsViewController.h"
 #import "TripManager.h"
+#import "WelcomeViewController.h"
+#import "User.h"
 
 
 @implementation FloridaTripTrackerAppDelegate
@@ -112,38 +114,76 @@
 	 savedTripsNavController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
 	 */
 	
+	if ([self hasUserInfoBeenSaved]) {
+		UINavigationController	*recordNav	= (UINavigationController*)[tabBarController.viewControllers
+																	objectAtIndex:1];
+		//[navCon popToRootViewControllerAnimated:NO];
+		recordVC	= (RecordTripViewController *)[recordNav topViewController];
+		[recordVC initTripManager:manager];
 	
-	UINavigationController	*recordNav	= (UINavigationController*)[tabBarController.viewControllers 
+	
+		UINavigationController	*tripsNav	= (UINavigationController*)[tabBarController.viewControllers
+																	objectAtIndex:2];
+		//[navCon popToRootViewControllerAnimated:NO];
+		SavedTripsViewController *tripsVC	= (SavedTripsViewController *)[tripsNav topViewController];
+		tripsVC.delegate					= recordVC;
+		[tripsVC initTripManager:manager];
+
+		// select Record tab at launch
+		tabBarController.selectedIndex = 1;
+	
+		UINavigationController	*nav	= (UINavigationController*)[tabBarController.viewControllers
+															 objectAtIndex:3];
+		PersonalInfoViewController *vc	= (PersonalInfoViewController *)[nav topViewController];
+		vc.managedObjectContext			= context;
+		
+		[window setFrame:[[UIScreen mainScreen] bounds]];
+		[window addSubview:tabBarController.view];
+		[window setRootViewController:tabBarController];
+		[window makeKeyAndVisible];
+	}
+	
+	else {
+		WelcomeViewController *vc= [[WelcomeViewController alloc] initWithNibName:@"WelcomeViewController" bundle:nil];
+		UINavigationController *nav= [[UINavigationController alloc] initWithRootViewController:vc];
+		[nav setNavigationBarHidden:YES];
+	
+		[window setFrame:[[UIScreen mainScreen] bounds]];
+		[window setRootViewController:nav];
+		[window makeKeyAndVisible];
+	}
+}
+
+- (void) createMainView {
+	// initialize trip manager with the managed object context
+	TripManager *manager = [[TripManager alloc] initWithManagedObjectContext:[self managedObjectContext]];
+	
+	UINavigationController	*recordNav	= (UINavigationController*)[tabBarController.viewControllers
 																	objectAtIndex:1];
 	//[navCon popToRootViewControllerAnimated:NO];
-    recordVC	= (RecordTripViewController *)[recordNav topViewController];
+	recordVC	= (RecordTripViewController *)[recordNav topViewController];
 	[recordVC initTripManager:manager];
 	
 	
-	UINavigationController	*tripsNav	= (UINavigationController*)[tabBarController.viewControllers 
+	UINavigationController	*tripsNav	= (UINavigationController*)[tabBarController.viewControllers
 																	objectAtIndex:2];
 	//[navCon popToRootViewControllerAnimated:NO];
 	SavedTripsViewController *tripsVC	= (SavedTripsViewController *)[tripsNav topViewController];
 	tripsVC.delegate					= recordVC;
 	[tripsVC initTripManager:manager];
-
-	// select Record tab at launch
-	tabBarController.selectedIndex = 1;	
 	
-	UINavigationController	*nav	= (UINavigationController*)[tabBarController.viewControllers 
+	// select Record tab at launch
+	tabBarController.selectedIndex = 1;
+	
+	UINavigationController	*nav	= (UINavigationController*)[tabBarController.viewControllers
 															 objectAtIndex:3];
 	PersonalInfoViewController *vc	= (PersonalInfoViewController *)[nav topViewController];
-	vc.managedObjectContext			= context;
+	vc.managedObjectContext			= [self managedObjectContext];
 	
-	OneTimeQuestionsViewController *test= [[OneTimeQuestionsViewController alloc] initWithNibName:@"OneTimeQuestionsViewController" bundle:nil];
-	
-		
-	// Add the tab bar controller's current view as a subview of the window
-    [window setFrame:[[UIScreen mainScreen] bounds]];
-    //[window addSubview:tabBarController.view];
-	//[window setRootViewController:tabBarController];
-	[window setRootViewController:test];
-	[window makeKeyAndVisible];	
+	[window setFrame:[[UIScreen mainScreen] bounds]];
+	[window addSubview:tabBarController.view];
+	[window setRootViewController:tabBarController];
+	[window makeKeyAndVisible];
 }
 
 
@@ -162,6 +202,39 @@
 	NSLog(@"uniqueID: %@", [UIDevice currentDevice].identifierForVendor);	
 	NSLog(@"Hashed uniqueID: %@", uniqueID);
 	self.uniqueIDHash = uniqueID; // save for later.
+}
+
+- (BOOL)hasUserInfoBeenSaved
+{
+	BOOL					response = NO;
+	NSManagedObjectContext	*context = [self managedObjectContext];
+	NSFetchRequest			*request = [[NSFetchRequest alloc] init];
+	NSEntityDescription		*entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:context];
+	[request setEntity:entity];
+	
+	NSError *error;
+	NSInteger count = [context countForFetchRequest:request error:&error];
+	//NSLog(@"saved user count  = %d", count);
+	if ( count )
+	{
+		NSArray *fetchResults = [context executeFetchRequest:request error:&error];
+		if ( fetchResults != nil )
+		{
+			User *user = (User*)[fetchResults objectAtIndex:0];
+			if (user != nil && (user.age != nil))
+			{
+				response = YES;
+			}
+		}
+		else
+		{
+			// Handle the error.
+			if ( error != nil )
+				NSLog(@"PersonalInfo viewDidLoad fetch error %@, %@", error, [error localizedDescription]);
+		}
+	}
+	
+	return response;
 }
 
 /** 

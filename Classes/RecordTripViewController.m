@@ -310,13 +310,7 @@
 	NSLog(@"RecordTripViewController viewDidLoad");
     [super viewDidLoad];
 	
-	if (true /*!userInfoSaved*/) {
-		// launch One Time Questions
-		OneTimeQuestionsViewController *test= [[OneTimeQuestionsViewController alloc] initWithNibName:@"OneTimeQuestionsViewController" bundle:nil];
-		[[self navigationController] setNavigationBarHidden:YES animated:NO];
-		[[self navigationController] pushViewController:test animated:NO];
-	}
-	else {
+	
 		[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
 		self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
 
@@ -360,7 +354,6 @@
 	
 		// check for any unsaved trips / interrupted recordings
 		[self hasRecordingBeenInterrupted];
-	}
 }
 
 

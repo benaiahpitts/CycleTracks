@@ -54,6 +54,7 @@
 
 - (NSString *)applicationDocumentsDirectory;
 - (void)initUniqueIDHash;
+- (void) createMainView;
 
 @end
 

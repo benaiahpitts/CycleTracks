@@ -9,6 +9,7 @@
 #import "OneTimeQuestionsViewController.h"
 #import "PickerViewDataSource.h"
 #import "TravelModePickerViewDataSource.h"
+#import "FloridaTripTrackerAppDelegate.h"
 
 @interface OneTimeQuestionsViewController ()
 
@@ -84,7 +85,7 @@
 }
 
 - (IBAction)saveButtonTapped:(id)sender {
-	[[self navigationController] setNavigationBarHidden:NO animated:NO];
-	[[self navigationController] popToRootViewControllerAnimated:YES];
+	FloridaTripTrackerAppDelegate *delegate= [[UIApplication sharedApplication] delegate];
+	[delegate createMainView];
 }
 @end
