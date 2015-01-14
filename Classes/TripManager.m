@@ -83,9 +83,9 @@
 		// NOTE: loading coords can be expensive for a large trip
 		NSLog(@"loading %fm trip started at %@...", distance, _trip.start);
 
-		// sort coords by recorded date DESCENDING so that the coord at index=0 is the most recent
-		NSSortDescriptor *dateDescriptor = [[NSSortDescriptor alloc] initWithKey:@"recorded"
-																		ascending:NO];
+		// sort coords by recorded date ASCENDING so that the coord at index=0 is the first
+		
+		NSSortDescriptor *dateDescriptor = [[NSSortDescriptor alloc] initWithKey:@"recorded" ascending:YES];
 		NSArray *sortDescriptors	= [NSArray arrayWithObjects:dateDescriptor, nil];
 		self.coords					= [[[_trip.coords allObjects] sortedArrayUsingDescriptors:sortDescriptors] mutableCopy];
 		
@@ -94,8 +94,8 @@
 		// recalculate duration
 		if ( coords && [coords count] > 1 )
 		{
-			Coord *last		= [coords objectAtIndex:0];
-			Coord *first	= [coords lastObject];
+			Coord *first= [coords objectAtIndex:0];
+			Coord *last= [coords lastObject];
 			NSTimeInterval duration = [last.recorded timeIntervalSinceDate:first.recorded];
 			NSLog(@"duration = %.0fs", duration);
 			[trip setDuration:[NSNumber numberWithDouble:duration]];
@@ -368,12 +368,21 @@
 		{
 			// initialize text fields to saved personal info
 			[userDict setValue:user.age			forKey:@"age"];
-			[userDict setValue:user.email		forKey:@"email"];
 			[userDict setValue:user.gender		forKey:@"gender"];
-			[userDict setValue:user.homeZIP		forKey:@"homeZIP"];
-			[userDict setValue:user.workZIP		forKey:@"workZIP"];
-			[userDict setValue:user.schoolZIP	forKey:@"schoolZIP"];
-			[userDict setValue:user.cyclingFreq	forKey:@"cyclingFreq"];
+			[userDict setValue:user.empFullTime forKey:@"empFullTime"];
+			[userDict setValue:user.empHomemaker forKey:@"empHomemaker"];
+			[userDict setValue:user.empLess5Months forKey:@"empLess5Months"];
+			[userDict setValue:user.empPartTime forKey:@"empPartTime"];
+			[userDict setValue:user.empRetired forKey:@"empRetired"];
+			[userDict setValue:user.empSelfEmployed forKey:@"empSelfEmployed"];
+			[userDict setValue:user.empUnemployed forKey:@"empUnemployed"];
+			[userDict setValue:user.empWorkAtHome forKey:@"empWorkAtHome"];
+			[userDict setValue:user.studentStatus forKey:@"studentStatus"];
+			[userDict setValue:user.hasADisabledParkingPass forKey:@"hasADisabledParkingPass"];
+			[userDict setValue:user.hasADriversLicense forKey:@"hasADriversLicense"];
+			[userDict setValue:user.hasATransitPass forKey:@"hasATransitPass"];
+			[userDict setValue:user.isAStudent forKey:@"isAStudent"];
+			[userDict setValue:user.numWorkTrips forKey:@"numWorkTrips"];
 		}
 		else
 			NSLog(@"TripManager fetch user FAIL");
@@ -392,8 +401,7 @@
 
 - (void)saveNotes:(NSString*)notes
 {
-	if ( trip && notes )
-		[trip setNotes:notes];
+	// not using this TODO: Delete all references
 }
 
 
@@ -454,11 +462,13 @@
 
 #if kSaveProtocolVersion == kSaveProtocolVersion_2
 	NSLog(@"saving using protocol version 2");
+	NSMutableArray *trips= [[NSMutableArray alloc] init];
 	
 	// create a tripDict entry for each coord
 	while (coord = [enumerator nextObject])
 	{
 		NSMutableDictionary *coordsDict = [NSMutableDictionary dictionaryWithCapacity:7];
+		NSMutableDictionary *coordsKeyDict = [NSMutableDictionary dictionaryWithCapacity:1];
 		[coordsDict setValue:coord.altitude  forKey:@"alt"];
 		[coordsDict setValue:coord.latitude  forKey:@"lat"];
 		[coordsDict setValue:coord.longitude forKey:@"lon"];
@@ -469,6 +479,9 @@
 		NSString *newDateString = [outputFormatter stringFromDate:coord.recorded];
 		[coordsDict setValue:newDateString forKey:@"rec"];
 		[tripDict setValue:coordsDict forKey:newDateString];
+		[coordsKeyDict setValue:coordsDict forKey:@"cord"];
+		[trips addObject:coordsKeyDict];
+		//[tripDict setValue:coordsDict forKey:@"coord"];
 	}
 #else
 	NSLog(@"saving using protocol version 1");
@@ -485,14 +498,16 @@
 		[coordsDict setValue:coord.vAccuracy forKey:@"vAccuracy"];
 		
 		NSString *newDateString = [outputFormatter stringFromDate:coord.recorded];
-		[coordsDict setValue:newDateString forKey:@"recorded"];		
+		[coordsDict setValue:newDateString forKey:@"recorded"];
+		[trips addObject:coordsDict];
 		[tripDict setValue:coordsDict forKey:newDateString];
 	}
 #endif
 
 	NSLog(@"serializing trip data to JSON...");
-	NSString *jsonTripData = [[CJSONSerializer serializer] serializeObject:tripDict];
-	NSLog(@"%@", jsonTripData );
+	//NSString *jsonTripData = [[CJSONSerializer serializer] serializeObject:tripDict];
+	NSData *jsonTripData= [NSJSONSerialization dataWithJSONObject:trips options:NSJSONWritingPrettyPrinted error:nil];
+	NSLog(@"NSJSON DATA: %@", [[NSString alloc] initWithData:jsonTripData encoding:NSUTF8StringEncoding]);
 	
 	// get trip purpose
 	NSString *purpose;
@@ -500,11 +515,6 @@
 		purpose = trip.purpose;
 	else
 		purpose = @"unknown";
-	
-	// get trip notes
-	NSString *notes = @"";
-	if ( trip.notes )
-		notes = trip.notes;
 	
 	// get start date
 	NSString *start = [outputFormatter stringFromDate:trip.start];
@@ -517,7 +527,6 @@
 	NSDictionary *postVars = [NSDictionary dictionaryWithObjectsAndKeys:
 							  jsonTripData, @"coords",
 							  purpose, @"purpose",
-							  notes, @"notes",
 							  start, @"start",
 							  jsonUserData, @"user",
 							  [NSString stringWithFormat:@"%d", kSaveProtocolVersion], @"version",
@@ -560,7 +569,7 @@
 {
 	// this method is called when the server has determined that it
     // has enough information to create the NSURLResponse
-	NSLog(@"didReceiveResponse: %@", response);
+	//NSLog(@"didReceiveResponse: %@", response);
 	
 	NSHTTPURLResponse *httpResponse = nil;
 	if ( [response isKindOfClass:[NSHTTPURLResponse class]] &&

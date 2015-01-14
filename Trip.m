@@ -37,10 +37,11 @@
 @dynamic coords;
 @dynamic distance;
 @dynamic duration;
-@dynamic notes;
 @dynamic purpose;
 @dynamic start;
 @dynamic saved;
 @dynamic uploaded;
+
+@dynamic fare, hadDelays, numHouseholdMembers, numNonHouseholdMembers, paidParking, paidToll, parkingCost, tollCost, traveledBy;
 
 @end

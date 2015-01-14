@@ -140,9 +140,9 @@
 		
 	// Add the tab bar controller's current view as a subview of the window
     [window setFrame:[[UIScreen mainScreen] bounds]];
-    [window addSubview:tabBarController.view];
-	[window setRootViewController:tabBarController];
-	//[window setRootViewController:test];
+    //[window addSubview:tabBarController.view];
+	//[window setRootViewController:tabBarController];
+	[window setRootViewController:test];
 	[window makeKeyAndVisible];	
 }
 

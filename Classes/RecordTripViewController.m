@@ -254,12 +254,12 @@
 			User *user = (User*)[fetchResults objectAtIndex:0];
 			if (user			!= nil &&
 				(user.age		!= nil ||
-				 user.gender	!= nil ||
+				 user.gender	!= nil/* ||
 				 user.email		!= nil ||
 				 user.homeZIP	!= nil ||
 				 user.workZIP	!= nil ||
 				 user.schoolZIP	!= nil ||
-				 ([user.cyclingFreq intValue] < 4 )))
+				 ([user.cyclingFreq intValue] < 4 )*/))
 			{
 				NSLog(@"found saved user info");
 				self.userInfoSaved = YES;
