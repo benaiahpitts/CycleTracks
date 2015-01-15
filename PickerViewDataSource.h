@@ -14,6 +14,7 @@
 @interface PickerViewDataSource : NSObject <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property NSMutableArray *dataArray;
+@property UIColor *textColor;
 
 - initWithArray:(NSArray *)array;
 

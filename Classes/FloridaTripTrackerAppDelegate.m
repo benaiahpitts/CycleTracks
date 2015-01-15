@@ -146,7 +146,7 @@
 	else {
 		WelcomeViewController *vc= [[WelcomeViewController alloc] initWithNibName:@"WelcomeViewController" bundle:nil];
 		UINavigationController *nav= [[UINavigationController alloc] initWithRootViewController:vc];
-		[nav setNavigationBarHidden:YES];
+		[nav setNavigationBarHidden:NO];
 	
 		[window setFrame:[[UIScreen mainScreen] bounds]];
 		[window setRootViewController:nav];

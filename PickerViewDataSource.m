@@ -12,12 +12,13 @@
 
 @implementation PickerViewDataSource
 
-@synthesize dataArray;
+@synthesize dataArray, textColor;
 
 - init {
 	if ( self = [super init] )
 	{
 		dataArray= [[NSMutableArray alloc] initWithObjects:@"EMPTY DATA ARRAY", nil];
+		textColor= [UIColor blackColor];
 	}
 	return self;
 }
@@ -39,7 +40,20 @@
 	return [dataArray count];
 }
 
+- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+	NSString *title = [dataArray objectAtIndex:row];
+	if (textColor == nil) {
+		textColor= [UIColor blackColor];
+	}
+	NSAttributedString *attString = [[NSAttributedString alloc] initWithString:title attributes:@{NSForegroundColorAttributeName:textColor}];
+	
+	return attString;
+	
+}
+
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+	
 	return [dataArray objectAtIndex:row];
 }
 

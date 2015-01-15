@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 @class PickerViewDataSource;
 @class TravelModePickerViewDataSource;
+@class User;
 
 @interface OneTimeQuestionsViewController : UIViewController <UIScrollViewDelegate, UIPickerViewDelegate>
 
@@ -35,6 +36,8 @@
 @property (nonatomic, strong) PickerViewDataSource *agePickerDataSource;
 @property (nonatomic, strong) PickerViewDataSource *studentStatusPickerDataSource;
 @property (nonatomic, strong) TravelModePickerViewDataSource *test;
+@property NSManagedObjectContext *managedContext;
+@property User *user;
 
 - (IBAction)workTripStepperChanged:(id)sender;
 - (IBAction)studentSwitchChanged:(id)sender;
