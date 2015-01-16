@@ -49,7 +49,7 @@
 @implementation RecordTripViewController
 
 @synthesize locationManager, tripManager, reminderManager;
-@synthesize startButton, cancelButton;
+@synthesize startButton, cancelButton, FDOTLogo;
 @synthesize timer, timeCounter, distCounter;
 @synthesize recording, shouldUpdateCounter, userInfoSaved;
 
@@ -450,6 +450,8 @@
 - (IBAction)cancel:(UIButton *)sender
 {
     NSLog(@"Cancel");
+    // Show FDOT Logo
+    [FDOTLogo setHidden:NO];
     [self doneRecordingDidCancel:TRUE];
 }
 
@@ -459,11 +461,14 @@
 - (void)doneRecordingDidCancel:(BOOL)didCancel {
 	// update UI
 	recording = NO;
+	
+	// Show FDOT Logo
+	[FDOTLogo setHidden:NO];
     
     // transform save button into start button
-    [startButton setTitle:@"Start" forState:UIControlStateNormal];
+    [startButton setTitle:@"Start Trip!" forState:UIControlStateNormal];
     [startButton setBackgroundImage:[[UIImage imageNamed:@"start_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(48,20,48,20) resizingMode: UIImageResizingModeStretch] forState:UIControlStateNormal];
-    startButton.frame = CGRectMake( 24.0, 198.0, 272.0, kCustomButtonHeight );
+    startButton.frame = CGRectMake( 121.0, 198.0, 175.0, kCustomButtonHeight );
 	cancelButton.hidden = TRUE;
     
     // kill the timer that is updating the UI and reset the UI counter
@@ -527,9 +532,12 @@
         [reminderManager disableReminders];
 	
 	reminderManager = [[ReminderManager alloc] init];
+    
+    // Hide FDOT Logo
+    [FDOTLogo setHidden:YES];
 	
     // transform start button into save button
-    [startButton setTitle:@"Save" forState:UIControlStateNormal];
+    [startButton setTitle:@"Finish" forState:UIControlStateNormal];
     [startButton setBackgroundImage:[[UIImage imageNamed:@"save_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(48,20,48,20) resizingMode: UIImageResizingModeStretch] forState:UIControlStateNormal];
 
     startButton.frame = CGRectMake( 24.0, 198.0, kCustomButtonWidth, kCustomButtonHeight );

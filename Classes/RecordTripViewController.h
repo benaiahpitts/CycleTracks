@@ -90,6 +90,7 @@
 
 @property (nonatomic, strong) UIButton *startButton;
 @property (nonatomic, strong) UIButton *cancelButton;
+@property (weak, nonatomic) IBOutlet UIImageView *FDOTLogo;
 
 @property (nonatomic, strong) UILabel *timeCounter;
 @property (nonatomic, strong) UILabel *distCounter;

@@ -60,6 +60,7 @@
 	[self setTitle:@"Florida Trip Tracker"];
 	
 	FloridaTripTrackerAppDelegate *delegate= [[UIApplication sharedApplication] delegate];
+	managedContext= [delegate managedObjectContext];
 	if ([delegate hasUserInfoBeenSaved]) {
 		[self loadUserSettings];
 	}

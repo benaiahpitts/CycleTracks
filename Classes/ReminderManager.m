@@ -37,6 +37,7 @@
 
 #define k15Minutes	900
 #define k10Minutes	600
+#define k5MInutes	300
 #define kNumReminders 10
 
 //#define kEnableTestReminder		YES
@@ -55,7 +56,7 @@
 		if ( kEnableTestReminder )
 			[self addRemindersWithFirstFireInterval:120 interval:120];
 			
-		[self addRemindersWithFirstFireInterval:k15Minutes interval:k10Minutes];
+		[self addRemindersWithFirstFireInterval:k15Minutes interval:k5MInutes];
 	}
 	
 	return self;
