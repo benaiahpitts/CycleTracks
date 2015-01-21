@@ -103,7 +103,7 @@
 	NSMutableDictionary *tripAnswers= [[NSMutableDictionary alloc] init];
 	
 	[tripAnswers setObject:[NSNumber numberWithInt:(int)row] forKey:@"purposeInt"];
-	[tripAnswers setObject:[[travelModePicker delegate] pickerView:travelModePicker titleForRow:[travelModePicker selectedRowInComponent:0] forComponent:0] forKey:@"traveledBy"];
+	[tripAnswers setObject:[[travelModePicker delegate] pickerView:travelModePicker titleForRow:[travelModePicker selectedRowInComponent:0] forComponent:0] forKey:@"travelBy"];
 	[tripAnswers setObject:[NSNumber numberWithInt:[[householdMembers text] intValue]] forKey:@"members"];
 	[tripAnswers setObject:[NSNumber numberWithInt:[[nonHouseholdMembers text] intValue]] forKey:@"nonmembers"];
 	[tripAnswers setObject:(([accidentSegment selectedSegmentIndex] == 0) ? (@"NO") : (@"YES")) forKey:@"delays"];

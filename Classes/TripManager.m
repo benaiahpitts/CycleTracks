@@ -340,6 +340,64 @@
 	return distance;
 }
 
+- (NSMutableDictionary *)userDictionary {
+	NSMutableDictionary *userDict = [[NSMutableDictionary alloc] init];
+	
+	NSFetchRequest		*request = [[NSFetchRequest alloc] init];
+	NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:managedObjectContext];
+	[request setEntity:entity];
+	
+	NSError *error;
+	NSInteger count = [managedObjectContext countForFetchRequest:request error:&error];
+	//NSLog(@"saved user count  = %d", count);
+	
+	if ( count )
+	{
+		NSMutableArray *mutableFetchResults = [[managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
+		if (mutableFetchResults == nil) {
+			// Handle the error.
+			NSLog(@"no saved user");
+			if ( error != nil )
+				NSLog(@"TripManager fetch saved user data error %@, %@", error, [error localizedDescription]);
+		}
+		
+		User *user = [mutableFetchResults objectAtIndex:0];
+		if ( user != nil )
+		{
+			// initialize text fields to saved personal info
+			[userDict setValue:user.age			forKey:@"age"];
+			[userDict setValue:user.gender		forKey:@"gender"];
+			[userDict setValue:user.empFullTime forKey:@"fullTime"];
+			[userDict setValue:user.empHomemaker forKey:@"homemaker"];
+			[userDict setValue:user.empLess5Months forKey:@"empLess5Months"];
+			[userDict setValue:user.empPartTime forKey:@"parttime"];
+			[userDict setValue:user.empRetired forKey:@"retired"];
+			[userDict setValue:user.empSelfEmployed forKey:@"selfemployed"];
+			[userDict setValue:user.empUnemployed forKey:@"unemployed"];
+			[userDict setValue:user.empWorkAtHome forKey:@"workAtHome"];
+			[userDict setValue:user.studentStatus forKey:@"studentlevel"];
+			[userDict setValue:user.hasADisabledParkingPass forKey:@"disableparkpass"];
+			[userDict setValue:user.hasADriversLicense forKey:@"driverLicense"];
+			[userDict setValue:user.hasATransitPass forKey:@"transitpass"];
+			[userDict setValue:user.isAStudent forKey:@"student"];
+			[userDict setValue:user.numWorkTrips forKey:@"workdays"];
+			[userDict setValue:@"" forKey:@"email"];
+		}
+		
+		else {
+			NSLog(@"TripManager fetch user FAIL");
+			userDict= nil;
+		}
+		
+	}
+	else {
+		NSLog(@"TripManager WARNING no saved user data to encode");
+		userDict= nil;
+	}
+	
+	return userDict;
+}
+
 
 - (NSString*)jsonEncodeUserData
 {
@@ -525,7 +583,7 @@
 	
 
 	// encode user data
-	NSString *jsonUserData = [self jsonEncodeUserData];
+	//  NSString *jsonUserData = [self jsonEncodeUserData];
 
 	// NOTE: device hash added by SaveRequest initWithPostVars
 	NSMutableDictionary *postVars = [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -539,12 +597,17 @@
 	// change all dates to strings
 	[postVars setValue:start forKey:@"startTime"];
 	[postVars setValue:[outputFormatter stringFromDate:trip.stopTime] forKey:@"stopTime"];
-	// we don't send "saved" or "uploaded"
+	// we don't send "saved", "uploaded", or duration
 	[postVars removeObjectForKey:@"saved"];
 	[postVars removeObjectForKey:@"uploaded"];
-	[postVars setValue:jsonUserData forKey:@"user"];
-	[postVars setValue:[NSString stringWithFormat:@"iOS_%@",
-						[[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"]] forKey:@"version"];
+	[postVars removeObjectForKey:@"duration"];
+	// temporarily hiding fare; do not send this removal to production
+	[postVars removeObjectForKey:@"fare"];
+	
+	[postVars setValue:[self userDictionary] forKey:@"user"];
+	[postVars setValue:@"" forKey:@"notes"];
+	NSString *versionString= [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
+	[postVars setValue:[NSNumber numberWithInt:[versionString intValue]] forKey:@"version"];
 							 /* trip.traveledBy, @"travelBy",
 							  trip.numHouseholdMembers, @"members",
 							  trip.numNonHouseholdMembers, @"nonmembers",
@@ -621,8 +684,8 @@
 			case 500:
 			default:
 				title = @"Internal Server Error";
-				//message = [NSString stringWithFormat:@"%d", [httpResponse statusCode]];
-				message = kServerError;
+				message = [NSString stringWithFormat:@"%d", [httpResponse statusCode]];
+				//message = kServerError;
 		}
 		
 		NSLog(@"%@: %@", title, message);
@@ -691,8 +754,8 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
 	// do something with the data
-    NSLog(@"Succeeded! Received %lu bytes of data", (unsigned long)[receivedData length]);
-	NSLog(@"%@", [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding] );
+   // NSLog(@"Connection did finish! Received %lu bytes of data", (unsigned long)[receivedData length]);
+	//NSLog(@"%@", [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding] );
 
 	[activityDelegate dismissSaving];
 	[activityDelegate stopAnimating];

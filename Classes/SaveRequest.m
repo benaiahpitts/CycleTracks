@@ -55,14 +55,20 @@
 		// setup POST vars
 		[request setHTTPMethod:@"POST"];
 		self.postVars = [NSMutableDictionary dictionaryWithDictionary:inPostVars];
-	
+		
+		// get the user dictionary
+		NSMutableDictionary *user= [postVars objectForKey:@"user"];
 		// add hash of device id
-		[postVars setObject:deviceUniqueIdHash forKey:@"device"];
+		[user setObject:deviceUniqueIdHash forKey:@"device"];
+		// add updated user dictionary to postVars
+		[postVars setObject:user forKey:@"user"];
+		
+		//[postVars setObject:deviceUniqueIdHash forKey:@"device"];
 		NSData *data= [NSJSONSerialization dataWithJSONObject:postVars options:nil error:nil];
 		NSData *pretty= [NSJSONSerialization dataWithJSONObject:postVars options:NSJSONWritingPrettyPrinted error:nil];
 
 		// convert dict to string
-		NSMutableString *postBody = [NSMutableString string];
+		//NSMutableString *postBody = [NSMutableString string];
 		NSLog(@"NSJSON DATA: %@", [[NSString alloc] initWithData:pretty encoding:NSUTF8StringEncoding]);
 
 		//for(NSString * key in postVars)

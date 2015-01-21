@@ -52,7 +52,7 @@
 
 @property (nonatomic, strong) NSNumber *payForParkingAmt;
 @property (nonatomic, strong) NSNumber *tollAmt;
-@property (nonatomic, strong) NSString *traveledBy;
+@property (nonatomic, strong) NSString *travelBy;
 
 @property (nonatomic, strong) NSDate *startTime;
 @property (nonatomic, strong) NSDate *stopTime;

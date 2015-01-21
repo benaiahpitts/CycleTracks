@@ -42,6 +42,6 @@
 @dynamic saved;
 @dynamic uploaded;
 
-@dynamic fare, delays, members, nonmembers, payForParking, toll, payForParkingAmt, tollAmt, traveledBy, stopTime;
+@dynamic fare, delays, members, nonmembers, payForParking, toll, payForParkingAmt, tollAmt, travelBy, stopTime;
 
 @end
