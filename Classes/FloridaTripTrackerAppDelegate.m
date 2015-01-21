@@ -134,8 +134,8 @@
 	
 		UINavigationController	*nav	= (UINavigationController*)[tabBarController.viewControllers
 															 objectAtIndex:3];
-		PersonalInfoViewController *vc	= (PersonalInfoViewController *)[nav topViewController];
-		vc.managedObjectContext			= context;
+		//PersonalInfoViewController *vc	= (PersonalInfoViewController *)[nav topViewController];
+		//vc.managedObjectContext			= context;
 		
 		[window setFrame:[[UIScreen mainScreen] bounds]];
 		[window addSubview:tabBarController.view];
@@ -175,10 +175,9 @@
 	// select Record tab at launch
 	tabBarController.selectedIndex = 1;
 	
-	UINavigationController	*nav	= (UINavigationController*)[tabBarController.viewControllers
-															 objectAtIndex:3];
-	PersonalInfoViewController *vc	= (PersonalInfoViewController *)[nav topViewController];
-	vc.managedObjectContext			= [self managedObjectContext];
+	//UINavigationController	*nav	= (UINavigationController*)[tabBarController.viewControllers objectAtIndex:3];
+	//PersonalInfoViewController *vc	= (PersonalInfoViewController *)[nav topViewController];
+	//vc.managedObjectContext			= [self managedObjectContext];
 	
 	[window setFrame:[[UIScreen mainScreen] bounds]];
 	[window addSubview:tabBarController.view];
@@ -302,6 +301,33 @@
 			abort();
         } 
     }
+}
+
+#pragma mark Version & Build Functions
+/** See http://stackoverflow.com/questions/7608632/how-do-i-get-the-current-version-of-my-ios-project-in-code **/
+
++ (NSString *) appVersion
+{
+	return [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
+}
+
++ (NSString *) build
+{
+	return [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey];
+}
+
++ (NSString *) versionBuild
+{
+	NSString * version = [self appVersion];
+	NSString * build = [self build];
+	
+	NSString * versionBuild = [NSString stringWithFormat: @"v%@", version];
+	
+	if (![version isEqualToString: build]) {
+		versionBuild = [NSString stringWithFormat: @"%@(%@)", versionBuild, build];
+	}
+	
+	return versionBuild;
 }
 
 

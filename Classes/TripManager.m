@@ -81,7 +81,7 @@
 		self.managedObjectContext	= [_trip managedObjectContext];
 		
 		// NOTE: loading coords can be expensive for a large trip
-		NSLog(@"loading %fm trip started at %@...", distance, _trip.start);
+		NSLog(@"loading %fm trip started at %@...", distance, _trip.startTime);
 
 		// sort coords by recorded date ASCENDING so that the coord at index=0 is the first
 		
@@ -243,24 +243,25 @@
 		// sanity check time interval
 		if ( !realTime || deltaTime < kEpsilonTimeInterval )
 		{
+			newDist += deltaDist;
+			// This app is for drivers, ignoring speed check
 			// sanity check speed
-			if ( !realTime || (deltaDist / deltaTime < kEpsilonSpeed) )
+			/*if ( !realTime || (deltaDist / deltaTime < kEpsilonSpeed) )
 			{
 				// consider distance delta as valid
 				newDist += deltaDist;
 				
 				// only log non-zero changes
-				/*
-				 if ( deltaDist > 0.1 )
-				 {
-				 NSLog(@"new dist  = %f", newDist);
-				 NSLog(@"est speed = %f", deltaDist / deltaTime);
-				 }
-				 */
+				//
+				// if ( deltaDist > 0.1 )
+				// {
+				// NSLog(@"new dist  = %f", newDist);
+				// NSLog(@"est speed = %f", deltaDist / deltaTime);
+				// }
 			}
 			else
 				NSLog(@"WARNING speed exceeds epsilon: %f => throw out deltaDist: %f, deltaTime: %f", 
-					  deltaDist / deltaTime, deltaDist, deltaTime);
+					  deltaDist / deltaTime, deltaDist, deltaTime);*/
 		}
 		else
 			NSLog(@"WARNING deltaTime exceeds epsilon: %f => throw out deltaDist: %f", deltaTime, deltaDist);
@@ -303,7 +304,7 @@
 	{
 		NSLog(@"updated trip start time");
 		// this is the first coord of a new trip => update start
-		[trip setStart:[coord recorded]];
+		[trip setStartTime:[coord recorded]];
 		dirty = YES;
 	}
 	else
@@ -369,20 +370,20 @@
 			// initialize text fields to saved personal info
 			[userDict setValue:user.age			forKey:@"age"];
 			[userDict setValue:user.gender		forKey:@"gender"];
-			[userDict setValue:user.empFullTime forKey:@"empFullTime"];
-			[userDict setValue:user.empHomemaker forKey:@"empHomemaker"];
+			[userDict setValue:user.empFullTime forKey:@"fullTime"];
+			[userDict setValue:user.empHomemaker forKey:@"homemaker"];
 			[userDict setValue:user.empLess5Months forKey:@"empLess5Months"];
-			[userDict setValue:user.empPartTime forKey:@"empPartTime"];
-			[userDict setValue:user.empRetired forKey:@"empRetired"];
-			[userDict setValue:user.empSelfEmployed forKey:@"empSelfEmployed"];
-			[userDict setValue:user.empUnemployed forKey:@"empUnemployed"];
-			[userDict setValue:user.empWorkAtHome forKey:@"empWorkAtHome"];
-			[userDict setValue:user.studentStatus forKey:@"studentStatus"];
-			[userDict setValue:user.hasADisabledParkingPass forKey:@"hasADisabledParkingPass"];
-			[userDict setValue:user.hasADriversLicense forKey:@"hasADriversLicense"];
-			[userDict setValue:user.hasATransitPass forKey:@"hasATransitPass"];
-			[userDict setValue:user.isAStudent forKey:@"isAStudent"];
-			[userDict setValue:user.numWorkTrips forKey:@"numWorkTrips"];
+			[userDict setValue:user.empPartTime forKey:@"parttime"];
+			[userDict setValue:user.empRetired forKey:@"retired"];
+			[userDict setValue:user.empSelfEmployed forKey:@"selfemployed"];
+			[userDict setValue:user.empUnemployed forKey:@"unemployed"];
+			[userDict setValue:user.empWorkAtHome forKey:@"workAtHome"];
+			[userDict setValue:user.studentStatus forKey:@"studentlevel"];
+			[userDict setValue:user.hasADisabledParkingPass forKey:@"disableparkpass"];
+			[userDict setValue:user.hasADriversLicense forKey:@"driverLicense"];
+			[userDict setValue:user.hasATransitPass forKey:@"transitpass"];
+			[userDict setValue:user.isAStudent forKey:@"student"];
+			[userDict setValue:user.numWorkTrips forKey:@"workdays"];
 		}
 		else
 			NSLog(@"TripManager fetch user FAIL");
@@ -434,6 +435,7 @@
 		NSTimeInterval duration = [last.recorded timeIntervalSinceDate:first.recorded];
 		NSLog(@"duration = %.0fs", duration);
 		[trip setDuration:[NSNumber numberWithDouble:duration]];
+		[trip setStopTime:[last recorded]];
 	}
 	
 	[trip setSaved:[NSDate date]];
@@ -506,8 +508,9 @@
 
 	NSLog(@"serializing trip data to JSON...");
 	//NSString *jsonTripData = [[CJSONSerializer serializer] serializeObject:tripDict];
-	NSData *jsonTripData= [NSJSONSerialization dataWithJSONObject:trips options:NSJSONWritingPrettyPrinted error:nil];
-	NSLog(@"NSJSON DATA: %@", [[NSString alloc] initWithData:jsonTripData encoding:NSUTF8StringEncoding]);
+	
+	//NSData *jsonTripData= [NSJSONSerialization dataWithJSONObject:allCords options:nil error:nil];
+	//NSLog(@"NSJSON DATA: %@", [[NSString alloc] initWithData:jsonTripData encoding:NSUTF8StringEncoding]);
 	
 	// get trip purpose
 	NSString *purpose;
@@ -517,20 +520,44 @@
 		purpose = @"unknown";
 	
 	// get start date
-	NSString *start = [outputFormatter stringFromDate:trip.start];
+	NSString *start = [outputFormatter stringFromDate:trip.startTime];
 	NSLog(@"start: %@", start);
+	
 
 	// encode user data
 	NSString *jsonUserData = [self jsonEncodeUserData];
 
 	// NOTE: device hash added by SaveRequest initWithPostVars
-	NSDictionary *postVars = [NSDictionary dictionaryWithObjectsAndKeys:
-							  jsonTripData, @"coords",
-							  purpose, @"purpose",
-							  start, @"start",
+	NSMutableDictionary *postVars = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+							  trips, @"coords",
+							  purpose, @"purpose", nil];
+	
+	NSArray *tripQKeys = [[[trip entity] attributesByName] allKeys];
+	NSDictionary *tripQDict = [trip dictionaryWithValuesForKeys:tripQKeys];
+	[postVars setValuesForKeysWithDictionary:tripQDict];
+	
+	// change all dates to strings
+	[postVars setValue:start forKey:@"startTime"];
+	[postVars setValue:[outputFormatter stringFromDate:trip.stopTime] forKey:@"stopTime"];
+	// we don't send "saved" or "uploaded"
+	[postVars removeObjectForKey:@"saved"];
+	[postVars removeObjectForKey:@"uploaded"];
+	[postVars setValue:jsonUserData forKey:@"user"];
+	[postVars setValue:[NSString stringWithFormat:@"iOS_%@",
+						[[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"]] forKey:@"version"];
+							 /* trip.traveledBy, @"travelBy",
+							  trip.numHouseholdMembers, @"members",
+							  trip.numNonHouseholdMembers, @"nonmembers",
+							  trip.hadDelays, @"delays",
+							  trip.paidToll, @"toll",
+							  trip.tollCost, @"tollAmt",
+							  trip.paidParking, @"payForParking",
+							  trip.parkingCost, @"payForParkingAmt",
+							  trip.fare, @"fare",
+							  trip.stop, @"stopTime",
 							  jsonUserData, @"user",
-							  [NSString stringWithFormat:@"%d", kSaveProtocolVersion], @"version",
-							  nil];
+							  [NSString stringWithFormat:@"iOS_%@", [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"]], @"version",
+							  nil];*/
 	
 	//NSLog(@"ACTUAL DATA SENT %@",postVars);
 	//NSLog(@"ACTUAL DATA SENT END");
@@ -721,7 +748,7 @@
 	// Create and configure a new instance of the Trip entity
 	trip = (Trip *)[NSEntityDescription insertNewObjectForEntityForName:@"Trip" 
 												  inManagedObjectContext:managedObjectContext];
-	[trip setStart:[NSDate date]];
+	[trip setStartTime:[NSDate date]];
 	
 	NSError *error;
 	if (![managedObjectContext save:&error]) {
@@ -742,7 +769,7 @@
 												  inManagedObjectContext:managedObjectContext];
 	
 	[trip setPurpose:purpose];
-	[trip setStart:[NSDate date]];
+	[trip setStartTime:[NSDate date]];
 	
 	NSError *error;
 	if (![managedObjectContext save:&error]) {
@@ -853,7 +880,7 @@
 	[request setEntity:entity];
 	
 	// configure sort order
-	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"start" ascending:NO];
+	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"startTime" ascending:NO];
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
 	[request setSortDescriptors:sortDescriptors];
 	
@@ -875,7 +902,7 @@
 	[request setEntity:entity];
 	
 	// configure sort order
-	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"start" ascending:NO];
+	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"startTime" ascending:NO];
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
 	[request setSortDescriptors:sortDescriptors];
 	
@@ -897,7 +924,7 @@
 	[request setEntity:entity];
 	
 	// configure sort order
-	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"start" ascending:NO];
+	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"startTime" ascending:NO];
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
 	[request setSortDescriptors:sortDescriptors];
 	
@@ -919,7 +946,7 @@
 	[request setEntity:entity];
 	
 	// configure sort order
-	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"start" ascending:NO];
+	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"startTime" ascending:NO];
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
 	[request setSortDescriptors:sortDescriptors];
 	
@@ -995,7 +1022,7 @@
 	[request setEntity:entity];
 	
 	// configure sort order
-	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"start" ascending:NO];
+	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"startTime" ascending:NO];
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
 	[request setSortDescriptors:sortDescriptors];
 	

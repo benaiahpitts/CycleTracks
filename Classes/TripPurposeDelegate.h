@@ -65,6 +65,6 @@
 
 @optional
 - (void)didCancelPurpose;
-- (void)didPickPurpose:(unsigned int)index;
+- (void)didPickPurpose:(NSMutableDictionary *)tripAnswers;
 
 @end

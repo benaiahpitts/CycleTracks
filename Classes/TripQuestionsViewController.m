@@ -100,7 +100,21 @@
 - (IBAction)save:(id)sender
 {
 	NSInteger row = [customPickerView selectedRowInComponent:0];
-	[delegate didPickPurpose: (int)row];
+	NSMutableDictionary *tripAnswers= [[NSMutableDictionary alloc] init];
+	
+	[tripAnswers setObject:[NSNumber numberWithInt:(int)row] forKey:@"purposeInt"];
+	[tripAnswers setObject:[[travelModePicker delegate] pickerView:travelModePicker titleForRow:[travelModePicker selectedRowInComponent:0] forComponent:0] forKey:@"traveledBy"];
+	[tripAnswers setObject:[NSNumber numberWithInt:[[householdMembers text] intValue]] forKey:@"members"];
+	[tripAnswers setObject:[NSNumber numberWithInt:[[nonHouseholdMembers text] intValue]] forKey:@"nonmembers"];
+	[tripAnswers setObject:(([accidentSegment selectedSegmentIndex] == 0) ? (@"NO") : (@"YES")) forKey:@"delays"];
+	[tripAnswers setObject:(([tollSegment selectedSegmentIndex] == 0) ? (@"NO") : (@"YES")) forKey:@"toll"];
+	[tripAnswers setObject:[NSNumber numberWithFloat:[[tollCost text] floatValue]] forKey:@"tollAmt"];
+	[tripAnswers setObject:(([parkingSegment selectedSegmentIndex] == 0) ? (@"NO") : (@"YES")) forKey:@"payForParking"];
+	[tripAnswers setObject:[NSNumber numberWithFloat:[[parkingCost text] floatValue]] forKey:@"payForParkingAmt"];
+	[tripAnswers setObject:[NSNumber numberWithFloat:[[fareCost text] floatValue]] forKey:@"fare"];
+	
+	
+	[delegate didPickPurpose: tripAnswers];
 }
 
 - (IBAction)backgroundTouched:(id)sender {

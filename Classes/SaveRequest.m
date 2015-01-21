@@ -46,7 +46,7 @@
 		// Nab the unique device id hash from our delegate.
 		FloridaTripTrackerAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
 		self.deviceUniqueIdHash = delegate.uniqueIDHash;
-        NSString *kSaveURL= @"http://www.urs.com/";
+        NSString *kSaveURL= @"https://fdotrts.ursokr.com/TripTracker_WCF_Rest_Service_ursokr/TripTracker.svc/SaveTrip";
 		
 		// create request.
 		self.request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kSaveURL]]; // prop set retains
@@ -58,17 +58,19 @@
 	
 		// add hash of device id
 		[postVars setObject:deviceUniqueIdHash forKey:@"device"];
+		NSData *data= [NSJSONSerialization dataWithJSONObject:postVars options:nil error:nil];
+		NSData *pretty= [NSJSONSerialization dataWithJSONObject:postVars options:NSJSONWritingPrettyPrinted error:nil];
 
 		// convert dict to string
 		NSMutableString *postBody = [NSMutableString string];
+		NSLog(@"NSJSON DATA: %@", [[NSString alloc] initWithData:pretty encoding:NSUTF8StringEncoding]);
 
-		for(NSString * key in postVars)
-			[postBody appendString:[NSString stringWithFormat:@"%@=%@&", key, [postVars objectForKey:key]]];
+		//for(NSString * key in postVars)
+		//	[postBody appendString:[NSString stringWithFormat:@"%@=%@&", key, [postVars objectForKey:key]]];
 
-		/**/NSLog(@"initializing HTTP POST request to %@ with %d bytes",
-			  kSaveURL,
-			  [[postBody dataUsingEncoding:NSUTF8StringEncoding] length]);
-		[request setHTTPBody:[postBody dataUsingEncoding:NSUTF8StringEncoding]];
+		//NSLog(@"initializing HTTP POST request to %@ with %d bytes", kSaveURL, [data length]);
+		//NSLog(@"request sent: %@",data);
+		[request setHTTPBody:data];
 	}
 	
 	return self;

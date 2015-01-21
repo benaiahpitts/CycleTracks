@@ -410,7 +410,7 @@
             [tripManager loadMostRecentUnSavedTrip];
 					
             // update UI to reflect trip once loading has completed
-            [self setCounterTimeSince:tripManager.trip.start distance:[tripManager getDistanceEstimate]];
+            [self setCounterTimeSince:tripManager.trip.startTime distance:[tripManager getDistanceEstimate]];
 
             startButton.enabled = YES;
         }
@@ -510,9 +510,9 @@
 	{
         NSDictionary* counterUserDict;
 		// check if we're continuing a trip - then start the trip from there
-		if ( tripManager.trip && tripManager.trip.start && [tripManager.trip.coords count] )
+		if ( tripManager.trip && tripManager.trip.startTime && [tripManager.trip.coords count] )
 		{
-            counterUserDict = [NSDictionary dictionaryWithObjectsAndKeys:tripManager.trip.start, @"StartDate",
+            counterUserDict = [NSDictionary dictionaryWithObjectsAndKeys:tripManager.trip.startTime, @"StartDate",
                                                                          tripManager, @"TripManager", nil ];
         }
         // or starting a new recording
@@ -801,12 +801,21 @@
 }
 
 
-- (void)didPickPurpose:(unsigned int)index
+- (void)didPickPurpose:(NSMutableDictionary *)tripAnswers
 {
 	[self.navigationController dismissViewControllerAnimated:YES completion:nil];
 	[self doneRecordingDidCancel:FALSE];
     
-	[tripManager setPurpose:index];
+	[tripManager setPurpose:[tripAnswers objectForKey:@"purposeInt"]];
+	[[tripManager trip] setPurpose:[self getPurposeString:[tripAnswers objectForKey:@"purposeInt"]]];
+	[[tripManager trip] setFare:[tripAnswers objectForKey:@"fare"]];
+	[[tripManager trip] setDelays:[tripAnswers objectForKey:@"delays"]];
+	[[tripManager trip] setMembers:[tripAnswers objectForKey:@"members"]];
+	[[tripManager trip] setNonmembers:[tripAnswers objectForKey:@"nonmembers"]];
+	[[tripManager trip] setPayForParking:[tripAnswers objectForKey:@"payForParking"]];
+	[[tripManager trip] setToll:[tripAnswers objectForKey:@"toll"]];
+	[[tripManager trip] setPayForParkingAmt:[tripAnswers objectForKey:@"payForParkingAmt"]];
+	[[tripManager trip] setTollAmt:[tripAnswers objectForKey:@"tollAmt"]];
 	[tripManager promptForTripNotes];
 }
 

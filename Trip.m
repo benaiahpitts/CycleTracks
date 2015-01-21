@@ -38,10 +38,10 @@
 @dynamic distance;
 @dynamic duration;
 @dynamic purpose;
-@dynamic start;
+@dynamic startTime;
 @dynamic saved;
 @dynamic uploaded;
 
-@dynamic fare, hadDelays, numHouseholdMembers, numNonHouseholdMembers, paidParking, paidToll, parkingCost, tollCost, traveledBy;
+@dynamic fare, delays, members, nonmembers, payForParking, toll, payForParkingAmt, tollAmt, traveledBy, stopTime;
 
 @end

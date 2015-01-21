@@ -136,7 +136,7 @@
 	[request setEntity:entity];
 	
 	// configure sort order
-	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"start" ascending:NO];
+	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"startTime" ascending:NO];
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
 	[request setSortDescriptors:sortDescriptors];
 	
@@ -464,7 +464,7 @@
 		cell.accessoryView = imageView;
 		
 		cell.detailTextLabel.text = [NSString stringWithFormat:@"%@\n(trip saved & uploaded)", 
-									 [dateFormatter stringFromDate:[trip start]]];		
+									 [dateFormatter stringFromDate:[trip startTime]]];
 		tripStatus = @"(trip saved & uploaded)";
 	}
 
@@ -473,7 +473,7 @@
 	{
 		cell = [self getCellWithReuseIdentifier:kCellReuseIdentifierExclamation];
 		cell.detailTextLabel.text = [NSString stringWithFormat:@"%@\n(saved but not uploaded)", 
-									 [dateFormatter stringFromDate:[trip start]]];
+									 [dateFormatter stringFromDate:[trip startTime]]];
 		tripStatus = @"(saved but not uploaded)";
 	}
 
@@ -486,7 +486,7 @@
 		cell.detailTextLabel.text = [NSString stringWithFormat:@"%@\n(recording in progress)", 
 									 [dateFormatter stringFromDate:[trip start]]];
 		 */
-		[cell setDetail:[NSString stringWithFormat:@"%@\n(recording in progress)", [dateFormatter stringFromDate:[trip start]]]];
+		[cell setDetail:[NSString stringWithFormat:@"%@\n(recording in progress)", [dateFormatter stringFromDate:[trip startTime]]]];
 		tripStatus = @"(recording in progress)";
 	}
 	
@@ -529,7 +529,7 @@
 					   trip.purpose
 					   ]];
 */	
-	cell.textLabel.text			= [dateFormatter stringFromDate:[trip start]];
+	cell.textLabel.text			= [dateFormatter stringFromDate:[trip startTime]];
 	
 	cell.detailTextLabel.text	= [NSString stringWithFormat:@"%@: %.1f mi ~ %.1f mph\nelapsed time: %@", 
 								   trip.purpose,
@@ -837,10 +837,20 @@
 }
 
 
-- (void)didPickPurpose:(unsigned int)index
+- (void)didPickPurpose:(NSMutableDictionary *)tripAnswers
 {
 	[self.navigationController dismissViewControllerAnimated:YES completion:nil];
-	[tripManager setPurpose:index];
+	[tripManager setPurpose:[tripAnswers objectForKey:@"purposeInt"]];
+	[[tripManager trip] setPurpose:[self getPurposeString:[tripAnswers objectForKey:@"purposeInt"]]];
+	[[tripManager trip] setFare:[tripAnswers objectForKey:@"fare"]];
+	[[tripManager trip] setDelays:[tripAnswers objectForKey:@"delays"]];
+	[[tripManager trip] setMembers:[tripAnswers objectForKey:@"members"]];
+	[[tripManager trip] setNonmembers:[tripAnswers objectForKey:@"nonmembers"]];
+	[[tripManager trip] setPayForParking:[tripAnswers objectForKey:@"payForParking"]];
+	[[tripManager trip] setToll:[tripAnswers objectForKey:@"toll"]];
+	[[tripManager trip] setPayForParkingAmt:[tripAnswers objectForKey:@"payForParkingAmt"]];
+	[[tripManager trip] setTollAmt:[tripAnswers objectForKey:@"tollAmt"]];
+
 	[tripManager promptForTripNotes];
 }
 
