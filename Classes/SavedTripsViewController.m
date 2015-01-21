@@ -841,6 +841,7 @@
 {
 	[self.navigationController dismissViewControllerAnimated:YES completion:nil];
 	[tripManager setPurpose:[tripAnswers objectForKey:@"purposeInt"]];
+	[[tripManager trip] setTravelBy:[tripAnswers objectForKey:@"travelBy"]];
 	[[tripManager trip] setPurpose:[self getPurposeString:[tripAnswers objectForKey:@"purposeInt"]]];
 	[[tripManager trip] setFare:[tripAnswers objectForKey:@"fare"]];
 	[[tripManager trip] setDelays:[tripAnswers objectForKey:@"delays"]];
