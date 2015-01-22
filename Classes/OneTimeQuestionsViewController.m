@@ -188,20 +188,20 @@
 	{
 		[user setAge:[[agePicker delegate] pickerView:agePicker titleForRow:[agePicker selectedRowInComponent:0] forComponent:0]];
 		//value = (expression) ? (if true) : (if false);
-		[user setEmpFullTime: ([empFullTimeSwitch isOn]) ? (@"YES") : (@"NO")];
+		/*[user setEmpFullTime: ([empFullTimeSwitch isOn]) ? (@"YES") : (@"NO")];
 		[user setEmpHomemaker: ([empHomeMakerSwitch isOn]) ? (@"YES") : (@"NO")];
 		[user setEmpLess5Months: ([empPartYearSwitch isOn]) ? (@"YES") : (@"NO")];
 		[user setEmpPartTime: ([empPartTimeSwitch isOn]) ? (@"YES") : (@"NO")];
 		[user setEmpRetired: ([empRetiredSwitch isOn]) ? (@"YES") : (@"NO")];
 		[user setEmpSelfEmployed: ([empSelfEmployedSwitch isOn]) ? (@"YES") : (@"NO")];
 		[user setEmpUnemployed: ([empUnemployedSwitch isOn]) ? (@"YES") : (@"NO")];
-		[user setEmpWorkAtHome: ([empWorkAtHomeSwitch isOn]) ? (@"YES") : (@"NO")];
+		[user setEmpWorkAtHome: ([empWorkAtHomeSwitch isOn]) ? (@"YES") : (@"NO")];*/
 		
 		[user setGender: ([gender selectedSegmentIndex] == 0) ? (@"M") : (@"F")];
-		[user setHasADisabledParkingPass: ([disabledPassSwitch isOn]) ? (@"YES") : (@"NO")];
+		/*[user setHasADisabledParkingPass: ([disabledPassSwitch isOn]) ? (@"YES") : (@"NO")];
 		[user setHasADriversLicense: ([licenseSwitch isOn]) ? (@"YES") : (@"NO")];
 		[user setHasATransitPass: ([transitPassSwitch isOn]) ? (@"YES") : (@"NO")];
-		[user setIsAStudent: ([studentSwitch isOn]) ? (@"YES") : (@"NO")];
+		[user setIsAStudent: ([studentSwitch isOn]) ? (@"YES") : (@"NO")];*/
 		
 		[user setNumWorkTrips:[NSNumber numberWithInt:[[workTripNumber text] intValue]]];
 		if ([studentSwitch isOn]) {
@@ -209,7 +209,7 @@
 		}
 		else [user setStudentStatus:@"N/A"];
 		
-		/*[user setEmpFullTime:[NSNumber numberWithBool:[empFullTimeSwitch isOn]]];
+		[user setEmpFullTime:[NSNumber numberWithBool:[empFullTimeSwitch isOn]]];
 		[user setEmpHomemaker:[NSNumber numberWithBool:[empHomeMakerSwitch isOn]]];
 		[user setEmpLess5Months:[NSNumber numberWithBool:[empPartYearSwitch isOn]]];
 		[user setEmpPartTime:[NSNumber numberWithBool:[empPartTimeSwitch isOn]]];
@@ -217,17 +217,17 @@
 		[user setEmpSelfEmployed:[NSNumber numberWithBool:[empSelfEmployedSwitch isOn]]];
 		[user setEmpUnemployed:[NSNumber numberWithBool:[empUnemployedSwitch isOn]]];
 		[user setEmpWorkAtHome:[NSNumber numberWithBool:[empWorkAtHomeSwitch isOn]]];
-		
+		/*
 		if (gender.selectedSegmentIndex == 0) {
 			[user setGender:@"M"];
 		}
 		else
 			[user setGender:@"F"];
-		
+		*/
 		[user setHasADisabledParkingPass:[NSNumber numberWithBool:[disabledPassSwitch isOn]]];
 		[user setHasADriversLicense:[NSNumber numberWithBool:[licenseSwitch isOn]]];
 		[user setHasATransitPass:[NSNumber numberWithBool:[transitPassSwitch isOn]]];
-		[user setIsAStudent:[NSNumber numberWithBool:[studentSwitch isOn]]];*/
+		[user setIsAStudent:[NSNumber numberWithBool:[studentSwitch isOn]]];
 	}
 	else
 		NSLog(@"SAVE FAIL");

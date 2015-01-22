@@ -812,7 +812,7 @@
 	[[tripManager trip] setFare:[tripAnswers objectForKey:@"fare"]];
 	[[tripManager trip] setDelays:[tripAnswers objectForKey:@"delays"]];
 	[[tripManager trip] setMembers:[tripAnswers objectForKey:@"members"]];
-	[[tripManager trip] setNonmembers:[tripAnswers objectForKey:@"nonmembers"]];
+	[[tripManager trip] setNonMembers:[tripAnswers objectForKey:@"nonmembers"]];
 	[[tripManager trip] setPayForParking:[tripAnswers objectForKey:@"payForParking"]];
 	[[tripManager trip] setToll:[tripAnswers objectForKey:@"toll"]];
 	[[tripManager trip] setPayForParkingAmt:[tripAnswers objectForKey:@"payForParkingAmt"]];

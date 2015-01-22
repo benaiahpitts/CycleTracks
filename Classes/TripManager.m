@@ -367,7 +367,7 @@
 			// initialize text fields to saved personal info
 			[userDict setValue:user.age			forKey:@"age"];
 			[userDict setValue:user.gender		forKey:@"gender"];
-			[userDict setValue:user.empFullTime forKey:@"fullTime"];
+			[userDict setValue:user.empFullTime forKey:@"fulltime"];
 			[userDict setValue:user.empHomemaker forKey:@"homemaker"];
 			[userDict setValue:user.empLess5Months forKey:@"empLess5Months"];
 			[userDict setValue:user.empPartTime forKey:@"parttime"];
@@ -381,7 +381,6 @@
 			[userDict setValue:user.hasATransitPass forKey:@"transitpass"];
 			[userDict setValue:user.isAStudent forKey:@"student"];
 			[userDict setValue:user.numWorkTrips forKey:@"workdays"];
-			[userDict setValue:@"" forKey:@"email"];
 		}
 		
 		else {
@@ -428,7 +427,7 @@
 			// initialize text fields to saved personal info
 			[userDict setValue:user.age			forKey:@"age"];
 			[userDict setValue:user.gender		forKey:@"gender"];
-			[userDict setValue:user.empFullTime forKey:@"fullTime"];
+			[userDict setValue:user.empFullTime forKey:@"fulltime"];
 			[userDict setValue:user.empHomemaker forKey:@"homemaker"];
 			[userDict setValue:user.empLess5Months forKey:@"empLess5Months"];
 			[userDict setValue:user.empPartTime forKey:@"parttime"];
@@ -539,7 +538,7 @@
 		NSString *newDateString = [outputFormatter stringFromDate:coord.recorded];
 		[coordsDict setValue:newDateString forKey:@"rec"];
 		[tripDict setValue:coordsDict forKey:newDateString];
-		[coordsKeyDict setValue:coordsDict forKey:@"cord"];
+		[coordsKeyDict setValue:coordsDict forKey:@"coord"];
 		[trips addObject:coordsKeyDict];
 		//[tripDict setValue:coordsDict forKey:@"coord"];
 	}
@@ -597,15 +596,15 @@
 	// change all dates to strings
 	[postVars setValue:start forKey:@"startTime"];
 	[postVars setValue:[outputFormatter stringFromDate:trip.stopTime] forKey:@"stopTime"];
-	// we don't send "saved", "uploaded", or duration
+	// we don't send "saved", "uploaded", distance, or duration
 	[postVars removeObjectForKey:@"saved"];
 	[postVars removeObjectForKey:@"uploaded"];
 	[postVars removeObjectForKey:@"duration"];
+	[postVars removeObjectForKey:@"distance"];
 	// temporarily hiding fare; do not send this removal to production
-	[postVars removeObjectForKey:@"fare"];
+	//[postVars removeObjectForKey:@"fare"];
 	
 	[postVars setValue:[self userDictionary] forKey:@"user"];
-	[postVars setValue:@"" forKey:@"notes"];
 	NSString *versionString= [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
 	[postVars setValue:[NSNumber numberWithInt:[versionString intValue]] forKey:@"version"];
 							 /* trip.traveledBy, @"travelBy",

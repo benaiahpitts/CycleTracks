@@ -55,7 +55,7 @@
 - (NSString *)applicationDocumentsDirectory;
 - (void)initUniqueIDHash;
 - (void) createMainView;
-- (bool) hasUserInfoBeenSaved;
+- (BOOL) hasUserInfoBeenSaved;
 
 @end
 

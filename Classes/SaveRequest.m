@@ -46,14 +46,16 @@
 		// Nab the unique device id hash from our delegate.
 		FloridaTripTrackerAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
 		self.deviceUniqueIdHash = delegate.uniqueIDHash;
-        NSString *kSaveURL= @"https://fdotrts.ursokr.com/TripTracker_WCF_Rest_Service_ursokr/TripTracker.svc/SaveTrip";
+		NSString *kSaveURL= @"https://fdotrts.ursokr.com/TripTracker_WCF_Rest_Service_ursokr/TripTracker.svc/SaveTrip";
+		//NSString *kSaveURL= @"https://fdotrts.ursokr.com/TripTracker_WCF_Rest_Service_ursokr/TripTracker.svc/JsonTest";
 		
 		// create request.
 		self.request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kSaveURL]]; // prop set retains
-		// [request addValue:kServiceUserAgent forHTTPHeaderField:@"User-Agent"];
 
 		// setup POST vars
 		[request setHTTPMethod:@"POST"];
+		[request setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+		
 		self.postVars = [NSMutableDictionary dictionaryWithDictionary:inPostVars];
 		
 		// get the user dictionary
@@ -63,16 +65,10 @@
 		// add updated user dictionary to postVars
 		[postVars setObject:user forKey:@"user"];
 		
-		//[postVars setObject:deviceUniqueIdHash forKey:@"device"];
 		NSData *data= [NSJSONSerialization dataWithJSONObject:postVars options:nil error:nil];
 		NSData *pretty= [NSJSONSerialization dataWithJSONObject:postVars options:NSJSONWritingPrettyPrinted error:nil];
 
-		// convert dict to string
-		//NSMutableString *postBody = [NSMutableString string];
 		NSLog(@"NSJSON DATA: %@", [[NSString alloc] initWithData:pretty encoding:NSUTF8StringEncoding]);
-
-		//for(NSString * key in postVars)
-		//	[postBody appendString:[NSString stringWithFormat:@"%@=%@&", key, [postVars objectForKey:key]]];
 
 		//NSLog(@"initializing HTTP POST request to %@ with %d bytes", kSaveURL, [data length]);
 		//NSLog(@"request sent: %@",data);

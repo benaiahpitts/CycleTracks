@@ -42,13 +42,13 @@
 
 @property (nonatomic, strong) NSString *purpose;
 @property (nonatomic, strong) NSNumber *fare;
-@property (nonatomic, strong) NSString *delays;				// is a boolean "YES":"NO"
+@property (nonatomic, strong) NSNumber *delays;				// is a boolean 0:1
 
 @property (nonatomic, strong) NSNumber *members;
-@property (nonatomic, strong) NSNumber *nonmembers;
-@property (nonatomic, strong) NSString *payForParking;			// is a boolean "YES":"NO"
+@property (nonatomic, strong) NSNumber *nonMembers;
+@property (nonatomic, strong) NSNumber *payForParking;		// is a boolean 0:1
 
-@property (nonatomic, strong) NSString *toll;				// is a boolean "YES":"NO"
+@property (nonatomic, strong) NSNumber *toll;				// is a boolean 0:1
 
 @property (nonatomic, strong) NSNumber *payForParkingAmt;
 @property (nonatomic, strong) NSNumber *tollAmt;

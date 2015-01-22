@@ -38,21 +38,21 @@
 
 @property (nonatomic, strong) NSString * age;
 @property (nonatomic, strong) NSString * gender;
-@property (nonatomic, strong) NSString *empFullTime;				// is a boolean "YES":"NO"
-@property (nonatomic, strong) NSString *empHomemaker;				// is a boolean "YES":"NO"
-@property (nonatomic, strong) NSString *empLess5Months;				// is a boolean "YES":"NO"
-@property (nonatomic, strong) NSString *empPartTime;				// is a boolean "YES":"NO"
-@property (nonatomic, strong) NSString *empRetired;					// is a boolean "YES":"NO"
-@property (nonatomic, strong) NSString *empSelfEmployed;			// is a boolean "YES":"NO"
-@property (nonatomic, strong) NSString *empUnemployed;				// is a boolean "YES":"NO"
-@property (nonatomic, strong) NSString *empWorkAtHome;				// is a boolean "YES":"NO"
+@property (nonatomic, strong) NSNumber *empFullTime;				// is a boolean 0:1
+@property (nonatomic, strong) NSNumber *empHomemaker;				// is a boolean 0:1
+@property (nonatomic, strong) NSNumber *empLess5Months;				// is a boolean 0:1
+@property (nonatomic, strong) NSNumber *empPartTime;				// is a boolean 0:1
+@property (nonatomic, strong) NSNumber *empRetired;					// is a boolean 0:1
+@property (nonatomic, strong) NSNumber *empSelfEmployed;			// is a boolean 0:1
+@property (nonatomic, strong) NSNumber *empUnemployed;				// is a boolean 0:1
+@property (nonatomic, strong) NSNumber *empWorkAtHome;				// is a boolean 0:1
 @property (nonatomic, strong) NSString *studentStatus;
-@property (nonatomic, strong) NSString *hasADisabledParkingPass;    // is a boolean "YES":"NO"
-@property (nonatomic, strong) NSString *hasADriversLicense;			// is a boolean "YES":"NO"
+@property (nonatomic, strong) NSNumber *hasADisabledParkingPass;    // is a boolean 0:1
+@property (nonatomic, strong) NSNumber *hasADriversLicense;			// is a boolean 0:1
 
-@property (nonatomic, strong) NSString *hasATransitPass;			// is a boolean "YES":"NO"
+@property (nonatomic, strong) NSNumber *hasATransitPass;			// is a boolean 0:1
 
-@property (nonatomic, strong) NSString *isAStudent;					// is a boolean "YES":"NO"
+@property (nonatomic, strong) NSNumber *isAStudent;					// is a boolean 0:1
 
 @property (nonatomic, strong) NSNumber *numWorkTrips;
 @property (nonatomic, strong) NSSet* trips;
