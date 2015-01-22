@@ -307,7 +307,6 @@
 
 - (void)viewDidLoad
 {
-	NSLog(@"RecordTripViewController viewDidLoad");
     [super viewDidLoad];
 	
 	

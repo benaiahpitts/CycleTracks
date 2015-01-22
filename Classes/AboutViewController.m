@@ -55,7 +55,6 @@
 {
     [super viewDidLoad];
 	self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-	NSLog(@"About viewDidLoad");
 	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kInstructionsURL]]];
 }
 

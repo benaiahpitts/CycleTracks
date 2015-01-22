@@ -33,9 +33,6 @@
 	NSLog(@"frame size: %f",cg.height);
 	[scrollView setContentSize:cg];
 	
-	FloridaTripTrackerAppDelegate *delegate= [[UIApplication sharedApplication] delegate];
-	//managedContext= [delegate managedObjectContext];
-	
 	return self;
 }
 
@@ -57,30 +54,39 @@
 	[studentStatusPicker setUserInteractionEnabled:NO];
 	[studentStatusPicker setTintColor:[UIColor whiteColor]];
 	
-	[self setTitle:@"Florida Trip Tracker"];
-	
 	FloridaTripTrackerAppDelegate *delegate= [[UIApplication sharedApplication] delegate];
 	managedContext= [delegate managedObjectContext];
 	if ([delegate hasUserInfoBeenSaved]) {
 		[self loadUserSettings];
+		
+		[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
+		self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;		
+		CGSize cg;
+		UILabel *label= (UILabel *)[self.view viewWithTag:-1];
+		cg.height= label.frame.size.height + label.frame.origin.y + 20;
+		cg.width= scrollView.frame.size.width;
+		NSLog(@"frame size: %f",cg.height);
+		[scrollView setContentSize:cg];
 	}
+	else
+		[self setTitle:@"Florida Trip Tracker"];
 }
 
 - (void)loadUserSettings {
 	User *user= [self getNewOrExistingUser];
 	
-	[empFullTimeSwitch setOn:[user empFullTime]];
-	[empHomeMakerSwitch setOn:[user empHomemaker]];
-	[empPartYearSwitch setOn:[user empLess5Months]];
-	[empPartTimeSwitch setOn:[user empPartTime]];
-	[empRetiredSwitch setOn:[user empRetired]];
-	[empSelfEmployedSwitch setOn:[user empSelfEmployed]];
-	[empUnemployedSwitch setOn:[user empUnemployed]];
-	[empWorkAtHomeSwitch setOn:[user empWorkAtHome]];
-	[disabledPassSwitch setOn:[user hasADisabledParkingPass]];
-	[licenseSwitch setOn:[user hasADriversLicense]];
-	[transitPassSwitch setOn:[user hasATransitPass]];
-	[studentSwitch setOn:[user isAStudent]];
+	[empFullTimeSwitch setOn:[[user empFullTime] boolValue]];
+	[empHomeMakerSwitch setOn:[[user empHomemaker] boolValue]];
+	[empPartYearSwitch setOn:[[user empLess5Months] boolValue]];
+	[empPartTimeSwitch setOn:[[user empPartTime] boolValue]];
+	[empRetiredSwitch setOn:[[user empRetired] boolValue]];
+	[empSelfEmployedSwitch setOn:[[user empSelfEmployed] boolValue]];
+	[empUnemployedSwitch setOn:[[user empUnemployed] boolValue]];
+	[empWorkAtHomeSwitch setOn:[[user empWorkAtHome] boolValue]];
+	[disabledPassSwitch setOn:[[user hasADisabledParkingPass] boolValue]];
+	[licenseSwitch setOn:[[user hasADriversLicense] boolValue]];
+	[transitPassSwitch setOn:[[user hasATransitPass] boolValue]];
+	[studentSwitch setOn:[[user isAStudent] boolValue]];
 	
 	[workTripNumber setText:[[user numWorkTrips] stringValue]];
 	
@@ -88,7 +94,7 @@
 		[gender setSelectedSegmentIndex:0];
 	}
 	else
-		[user setGender:@"F"];
+		[gender setSelectedSegmentIndex:1];
 	
 	PickerViewDataSource *ageDataSource= (PickerViewDataSource *)[agePicker dataSource];
 	for (int i= 0; i < [[ageDataSource dataArray] count]; i++) {
