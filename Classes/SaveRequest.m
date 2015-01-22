@@ -46,8 +46,6 @@
 		// Nab the unique device id hash from our delegate.
 		FloridaTripTrackerAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
 		self.deviceUniqueIdHash = delegate.uniqueIDHash;
-		NSString *kSaveURL= @"https://fdotrts.ursokr.com/TripTracker_WCF_Rest_Service_ursokr/TripTracker.svc/SaveTrip";
-		//NSString *kSaveURL= @"https://fdotrts.ursokr.com/TripTracker_WCF_Rest_Service_ursokr/TripTracker.svc/JsonTest";
 		
 		// create request.
 		self.request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kSaveURL]]; // prop set retains

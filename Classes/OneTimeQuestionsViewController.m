@@ -240,5 +240,6 @@
 	
 	FloridaTripTrackerAppDelegate *delegate= [[UIApplication sharedApplication] delegate];
 	[delegate createMainView];
+	[managedContext save:nil];
 }
 @end

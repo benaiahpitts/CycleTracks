@@ -75,10 +75,10 @@
 #define kSaveAccepted		@"Your trip has already been uploaded. Thank you."
 #define kSaveError			@"Your trip has been saved. Please try uploading again later."
 
-#define kInfoURL			@"http://www.sfcta.org/CycleTracksInfo"
-#define kInstructionsURL	@"http://www.sfcta.org/cycletrackshelp_v2.1.html"
+#define kInfoURL			@"http://www.aecom.com"
+#define kInstructionsURL	@"https://github.com/benaiahpitts/FloridaTripTracker/wiki"
 
-//#define kSaveURL			@"http://your-database-here/post/"
+#define kSaveURL			@"https://fdotrts.ursokr.com/TripTracker_WCF_Rest_Service_ursokr/TripTracker.svc/SaveTrip"
 
 #define kTripNotesPlaceholder	@"Comments"
 
