@@ -102,7 +102,7 @@
 	NSInteger row = [customPickerView selectedRowInComponent:0];
 	NSMutableDictionary *tripAnswers= [[NSMutableDictionary alloc] init];
 	
-	[tripAnswers setObject:[NSNumber numberWithInt:(int)row] forKey:@"purposeInt"];
+	[tripAnswers setObject:[delegate getPurposeString:(int)row] forKey:@"purpose"];
 	[tripAnswers setObject:[[travelModePicker delegate] pickerView:travelModePicker titleForRow:[travelModePicker selectedRowInComponent:0] forComponent:0] forKey:@"travelBy"];
 	[tripAnswers setObject:[NSNumber numberWithInt:[[householdMembers text] intValue]] forKey:@"members"];
 	[tripAnswers setObject:[NSNumber numberWithInt:[[nonHouseholdMembers text] intValue]] forKey:@"nonmembers"];
@@ -167,6 +167,7 @@
 	tmDataSource= [[TravelModePickerViewDataSource alloc] init];
 	travelModePicker.dataSource= tmDataSource;
 	travelModePicker.delegate= tmDataSource;
+	tmDataSource.parent= self;
 	
 	// hide conditional fields
 	[parkingCost setHidden:YES];
@@ -215,6 +216,9 @@
 	description.editable = NO;
 	description.font = [UIFont fontWithName:@"Arial" size:16];
 	//[self.view addSubview:description];
+	[fareCost setText:@""];
+	[fareQuestion setHidden:YES];
+	[fareCost setHidden:YES];
 }
 
 
@@ -242,57 +246,56 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-	//NSLog(@"parent didSelectRow: %d inComponent:%d", row, component);
+	NSLog(@"picker view tag:%d", pickerView.tag);
 
-	switch (row) {
-		case 0:
-			description.text = kDescCommute;
-			[fareQuestion setHidden:NO];
-			[fareCost setHidden:NO];
-			break;
-		case 1:
-			description.text = kDescSchool;
-			[fareCost setText:@""];
-			[fareQuestion setHidden:YES];
-			[fareCost setHidden:YES];
-			break;
-		case 2:
-			description.text = kDescWork;
-			[fareCost setText:@""];
-			[fareQuestion setHidden:YES];
-			[fareCost setHidden:YES];
-			break;
-		case 3:
-			description.text = kDescExercise;
-			[fareCost setText:@""];
-			[fareQuestion setHidden:YES];
-			[fareCost setHidden:YES];
-			break;
-		case 4:
-			description.text = kDescSocial;
-			[fareCost setText:@""];
-			[fareQuestion setHidden:YES];
-			[fareCost setHidden:YES];
-			break;
-		case 5:
-			description.text = kDescShopping;
-			[fareCost setText:@""];
-			[fareQuestion setHidden:YES];
-			[fareCost setHidden:YES];
-			break;
-		case 6:
-			description.text = kDescErrand;
-			[fareCost setText:@""];
-			[fareQuestion setHidden:YES];
-			[fareCost setHidden:YES];
-			break;
-		case 7:
-		default:
-			description.text = kDescOther;
-			[fareCost setText:@""];
-			[fareQuestion setHidden:YES];
-			[fareCost setHidden:YES];
-			break;
+	if (pickerView.tag == 1) {
+		switch (row) {
+			case 1:
+				[fareQuestion setHidden:NO];
+				[fareCost setHidden:NO];
+				break;
+			case 0:
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+			default:
+				[fareCost setText:@""];
+				[fareQuestion setHidden:YES];
+				[fareCost setHidden:YES];
+				break;
+		}
+	}
+	else {
+		switch (row) {
+			case 0:
+				description.text = kDescCommute;
+				break;
+			case 1:
+				description.text = kDescSchool;
+				break;
+			case 2:
+				description.text = kDescWork;
+				break;
+			case 3:
+				description.text = kDescExercise;
+				break;
+			case 4:
+				description.text = kDescSocial;
+				break;
+			case 5:
+				description.text = kDescShopping;
+				break;
+			case 6:
+				description.text = kDescErrand;
+				break;
+			case 7:
+			default:
+				description.text = kDescOther;
+				break;
+		}
 	}
 }
 

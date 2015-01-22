@@ -21,4 +21,6 @@
 @property NSString *travelModeCarpool;
 @property NSString *travelModeOther;
 
+@property (nonatomic, strong) id<UIPickerViewDelegate> parent;
+
 @end

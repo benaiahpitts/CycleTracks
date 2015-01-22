@@ -12,6 +12,7 @@
 
 @synthesize travelModes;
 @synthesize travelModeBicycle, travelModeCarpool, travelModeOther, travelModePersonalVehicle, travelModePublicTransit, travelModeSchoolBus, travelModeWalk;
+@synthesize parent;
 
 - init {
 	if ( self = [super init] )
@@ -39,6 +40,11 @@
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
 	return [travelModes objectAtIndex:row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+	[parent pickerView:pickerView didSelectRow:row inComponent:component];
 }
 
 /*- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {

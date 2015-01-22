@@ -607,22 +607,7 @@
 	[postVars setValue:[self userDictionary] forKey:@"user"];
 	NSString *versionString= [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
 	[postVars setValue:[NSNumber numberWithInt:[versionString intValue]] forKey:@"version"];
-							 /* trip.traveledBy, @"travelBy",
-							  trip.numHouseholdMembers, @"members",
-							  trip.numNonHouseholdMembers, @"nonmembers",
-							  trip.hadDelays, @"delays",
-							  trip.paidToll, @"toll",
-							  trip.tollCost, @"tollAmt",
-							  trip.paidParking, @"payForParking",
-							  trip.parkingCost, @"payForParkingAmt",
-							  trip.fare, @"fare",
-							  trip.stop, @"stopTime",
-							  jsonUserData, @"user",
-							  [NSString stringWithFormat:@"iOS_%@", [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"]], @"version",
-							  nil];*/
-	
-	//NSLog(@"ACTUAL DATA SENT %@",postVars);
-	//NSLog(@"ACTUAL DATA SENT END");
+							 
 	// create save request
 	SaveRequest *saveRequest = [[SaveRequest alloc] initWithPostVars:postVars];
 	
