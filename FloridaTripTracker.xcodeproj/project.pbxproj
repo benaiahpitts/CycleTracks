@@ -70,6 +70,7 @@
 		64F824E6106AFFA4001413F8 /* PersonalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F824E5106AFFA4001413F8 /* PersonalInfoViewController.m */; };
 		64FCC5B411352242000FA1B6 /* PersonalInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64FCC5B311352242000FA1B6 /* PersonalInfo.xib */; };
 		64FCC5B811352371000FA1B6 /* 20-gear2.png in Resources */ = {isa = PBXBuildFile; fileRef = 64FCC5B711352371000FA1B6 /* 20-gear2.png */; };
+		A355CAC41A71B61D000FE72F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A355CAC31A71B61D000FE72F /* Images.xcassets */; };
 		A380224C1A433DA500F7AD3C /* TravelModePickerViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A380224B1A433DA500F7AD3C /* TravelModePickerViewDataSource.m */; };
 		A3C8ECB11A5201EE0040FBAB /* OneTimeQuestionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C8ECAF1A5201EE0040FBAB /* OneTimeQuestionsViewController.m */; };
 		A3C8ECB21A5201EE0040FBAB /* OneTimeQuestionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3C8ECB01A5201EE0040FBAB /* OneTimeQuestionsViewController.xib */; };
@@ -202,6 +203,7 @@
 		64FCC5B311352242000FA1B6 /* PersonalInfo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonalInfo.xib; sourceTree = "<group>"; };
 		64FCC5B711352371000FA1B6 /* 20-gear2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "20-gear2.png"; path = "../20-gear2.png"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* FloridaTripTracker-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FloridaTripTracker-Info.plist"; sourceTree = "<group>"; };
+		A355CAC31A71B61D000FE72F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = FloridaTripTracker/Images.xcassets; sourceTree = "<group>"; };
 		A380224A1A433DA500F7AD3C /* TravelModePickerViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelModePickerViewDataSource.h; sourceTree = "<group>"; };
 		A380224B1A433DA500F7AD3C /* TravelModePickerViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelModePickerViewDataSource.m; sourceTree = "<group>"; };
 		A3C8ECAE1A5201EE0040FBAB /* OneTimeQuestionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneTimeQuestionsViewController.h; sourceTree = "<group>"; };
@@ -342,6 +344,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A355CAC31A71B61D000FE72F /* Images.xcassets */,
 				6411A196106A90FB00C201F0 /* TabBarIcons */,
 				6411A185106A90E400C201F0 /* TripPurposePickerIcons v2 */,
 				6411A16A106A05DE00C201F0 /* Images */,
@@ -583,6 +586,7 @@
 				64580F50107589450075DABD /* GreenCheckMark.png in Resources */,
 				64580FF31076B32C0075DABD /* Default.png in Resources */,
 				6458107E107A83C80075DABD /* GreenCheckMark2.png in Resources */,
+				A355CAC41A71B61D000FE72F /* Images.xcassets in Resources */,
 				6458114E107AA4D30075DABD /* bicycle-bell-normalized.aiff in Resources */,
 				6405FB46107E9038004B453B /* GreenCheckMark3.png in Resources */,
 				644ED3E410853DEC008725A8 /* commuter2.png in Resources */,
@@ -675,6 +679,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -700,6 +706,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -737,6 +745,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -776,6 +786,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = dist.plist;
@@ -816,6 +828,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = dist.plist;
