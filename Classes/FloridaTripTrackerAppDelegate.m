@@ -132,8 +132,6 @@
 		// select Record tab at launch
 		tabBarController.selectedIndex = 1;
 	
-		UINavigationController	*nav	= (UINavigationController*)[tabBarController.viewControllers
-															 objectAtIndex:3];
 		//PersonalInfoViewController *vc	= (PersonalInfoViewController *)[nav topViewController];
 		//vc.managedObjectContext			= context;
 		

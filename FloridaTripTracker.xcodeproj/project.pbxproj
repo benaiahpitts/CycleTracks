@@ -71,7 +71,6 @@
 		64FCC5B411352242000FA1B6 /* PersonalInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64FCC5B311352242000FA1B6 /* PersonalInfo.xib */; };
 		64FCC5B811352371000FA1B6 /* 20-gear2.png in Resources */ = {isa = PBXBuildFile; fileRef = 64FCC5B711352371000FA1B6 /* 20-gear2.png */; };
 		A355CAC81A72E7C1000FE72F /* Launch.xib in Resources */ = {isa = PBXBuildFile; fileRef = A355CAC71A72E7C1000FE72F /* Launch.xib */; };
-		A3643AC31A7697350048A922 /* test.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3643AC21A7697350048A922 /* test.xib */; };
 		A3643AC51A76B65F0048A922 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3643AC41A76B65F0048A922 /* Images.xcassets */; };
 		A380224C1A433DA500F7AD3C /* TravelModePickerViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A380224B1A433DA500F7AD3C /* TravelModePickerViewDataSource.m */; };
 		A3C8ECB11A5201EE0040FBAB /* OneTimeQuestionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C8ECAF1A5201EE0040FBAB /* OneTimeQuestionsViewController.m */; };
@@ -206,7 +205,6 @@
 		64FCC5B711352371000FA1B6 /* 20-gear2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "20-gear2.png"; path = "../20-gear2.png"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* FloridaTripTracker-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FloridaTripTracker-Info.plist"; sourceTree = "<group>"; };
 		A355CAC71A72E7C1000FE72F /* Launch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Launch.xib; sourceTree = "<group>"; };
-		A3643AC21A7697350048A922 /* test.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = test.xib; sourceTree = "<group>"; };
 		A3643AC41A76B65F0048A922 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = FloridaTripTracker/Images.xcassets; sourceTree = "<group>"; };
 		A380224A1A433DA500F7AD3C /* TravelModePickerViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelModePickerViewDataSource.h; sourceTree = "<group>"; };
 		A380224B1A433DA500F7AD3C /* TravelModePickerViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelModePickerViewDataSource.m; sourceTree = "<group>"; };
@@ -363,7 +361,6 @@
 				64FCC5B311352242000FA1B6 /* PersonalInfo.xib */,
 				A3C8ECB01A5201EE0040FBAB /* OneTimeQuestionsViewController.xib */,
 				A3C8ECC01A66D3050040FBAB /* WelcomeViewController.xib */,
-				A3643AC21A7697350048A922 /* test.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -601,7 +598,6 @@
 				64FCC5B411352242000FA1B6 /* PersonalInfo.xib in Resources */,
 				64FCC5B811352371000FA1B6 /* 20-gear2.png in Resources */,
 				64C8D40311386B26008BCADE /* RecordMap.xib in Resources */,
-				A3643AC31A7697350048A922 /* test.xib in Resources */,
 				64C8D40511386C9F008BCADE /* LCD-screen-288x126.png in Resources */,
 				64C8D41C11387949008BCADE /* record-map-frame-288x141.png in Resources */,
 				A3C8ECC41A69645D0040FBAB /* FDOT_Logo_color.png in Resources */,

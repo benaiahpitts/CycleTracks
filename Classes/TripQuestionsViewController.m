@@ -246,8 +246,6 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-	NSLog(@"picker view tag:%d", pickerView.tag);
-
 	if (pickerView.tag == 1) {
 		switch (row) {
 			case 1:

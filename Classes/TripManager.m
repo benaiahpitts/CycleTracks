@@ -668,7 +668,7 @@
 			case 500:
 			default:
 				title = @"Internal Server Error";
-				message = [NSString stringWithFormat:@"%ld", [httpResponse statusCode]];
+				message = [NSString stringWithFormat:@"%ld", (long)[httpResponse statusCode]];
 				//message = kServerError;
 		}
 		

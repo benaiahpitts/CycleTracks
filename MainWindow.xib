@@ -86,20 +86,19 @@
 				</object>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<bool key="IBUIHorizontal">NO</bool>
-				<object class="IBUINavigationController" key="IBUISelectedViewController" id="213160608">
-					<string key="IBUITitle">My Trips</string>
-					<object class="IBUITabBarItem" key="IBUITabBarItem" id="1025489404">
-						<string key="IBUITitle">My Trips</string>
+				<object class="IBUINavigationController" key="IBUISelectedViewController" id="529618675">
+					<object class="IBUITabBarItem" key="IBUITabBarItem" id="299742913">
+						<string key="IBUITitle">Instructions</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">tabbar_view.png</string>
+							<string key="NSResourceName">tabbar_instructions.png</string>
 						</object>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 					<reference key="IBUIParentViewController" ref="835399444"/>
 					<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					<bool key="IBUIHorizontal">NO</bool>
-					<object class="IBUINavigationBar" key="IBUINavigationBar" id="682810656">
+					<object class="IBUINavigationBar" key="IBUINavigationBar" id="332327328">
 						<nil key="NSNextResponder"/>
 						<int key="NSvFlags">256</int>
 						<string key="NSFrameSize">{0, 0}</string>
@@ -109,64 +108,31 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 					<array class="NSMutableArray" key="IBUIViewControllers">
-						<object class="IBUIViewController" id="1071074092">
-							<string key="IBUITitle">Trips</string>
-							<object class="IBUINavigationItem" key="IBUINavigationItem" id="366356441">
-								<string key="IBUITitle">My Trips</string>
+						<object class="IBUIViewController" id="853998411">
+							<object class="IBUIWebView" key="IBUIView" id="560072608">
+								<nil key="NSNextResponder"/>
+								<int key="NSvFlags">274</int>
+								<string key="NSFrame">{{0, 20}, {320, 499}}</string>
+								<reference key="IBUIBackgroundColor" ref="611294195"/>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<bool key="IBUIMultipleTouchEnabled">YES</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<bool key="IBUIScalesPageToFit">YES</bool>
+								<int key="IBUIDataDetectorTypes">3</int>
+								<bool key="IBUIDetectsPhoneNumbers">YES</bool>
+							</object>
+							<object class="IBUINavigationItem" key="IBUINavigationItem" id="38887289">
+								<string key="IBUITitle">Instructions</string>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
-							<reference key="IBUIParentViewController" ref="213160608"/>
+							<reference key="IBUIParentViewController" ref="529618675"/>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							<bool key="IBUIHorizontal">NO</bool>
 						</object>
 					</array>
 				</object>
 				<array class="NSMutableArray" key="IBUIViewControllers">
-					<object class="IBUINavigationController" id="529618675">
-						<object class="IBUITabBarItem" key="IBUITabBarItem" id="299742913">
-							<string key="IBUITitle">Instructions</string>
-							<object class="NSCustomResource" key="IBUIImage">
-								<string key="NSClassName">NSImage</string>
-								<string key="NSResourceName">tabbar_instructions.png</string>
-							</object>
-							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						</object>
-						<reference key="IBUIParentViewController" ref="835399444"/>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<bool key="IBUIHorizontal">NO</bool>
-						<object class="IBUINavigationBar" key="IBUINavigationBar" id="332327328">
-							<nil key="NSNextResponder"/>
-							<int key="NSvFlags">256</int>
-							<string key="NSFrameSize">{0, 0}</string>
-							<bool key="IBUIOpaque">NO</bool>
-							<bool key="IBUIClipsSubviews">YES</bool>
-							<bool key="IBUIMultipleTouchEnabled">YES</bool>
-							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						</object>
-						<array class="NSMutableArray" key="IBUIViewControllers">
-							<object class="IBUIViewController" id="853998411">
-								<object class="IBUIWebView" key="IBUIView" id="560072608">
-									<nil key="NSNextResponder"/>
-									<int key="NSvFlags">274</int>
-									<string key="NSFrame">{{0, 20}, {320, 499}}</string>
-									<reference key="IBUIBackgroundColor" ref="611294195"/>
-									<bool key="IBUIClipsSubviews">YES</bool>
-									<bool key="IBUIMultipleTouchEnabled">YES</bool>
-									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-									<bool key="IBUIScalesPageToFit">YES</bool>
-									<int key="IBUIDataDetectorTypes">3</int>
-									<bool key="IBUIDetectsPhoneNumbers">YES</bool>
-								</object>
-								<object class="IBUINavigationItem" key="IBUINavigationItem" id="38887289">
-									<string key="IBUITitle">Instructions</string>
-									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								</object>
-								<reference key="IBUIParentViewController" ref="529618675"/>
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<bool key="IBUIHorizontal">NO</bool>
-							</object>
-						</array>
-					</object>
+					<reference ref="529618675"/>
 					<object class="IBUINavigationController" id="609938122">
 						<string key="IBUITitle">Record</string>
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="246586907">
@@ -203,7 +169,41 @@
 							</object>
 						</array>
 					</object>
-					<reference ref="213160608"/>
+					<object class="IBUINavigationController" id="213160608">
+						<string key="IBUITitle">My Trips</string>
+						<object class="IBUITabBarItem" key="IBUITabBarItem" id="1025489404">
+							<string key="IBUITitle">My Trips</string>
+							<object class="NSCustomResource" key="IBUIImage">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">tabbar_view.png</string>
+							</object>
+							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						</object>
+						<reference key="IBUIParentViewController" ref="835399444"/>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<bool key="IBUIHorizontal">NO</bool>
+						<object class="IBUINavigationBar" key="IBUINavigationBar" id="682810656">
+							<nil key="NSNextResponder"/>
+							<int key="NSvFlags">256</int>
+							<string key="NSFrameSize">{0, 0}</string>
+							<bool key="IBUIOpaque">NO</bool>
+							<bool key="IBUIClipsSubviews">YES</bool>
+							<bool key="IBUIMultipleTouchEnabled">YES</bool>
+							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						</object>
+						<array class="NSMutableArray" key="IBUIViewControllers">
+							<object class="IBUIViewController" id="1071074092">
+								<string key="IBUITitle">Trips</string>
+								<object class="IBUINavigationItem" key="IBUINavigationItem" id="366356441">
+									<string key="IBUITitle">My Trips</string>
+									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								</object>
+								<reference key="IBUIParentViewController" ref="213160608"/>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<bool key="IBUIHorizontal">NO</bool>
+							</object>
+						</array>
+					</object>
 					<object class="IBUINavigationController" id="989095985">
 						<string key="IBUITitle">User Info</string>
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="981503677">
@@ -250,7 +250,7 @@
 					<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 					<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					<array class="NSMutableArray" key="IBUIItems"/>
-					<reference key="IBUISelectedItem" ref="1025489404"/>
+					<reference key="IBUISelectedItem" ref="299742913"/>
 				</object>
 			</object>
 		</array>
