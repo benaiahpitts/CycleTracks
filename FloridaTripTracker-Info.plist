@@ -45,6 +45,8 @@
 	<array>
 		<string>location</string>
 	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>Launch</string>
 	<key>UIPrerenderedIcon</key>
 	<string>YES</string>
 	<key>UIRequiredDeviceCapabilities</key>

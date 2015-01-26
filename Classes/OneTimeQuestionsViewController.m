@@ -26,19 +26,40 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	self= [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 	
-	CGSize cg;
+	/*CGSize cg;
 	UILabel *label= (UILabel *)[self.view viewWithTag:-1];
 	cg.height= label.frame.size.height + label.frame.origin.y + 20;
 	cg.width= scrollView.frame.size.width;
-	NSLog(@"frame size: %f",cg.height);
 	[scrollView setContentSize:cg];
+	[scrollView setFrame:[[UIScreen mainScreen] bounds]];
+	NSLog(@"init: content height %f, frame height: %f",cg.height,scrollView.frame.size.height);*/
 	
 	return self;
+}
+
+/**/- (void)viewDidLayoutSubviews {
+	[super viewDidLayoutSubviews];
+	CGSize cg;
+	UIView *view= (UIView *)[self.view viewWithTag:-1];
+	cg.height= (view.frame.size.height * 6) + view.frame.origin.y + 20;
+	cg.width= scrollView.frame.size.width;
+	[scrollView setContentSize:cg];
+	[scrollView setFrame:[[UIScreen mainScreen] bounds]];
+	[[self view] layoutSubviews];
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	// Do any additional setup after loading the view from its nib.
+	
+	
+	/*[scrollView setFrame:[[UIScreen mainScreen] bounds]];
+	CGSize cg;
+	UILabel *label= (UILabel *)[self.view viewWithTag:-1];
+	cg.height= label.frame.size.height + label.frame.origin.y + 20;
+	cg.width= scrollView.frame.size.width;
+	[scrollView setContentSize:cg];
+	NSLog(@"content height %f, frame height: %f",cg.height,scrollView.frame.size.height);*/
 	
 	agePickerDataSource= [[PickerViewDataSource alloc] initWithArray:[[NSArray alloc] initWithObjects:@"0-4", @"5-15", @"16-21", @"22-49", @"50-64", @"65 or older", nil]];
 	agePicker.dataSource= agePickerDataSource;
@@ -56,17 +77,19 @@
 	
 	FloridaTripTrackerAppDelegate *delegate= [[UIApplication sharedApplication] delegate];
 	managedContext= [delegate managedObjectContext];
+
+
 	if ([delegate hasUserInfoBeenSaved]) {
 		[self loadUserSettings];
 		
 		[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
 		self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;		
-		CGSize cg;
+		/*CGSize cg;
 		UILabel *label= (UILabel *)[self.view viewWithTag:-1];
 		cg.height= label.frame.size.height + label.frame.origin.y + 20;
 		cg.width= scrollView.frame.size.width;
 		NSLog(@"frame size: %f",cg.height);
-		[scrollView setContentSize:cg];
+		[scrollView setContentSize:cg];*/
 	}
 	else
 		[self setTitle:@"Florida Trip Tracker"];

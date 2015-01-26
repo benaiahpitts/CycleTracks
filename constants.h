@@ -76,7 +76,7 @@
 #define kSaveError			@"Your trip has been saved. Please try uploading again later."
 
 #define kInfoURL			@"http://www.aecom.com"
-#define kInstructionsURL	@"https://github.com/benaiahpitts/FloridaTripTracker/wiki"
+#define kInstructionsURL	@"http://benaiahpitts.github.io/FloridaTripTracker/"
 
 #define kSaveURL			@"https://fdotrts.ursokr.com/TripTracker_WCF_Rest_Service_ursokr/TripTracker.svc/SaveTrip"
 
