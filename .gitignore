@@ -1,2 +1,12 @@
 .DS_Store
 build/*
+
+*.xccheckout
+
+*.xcuserstate
+
+*.xcbkptlist
+
+*.xcscheme
+
+FloridaTripTracker.xcodeproj/xcuserdata/benaiahpitts.xcuserdatad/xcschemes/xcschememanagement.plist
