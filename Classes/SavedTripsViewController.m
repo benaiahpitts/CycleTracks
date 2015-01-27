@@ -868,7 +868,7 @@
 	[[tripManager trip] setPayForParkingAmt:[tripAnswers objectForKey:@"payForParkingAmt"]];
 	[[tripManager trip] setTollAmt:[tripAnswers objectForKey:@"tollAmt"]];
 
-	[tripManager promptForTripNotes];
+	[tripManager saveTrip];
 }
 
 

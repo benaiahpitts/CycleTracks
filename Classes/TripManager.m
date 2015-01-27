@@ -465,6 +465,20 @@
 
 - (void)saveTrip
 {
+	// present UIAlertView "Saving..."
+	saving = [[UIAlertView alloc] initWithTitle:kSavingTitle
+										message:kConnecting
+									   delegate:nil
+							  cancelButtonTitle:nil
+							  otherButtonTitles:nil];
+	
+	NSLog(@"created saving dialog: %@", saving);
+	
+	[self createActivityIndicator];
+	[activityIndicator startAnimating];
+	[saving addSubview:activityIndicator];
+	[saving show];
+	
 	//NSLog(@"about to save trip with %d coords...", [coords count]);
 	[activityDelegate updateSavingMessage:kPreparingData];
 	NSLog(@"%@", trip);
