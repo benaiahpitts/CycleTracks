@@ -284,7 +284,7 @@
 	// Create and configure a new instance of the Coord entity
 	Coord *coord = (Coord *)[NSEntityDescription insertNewObjectForEntityForName:@"Coord" inManagedObjectContext:managedObjectContext];
 	
-	[coord setAltitude:[NSNumber numberWithDouble:location.altitude]];
+	[coord setAltitude:[NSNumber numberWithInt:location.altitude]];
 	[coord setLatitude:[NSNumber numberWithDouble:location.coordinate.latitude]];
 	[coord setLongitude:[NSNumber numberWithDouble:location.coordinate.longitude]];
 	
