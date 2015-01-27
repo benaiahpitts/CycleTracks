@@ -44,7 +44,7 @@
 {
 	NSString *title = [dataArray objectAtIndex:row];
 	if (textColor == nil) {
-		textColor= [UIColor blackColor];
+		textColor= [UIColor whiteColor];
 	}
 	NSAttributedString *attString = [[NSAttributedString alloc] initWithString:title attributes:@{NSForegroundColorAttributeName:textColor}];
 	

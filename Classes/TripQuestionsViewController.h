@@ -61,6 +61,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *parkingCost;
 @property (weak, nonatomic) IBOutlet UILabel *fareQuestion;
 @property (weak, nonatomic) IBOutlet UITextField *fareCost;
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
 
 @property (nonatomic, strong) TravelModePickerViewDataSource *tmDataSource;
 

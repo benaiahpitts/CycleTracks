@@ -38,7 +38,7 @@
 
 @synthesize customPickerView, customPickerDataSource, delegate, description;
 
-@synthesize accidentSegment, fareCost, fareQuestion, householdMembers,nonHouseholdMembers, parkingCost, parkingSegment, scrollView, tollCost, tollSegment, travelModePicker, tmDataSource;
+@synthesize accidentSegment, fareCost, fareQuestion, householdMembers,nonHouseholdMembers, parkingCost, parkingSegment, scrollView, tollCost, tollSegment, travelModePicker, tmDataSource, saveButton;
 
 
 // return the picker frame based on its size
@@ -160,7 +160,7 @@
 	}
     
     CGSize cg;
-    cg.height= fareCost.frame.size.height + fareCost.frame.origin.y + 20;
+    cg.height= saveButton.frame.size.height + saveButton.frame.origin.y + 20;
     cg.width= scrollView.frame.size.width;
     [scrollView setContentSize:cg];
 	
@@ -295,6 +295,25 @@
 				break;
 		}
 	}
+}
+
+#pragma mark UITextFieldDelegate Functions
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+	
+	UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarStyleBlack target:textField action:@selector(resignFirstResponder)];
+	[barButton setTitle:@"Done"];
+	UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+	UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+	toolbar.items = [NSArray arrayWithObjects: flex, barButton, nil];
+	
+	[toolbar setBarStyle:UIBarStyleBlack];
+	
+	[textField setInputAccessoryView:toolbar];
+	
+	//oldPosition= scrollView.contentOffset;
+	//[[self scrollView] setContentOffset:CGPointMake(0, textField.frame.origin.y) animated:YES];
+	
+	return YES;
 }
 
 

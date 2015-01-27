@@ -150,6 +150,7 @@
                         </label>
                         <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" continuous="NO" autorepeat="NO" maximumValue="7" translatesAutoresizingMaskIntoConstraints="NO" id="xMc-nq-c1U">
                             <rect key="frame" x="141" y="778" width="94" height="29"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="workTripStepperChanged:" destination="-1" eventType="valueChanged" id="su7-w4-YAQ"/>
                             </connections>
