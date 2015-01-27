@@ -67,13 +67,17 @@ const CGFloat kViewHeight = 44;
 	
 	yCoord = (self.bounds.size.height - MAIN_FONT_SIZE) / 2;
 	point = CGPointMake(10.0 + self.image.size.width + 10.0, yCoord);
-	[self.title drawAtPoint:point
+	
+	NSAttributedString *attString = [[NSAttributedString alloc] initWithString:title attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont systemFontOfSize:MAIN_FONT_SIZE]}];
+	
+	[attString drawAtPoint:point];
+	/*[self.title drawAtPoint:point
 					forWidth:self.bounds.size.width
 					withFont:[UIFont systemFontOfSize:MAIN_FONT_SIZE]
 					minFontSize:MIN_MAIN_FONT_SIZE
 					actualFontSize:NULL
 					lineBreakMode:NSLineBreakByTruncatingTail
-					baselineAdjustment:UIBaselineAdjustmentAlignBaselines];
+					baselineAdjustment:UIBaselineAdjustmentAlignBaselines];*/
 }
 
 

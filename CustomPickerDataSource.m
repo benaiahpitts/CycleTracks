@@ -98,7 +98,9 @@
 	//return [customPickerArray objectAtIndex:row];
 	CustomView *kview;
 	kview = [[CustomView alloc] initWithFrame:CGRectZero];
+	[kview setBackgroundColor:[UIColor blackColor]];
 	kview.title = [customPickerArrayText objectAtIndex:row];
+	//[[kview set
 	kview.image = [UIImage imageNamed:[customPickerArrayViews objectAtIndex:row]];
 	return kview;
 }

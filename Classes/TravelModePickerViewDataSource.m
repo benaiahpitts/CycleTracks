@@ -42,6 +42,14 @@
 	return [travelModes objectAtIndex:row];
 }
 
+- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+	NSAttributedString *attString = [[NSAttributedString alloc] initWithString:[travelModes objectAtIndex:row] attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+	
+	return attString;
+	
+}
+
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
 	[parent pickerView:pickerView didSelectRow:row inComponent:component];

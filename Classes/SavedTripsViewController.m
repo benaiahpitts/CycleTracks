@@ -162,6 +162,8 @@
 {
     [super viewDidLoad];
 	self.tableView.rowHeight = kRowHeight;
+	self.tableView.backgroundView= nil;
+	self.tableView.backgroundColor= [UIColor blackColor];
 
 	// Set up the buttons.
 	self.navigationItem.leftBarButtonItem = self.editButtonItem;
@@ -183,7 +185,9 @@
 	}
 	
 	// check for countUnSyncedTrips
-	else if ( [tripManager countUnSyncedTrips] )
+	// Let the user decide to act on unsynced trips when selecting
+	// Seems to be an error with this alert
+	/*else if ( [tripManager countUnSyncedTrips] )
 	{
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kUnsyncedTitle
 														message:kUnsyncedMessage
@@ -192,7 +196,7 @@
 											  otherButtonTitles:@"Upload Now", nil];
 		alert.tag = 303;
 		[alert show];
-	}
+	}*/
 	else
 		NSLog(@"no zero distance or unsynced trips found");
 	
@@ -336,6 +340,9 @@
 	if (cell == nil)
 	{
 		cell = [[TripCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
+		[cell setBackgroundColor:[UIColor blackColor]];
+		cell.textLabel.textColor=[UIColor whiteColor];
+		cell.detailTextLabel.textColor= [UIColor whiteColor];
 		cell.detailTextLabel.numberOfLines = 2;
 		if ( [reuseIdentifier  isEqual: kCellReuseIdentifierCheck] )
 		{
@@ -621,7 +628,16 @@
  - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-	return ( ![cell.reuseIdentifier  isEqual: kCellReuseIdentifierInProgress] );
+	Trip *tempTrip= (Trip *)[trips objectAtIndex:indexPath.row];
+		
+	// if trip is not in progress and hasn't been uploaded
+	if ( ![cell.reuseIdentifier  isEqual: kCellReuseIdentifierInProgress] && !tempTrip.uploaded)
+	{
+		// it can be deleted
+		return true;
+	}
+	// otherwise, no
+	return false;
 }
 
 
