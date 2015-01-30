@@ -36,7 +36,7 @@
 
 @implementation TripQuestionsViewController
 
-@synthesize customPickerView, customPickerDataSource, delegate, description;
+@synthesize customPickerView, customPickerDataSource, delegate, tripDescription;
 
 @synthesize accidentSegment, fareCost, fareQuestion, householdMembers,nonHouseholdMembers, parkingCost, parkingSegment, scrollView, tollCost, tollSegment, travelModePicker, tmDataSource, saveButton;
 
@@ -101,7 +101,7 @@
 {
 	// check that any required fields that can be left empty are not empty
 	
-	int travelByAnswer = [travelModePicker selectedRowInComponent:0];
+	long travelByAnswer = [travelModePicker selectedRowInComponent:0];
 	
 	NSString *householdAnswer= [householdMembers text];
 	NSString *nonhouseholdAnswer= [nonHouseholdMembers text];
@@ -256,8 +256,8 @@
 	
 	//description = [[UITextView alloc] initWithFrame:CGRectMake( 18.0, 280.0, 284.0, 130.0 )];
 	//description = [[UITextView alloc] initWithFrame:CGRectMake( 18.0, 314.0, 284.0, 120.0 )];
-	description.editable = NO;
-	description.font = [UIFont fontWithName:@"Arial" size:16];
+	tripDescription.editable = NO;
+	tripDescription.font = [UIFont fontWithName:@"Arial" size:16];
 	//[self.view addSubview:description];
 	[fareCost setText:@""];
 	[fareQuestion setHidden:YES];
@@ -312,29 +312,29 @@
 	else {
 		switch (row) {
 			case 0:
-				description.text = kDescCommute;
+				tripDescription.text = kDescCommute;
 				break;
 			case 1:
-				description.text = kDescSchool;
+				tripDescription.text = kDescSchool;
 				break;
 			case 2:
-				description.text = kDescWork;
+				tripDescription.text = kDescWork;
 				break;
 			case 3:
-				description.text = kDescExercise;
+				tripDescription.text = kDescExercise;
 				break;
 			case 4:
-				description.text = kDescSocial;
+				tripDescription.text = kDescSocial;
 				break;
 			case 5:
-				description.text = kDescShopping;
+				tripDescription.text = kDescShopping;
 				break;
 			case 6:
-				description.text = kDescErrand;
+				tripDescription.text = kDescErrand;
 				break;
 			case 7:
 			default:
-				description.text = kDescOther;
+				tripDescription.text = kDescOther;
 				break;
 		}
 	}

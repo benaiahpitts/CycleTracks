@@ -144,7 +144,9 @@
 	else {
 		WelcomeViewController *vc= [[WelcomeViewController alloc] initWithNibName:@"WelcomeViewController" bundle:nil];
 		UINavigationController *nav= [[UINavigationController alloc] initWithRootViewController:vc];
+		
 		[nav setNavigationBarHidden:NO];
+		[[nav navigationBar] setBarStyle:UIBarStyleBlack];
 	
 		[window setFrame:[[UIScreen mainScreen] bounds]];
 		[window setRootViewController:nav];

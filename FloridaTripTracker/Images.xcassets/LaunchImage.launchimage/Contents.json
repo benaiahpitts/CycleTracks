@@ -5,7 +5,7 @@
       "idiom" : "iphone",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
-      "filename" : "launch_640x960-2.png",
+      "filename" : "launch_640x960-1.png",
       "scale" : "2x"
     },
     {
@@ -75,28 +75,28 @@
       "orientation" : "portrait",
       "idiom" : "ipad",
       "extent" : "to-status-bar",
-      "filename" : "launch_768x1024-1.png",
+      "filename" : "launch_768x1004.png",
       "scale" : "1x"
     },
     {
       "orientation" : "landscape",
       "idiom" : "ipad",
       "extent" : "to-status-bar",
-      "filename" : "launch_1024x768-1.png",
+      "filename" : "launch_1024x748.png",
       "scale" : "1x"
     },
     {
       "orientation" : "portrait",
       "idiom" : "ipad",
       "extent" : "to-status-bar",
-      "filename" : "launch_1536x2048-1.png",
+      "filename" : "launch_1536x2008.png",
       "scale" : "2x"
     },
     {
       "orientation" : "landscape",
       "idiom" : "ipad",
       "extent" : "to-status-bar",
-      "filename" : "launch_2048x1536-1.png",
+      "filename" : "launch_2048x1496.png",
       "scale" : "2x"
     }
   ],

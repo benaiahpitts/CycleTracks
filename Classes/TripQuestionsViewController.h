@@ -48,7 +48,7 @@
 @property (nonatomic, strong) IBOutlet UIPickerView *customPickerView;
 @property (nonatomic, strong) CustomPickerDataSource *customPickerDataSource;
 
-@property (weak, nonatomic) IBOutlet UITextView *description;
+@property (weak, nonatomic) IBOutlet UITextView *tripDescription;
 //@property (nonatomic, strong) UITextView *description;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIPickerView *travelModePicker;
