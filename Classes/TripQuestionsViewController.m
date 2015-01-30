@@ -99,25 +99,68 @@
 
 - (IBAction)save:(id)sender
 {
-	NSInteger row = [customPickerView selectedRowInComponent:0];
-	NSMutableDictionary *tripAnswers= [[NSMutableDictionary alloc] init];
+	// check that any required fields that can be left empty are not empty
 	
-	[tripAnswers setObject:[delegate getPurposeString:(int)row] forKey:@"purpose"];
-	[tripAnswers setObject:[[travelModePicker delegate] pickerView:travelModePicker titleForRow:[travelModePicker selectedRowInComponent:0] forComponent:0] forKey:@"travelBy"];
-	[tripAnswers setObject:[NSNumber numberWithInt:[[householdMembers text] intValue]] forKey:@"members"];
-	[tripAnswers setObject:[NSNumber numberWithInt:[[nonHouseholdMembers text] intValue]] forKey:@"nonmembers"];
-	[tripAnswers setObject:[NSNumber numberWithFloat:[[tollCost text] floatValue]] forKey:@"tollAmt"];
-	[tripAnswers setObject:[NSNumber numberWithFloat:[[parkingCost text] floatValue]] forKey:@"payForParkingAmt"];
-	[tripAnswers setObject:[NSNumber numberWithFloat:[[fareCost text] floatValue]] forKey:@"fare"];
-	[tripAnswers setObject:(([accidentSegment selectedSegmentIndex] == 0) ? [NSNumber numberWithInt:0] : [NSNumber numberWithInt:1]) forKey:@"delays"];
-	[tripAnswers setObject:(([tollSegment selectedSegmentIndex] == 0) ? [NSNumber numberWithInt:0] : [NSNumber numberWithInt:1]) forKey:@"toll"];
-	[tripAnswers setObject:(([parkingSegment selectedSegmentIndex] == 0) ? [NSNumber numberWithInt:0] : [NSNumber numberWithInt:1]) forKey:@"payForParking"];
-	/*[tripAnswers setObject:(([accidentSegment selectedSegmentIndex] == 0) ? (@"NO") : (@"YES")) forKey:@"delays"];
-	[tripAnswers setObject:(([tollSegment selectedSegmentIndex] == 0) ? (@"NO") : (@"YES")) forKey:@"toll"];
-	[tripAnswers setObject:(([parkingSegment selectedSegmentIndex] == 0) ? (@"NO") : (@"YES")) forKey:@"payForParking"];*/
+	int travelByAnswer = [travelModePicker selectedRowInComponent:0];
+	
+	NSString *householdAnswer= [householdMembers text];
+	NSString *nonhouseholdAnswer= [nonHouseholdMembers text];
+	bool payTollAnswer=  ([tollSegment selectedSegmentIndex] == 1);
+	bool payParkAnswer= ([parkingSegment selectedSegmentIndex] == 1);
+	NSString *tollAmtAnswer= [tollCost text];
+	NSString *parkAmtAnswer= [parkingCost text];
+	NSString *fareAnswer= [fareCost text];
+	
+	NSString *errors= @"";
+	
+	if (householdAnswer.length == 0) {
+		errors= [errors stringByAppendingString:@"Please enter the number of household members.\n"];
+	}
+	if (nonhouseholdAnswer.length == 0) {
+		
+		errors= [errors stringByAppendingString:@"Please enter the number of nonhousehold members.\n"];
+	}
+	if (payTollAnswer && tollAmtAnswer.length == 0) {
+		errors= [errors stringByAppendingString:@"Please enter the cost of the toll.\n"];
+	}
+	if (payParkAnswer && parkAmtAnswer.length == 0) {
+		errors= [errors stringByAppendingString:@"Please enter the cost of parking.\n"];
+	}
+	if (travelByAnswer == 1 && fareAnswer.length == 0) {
+		errors= [errors stringByAppendingString:@"Please enter the amount of the fare.\n"];
+	}
+	
+	if (errors.length == 0) {
+		NSInteger row = [customPickerView selectedRowInComponent:0];
+		NSMutableDictionary *tripAnswers= [[NSMutableDictionary alloc] init];
+	
+		[tripAnswers setObject:[delegate getPurposeString:(int)row] forKey:@"purpose"];
+		[tripAnswers setObject:[[travelModePicker delegate] pickerView:travelModePicker titleForRow:[travelModePicker selectedRowInComponent:0] forComponent:0] forKey:@"travelBy"];
+		[tripAnswers setObject:[NSNumber numberWithInt:[[householdMembers text] intValue]] forKey:@"members"];
+		[tripAnswers setObject:[NSNumber numberWithInt:[[nonHouseholdMembers text] intValue]] forKey:@"nonmembers"];
+		[tripAnswers setObject:[NSNumber numberWithFloat:[[tollCost text] floatValue]] forKey:@"tollAmt"];
+		[tripAnswers setObject:[NSNumber numberWithFloat:[[parkingCost text] floatValue]] forKey:@"payForParkingAmt"];
+		[tripAnswers setObject:[NSNumber numberWithFloat:[[fareCost text] floatValue]] forKey:@"fare"];
+		[tripAnswers setObject:(([accidentSegment selectedSegmentIndex] == 0) ? [NSNumber numberWithInt:0] : [NSNumber numberWithInt:1]) forKey:@"delays"];
+		[tripAnswers setObject:(([tollSegment selectedSegmentIndex] == 0) ? [NSNumber numberWithInt:0] : [NSNumber numberWithInt:1]) forKey:@"toll"];
+		[tripAnswers setObject:(([parkingSegment selectedSegmentIndex] == 0) ? [NSNumber numberWithInt:0] : [NSNumber numberWithInt:1]) forKey:@"payForParking"];
+		/*[tripAnswers setObject:(([accidentSegment selectedSegmentIndex] == 0) ? (@"NO") : (@"YES")) forKey:@"delays"];
+		[tripAnswers setObject:(([tollSegment selectedSegmentIndex] == 0) ? (@"NO") : (@"YES")) forKey:@"toll"];
+		[tripAnswers setObject:(([parkingSegment selectedSegmentIndex] == 0) ? (@"NO") : (@"YES")) forKey:@"payForParking"];*/
+		
+		[delegate didPickPurpose: tripAnswers];
+	}
+	
+	else {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Information!"
+														message:errors
+													   delegate:self
+											  cancelButtonTitle:@"OK"
+											  otherButtonTitles:nil];
+		[alert show];
+	}
 	
 	
-	[delegate didPickPurpose: tripAnswers];
 }
 
 - (IBAction)backgroundTouched:(id)sender {

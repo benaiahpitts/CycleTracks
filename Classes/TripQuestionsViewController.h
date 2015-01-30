@@ -34,7 +34,7 @@
 @class TravelModePickerViewDataSource;
 
 
-@interface TripQuestionsViewController : UIViewController <UIPickerViewDelegate, UIScrollViewDelegate, UITextFieldDelegate>
+@interface TripQuestionsViewController : UIViewController <UIPickerViewDelegate, UIScrollViewDelegate, UITextFieldDelegate, UIAlertViewDelegate>
 {
 	id <TripPurposeDelegate> delegate;
 	UIPickerView			*customPickerView;
