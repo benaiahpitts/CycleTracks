@@ -45,18 +45,20 @@
 		// create the data source for this custom picker
 
 		/*
-		 * Commute
-		 * School
-		 * Work-Related
-		 * Exercise
-		 * Social
-		 * Shopping
-		 * Errand
-		 * Other
+			Home
+			My Work
+			Recreation
+			Shopping/Errands
+			Friend's or relative's home
+			Meal/Dining Out
+			School
+			College
+			Preschool/Daycare
+			Other
 		 */
-		customPickerArrayText = [[NSArray alloc] initWithObjects:@"Commute", @"School",@"Work-Related",@"Exercise",@"Social", @"Shopping", @"Errand", @"Other", nil];
+		customPickerArrayText = [[NSArray alloc] initWithObjects:kTripPurposeHomeString, kTripPurposeWorkString, kTripPurposeRecreationString, kTripPurposeShoppingString,kTripPurposeSocialString, kTripPurposeMealString, kTripPurposeSchoolString, kTripPurposeCollegeString, kTripPurposeDaycareString, kTripPurposeOtherString, nil];
 		
-		customPickerArrayViews = [[NSArray alloc] initWithObjects:kTripPurposeCommuteIcon, kTripPurposeSchoolIcon, kTripPurposeWorkIcon, kTripPurposeExerciseIcon, kTripPurposeSocialIcon, kTripPurposeShoppingIcon,kTripPurposeErrandIcon, kTripPurposeOtherIcon,nil];
+		customPickerArrayViews = [[NSArray alloc] initWithObjects:kTripPurposeHomeIcon, kTripPurposeWorkIcon, kTripPurposeRecreationIcon, kTripPurposeShoppingIcon,kTripPurposeSocialIcon, kTripPurposeMealIcon, kTripPurposeSchoolIcon, kTripPurposeCollegeIcon, kTripPurposeDaycareIcon, kTripPurposeOtherIcon,nil];
 		
 	}
 	return self;

@@ -29,32 +29,38 @@
 //	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
 
 
-#define kTripPurposeCommute		0
-#define kTripPurposeSchool		1
-#define kTripPurposeWork		2
-#define kTripPurposeExercise	3
+#define kTripPurposeHome		0
+#define kTripPurposeWork		1
+#define kTripPurposeRecreation	2
+#define kTripPurposeShopping	3
 #define kTripPurposeSocial		4
-#define kTripPurposeShopping	5
-#define kTripPurposeErrand		6
-#define kTripPurposeOther		7
+#define kTripPurposeMeal		5
+#define kTripPurposeSchool		6
+#define kTripPurposeCollege		7
+#define kTripPurposeDaycare		8
+#define kTripPurposeOther		9
 
-#define kTripPurposeCommuteIcon		@"commuter2.png"
-#define kTripPurposeSchoolIcon		@"school.png"
+#define kTripPurposeHomeIcon		@"other.png"
 #define kTripPurposeWorkIcon		@"work-related.png"
-#define kTripPurposeExerciseIcon	@"exercise.png"
-#define kTripPurposeSocialIcon		@"social.png"
+#define kTripPurposeRecreationIcon	@"exercise.png"
 #define kTripPurposeShoppingIcon	@"shopping.png"
-#define kTripPurposeErrandIcon		@"errands.png"
+#define kTripPurposeSocialIcon		@"social.png"
+#define kTripPurposeMealIcon		@"other.png"
+#define kTripPurposeSchoolIcon		@"school.png"
+#define kTripPurposeCollegeIcon		@"school.png"
+#define kTripPurposeDaycareIcon		@"other.png"
 #define kTripPurposeOtherIcon		@"other.png"
 
-#define kTripPurposeCommuteString	@"Commute"
-#define kTripPurposeSchoolString	@"School"
-#define kTripPurposeWorkString		@"Work-Related"
-#define kTripPurposeExerciseString	@"Exercise"
-#define kTripPurposeSocialString	@"Social"
-#define kTripPurposeShoppingString	@"Shopping"
-#define kTripPurposeErrandString	@"Errand"
-#define kTripPurposeOtherString		@"Other"
+#define kTripPurposeHomeString			@"My home"
+#define kTripPurposeWorkString			@"My work"
+#define kTripPurposeRecreationString	@"Recreation"
+#define kTripPurposeShoppingString		@"Shopping/Errands"
+#define kTripPurposeSocialString		@"Friend or relative's home"
+#define kTripPurposeMealString			@"Meal/Dining Out"
+#define kTripPurposeSchoolString		@"School"
+#define kTripPurposeCollegeString		@"College"
+#define kTripPurposeDaycareString		@"Preschool/Daycare"
+#define kTripPurposeOtherString			@"Other"
 
 
 @protocol TripPurposeDelegate <NSObject>

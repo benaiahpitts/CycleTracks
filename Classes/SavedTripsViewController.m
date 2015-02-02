@@ -436,26 +436,33 @@
 		
 		// add purpose icon
 		switch ( index ) {
-			case kTripPurposeCommute:
-				image = [UIImage imageNamed:kTripPurposeCommuteIcon];
-				break;
-			case kTripPurposeSchool:
-				image = [UIImage imageNamed:kTripPurposeSchoolIcon];
+				
+			case kTripPurposeHome:
+				image = [UIImage imageNamed:kTripPurposeHomeIcon];
 				break;
 			case kTripPurposeWork:
 				image = [UIImage imageNamed:kTripPurposeWorkIcon];
 				break;
-			case kTripPurposeExercise:
-				image = [UIImage imageNamed:kTripPurposeExerciseIcon];
-				break;
-			case kTripPurposeSocial:
-				image = [UIImage imageNamed:kTripPurposeSocialIcon];
+			case kTripPurposeRecreation:
+				image = [UIImage imageNamed:kTripPurposeRecreationIcon];
 				break;
 			case kTripPurposeShopping:
 				image = [UIImage imageNamed:kTripPurposeShoppingIcon];
 				break;
-			case kTripPurposeErrand:
-				image = [UIImage imageNamed:kTripPurposeErrandIcon];
+			case kTripPurposeSocial:
+				image = [UIImage imageNamed:kTripPurposeSocialIcon];
+				break;
+			case kTripPurposeMeal:
+				image = [UIImage imageNamed:kTripPurposeMealIcon];
+				break;
+			case kTripPurposeSchool:
+				image = [UIImage imageNamed:kTripPurposeSchoolIcon];
+				break;
+			case kTripPurposeCollege:
+				image = [UIImage imageNamed:kTripPurposeCollegeIcon];
+				break;
+			case kTripPurposeDaycare:
+				image = [UIImage imageNamed:kTripPurposeDaycareIcon];
 				break;
 			case kTripPurposeOther:
 				image = [UIImage imageNamed:kTripPurposeOtherIcon];

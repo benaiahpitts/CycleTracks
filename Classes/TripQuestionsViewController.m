@@ -38,7 +38,7 @@
 
 @synthesize customPickerView, customPickerDataSource, delegate, tripDescription;
 
-@synthesize accidentSegment, fareCost, fareQuestion, householdMembers,nonHouseholdMembers, parkingCost, parkingSegment, scrollView, tollCost, tollSegment, travelModePicker, tmDataSource, saveButton;
+@synthesize accidentSegment, fareCost, fareQuestion, householdMembers,nonHouseholdMembers, parkingCost, parkingSegment, scrollView, tollCost, tollSegment, travelModePicker, tmDataSource, saveButton, otherTripPurposeText;
 
 
 // return the picker frame based on its size
@@ -102,7 +102,9 @@
 	// check that any required fields that can be left empty are not empty
 	
 	long travelByAnswer = [travelModePicker selectedRowInComponent:0];
+	long purposeAnswer= [customPickerView selectedRowInComponent:0];
 	
+	NSString *otherText= [otherTripPurposeText text];
 	NSString *householdAnswer= [householdMembers text];
 	NSString *nonhouseholdAnswer= [nonHouseholdMembers text];
 	bool payTollAnswer=  ([tollSegment selectedSegmentIndex] == 1);
@@ -113,6 +115,9 @@
 	
 	NSString *errors= @"";
 	
+	if (purposeAnswer == kTripPurposeOther && otherText.length == 0) {
+		errors= [errors stringByAppendingString:@"Please type in your trip purpose.\n"];
+	}
 	if (householdAnswer.length == 0) {
 		errors= [errors stringByAppendingString:@"Please enter the number of household members.\n"];
 	}
@@ -134,7 +139,12 @@
 		NSInteger row = [customPickerView selectedRowInComponent:0];
 		NSMutableDictionary *tripAnswers= [[NSMutableDictionary alloc] init];
 	
-		[tripAnswers setObject:[delegate getPurposeString:(int)row] forKey:@"purpose"];
+		if (purposeAnswer == kTripPurposeOther) {
+			[tripAnswers setObject:otherText forKey:@"purpose"];
+		}
+		else {
+			[tripAnswers setObject:[delegate getPurposeString:(int)row] forKey:@"purpose"];
+		}
 		[tripAnswers setObject:[[travelModePicker delegate] pickerView:travelModePicker titleForRow:[travelModePicker selectedRowInComponent:0] forComponent:0] forKey:@"travelBy"];
 		[tripAnswers setObject:[NSNumber numberWithInt:[[householdMembers text] intValue]] forKey:@"members"];
 		[tripAnswers setObject:[NSNumber numberWithInt:[[nonHouseholdMembers text] intValue]] forKey:@"nonmembers"];
@@ -215,6 +225,7 @@
 	// hide conditional fields
 	[parkingCost setHidden:YES];
 	[tollCost setHidden:YES];
+	[otherTripPurposeText setHidden:YES];
 	
 	return self;
 }
@@ -311,30 +322,56 @@
 	}
 	else {
 		switch (row) {
+				
 			case 0:
-				tripDescription.text = kDescCommute;
+				tripDescription.text = kDescHome;
+				[otherTripPurposeText setText:@""];
+				[otherTripPurposeText setHidden:YES];
 				break;
 			case 1:
-				tripDescription.text = kDescSchool;
+				tripDescription.text = kDescWork;
+				[otherTripPurposeText setText:@""];
+				[otherTripPurposeText setHidden:YES];
 				break;
 			case 2:
-				tripDescription.text = kDescWork;
+				tripDescription.text = kDescRecreation;
+				[otherTripPurposeText setText:@""];
+				[otherTripPurposeText setHidden:YES];
 				break;
 			case 3:
-				tripDescription.text = kDescExercise;
+				tripDescription.text = kDescShopping;
+				[otherTripPurposeText setText:@""];
+				[otherTripPurposeText setHidden:YES];
 				break;
 			case 4:
 				tripDescription.text = kDescSocial;
+				[otherTripPurposeText setText:@""];
+				[otherTripPurposeText setHidden:YES];
 				break;
 			case 5:
-				tripDescription.text = kDescShopping;
+				tripDescription.text = kDescMeal;
+				[otherTripPurposeText setText:@""];
+				[otherTripPurposeText setHidden:YES];
 				break;
 			case 6:
-				tripDescription.text = kDescErrand;
+				tripDescription.text = kDescSchool;
+				[otherTripPurposeText setText:@""];
+				[otherTripPurposeText setHidden:YES];
 				break;
 			case 7:
+				tripDescription.text = kDescCollege;
+				[otherTripPurposeText setText:@""];
+				[otherTripPurposeText setHidden:YES];
+				break;
+			case 8:
+				tripDescription.text = kDescDaycare;
+				[otherTripPurposeText setText:@""];
+				[otherTripPurposeText setHidden:YES];
+				break;
+			case 9:
 			default:
 				tripDescription.text = kDescOther;
+				[otherTripPurposeText setHidden:NO];
 				break;
 		}
 	}

@@ -1127,20 +1127,36 @@
 
 + (unsigned int)getPurposeIndex:(NSString*)string
 {
-	if ( [string isEqualToString:kTripPurposeCommuteString] )
-		return kTripPurposeCommute;
-	else if ( [string isEqualToString:kTripPurposeSchoolString] )
-		return kTripPurposeSchool;
+	/*
+	 #define #define kTripPurposeHome		0
+	 #define kTripPurposeWork		1
+	 #define kTripPurposeRecreation	2
+	 #define kTripPurposeShopping	3
+	 #define kTripPurposeSocial		4
+	 #define kTripPurposeMeal		5
+	 #define kTripPurposeSchool		6
+	 #define kTripPurposeCollege		7
+	 #define kTripPurposeDaycare		8
+	 #define kTripPurposeOther
+	 */
+	if ( [string isEqualToString:kTripPurposeHomeString] )
+		return kTripPurposeHome;
 	else if ( [string isEqualToString:kTripPurposeWorkString] )
 		return kTripPurposeWork;
-	else if ( [string isEqualToString:kTripPurposeExerciseString] )
-		return kTripPurposeExercise;
-	else if ( [string isEqualToString:kTripPurposeSocialString] )
-		return kTripPurposeSocial;
+	else if ( [string isEqualToString:kTripPurposeRecreationString] )
+		return kTripPurposeRecreation;
 	else if ( [string isEqualToString:kTripPurposeShoppingString] )
 		return kTripPurposeShopping;
-	else if ( [string isEqualToString:kTripPurposeErrandString] )
-		return kTripPurposeErrand;
+	else if ( [string isEqualToString:kTripPurposeSocialString] )
+		return kTripPurposeSocial;
+	else if ( [string isEqualToString:kTripPurposeMealString] )
+		return kTripPurposeMeal;
+	else if ( [string isEqualToString:kTripPurposeSchoolString] )
+		return kTripPurposeSchool;
+	else if ( [string isEqualToString:kTripPurposeCollegeString] )
+		return kTripPurposeCollege;
+	else if ( [string isEqualToString:kTripPurposeDaycareString] )
+		return kTripPurposeDaycare;
 	//	else if ( [string isEqualToString:kTripPurposeOtherString] )
 	else
 		return kTripPurposeOther;
@@ -1149,30 +1165,36 @@
 + (NSString *)getPurposeString:(unsigned int)index
 {
 	switch (index) {
-		case kTripPurposeCommute:
-			return @"Commute";
-			break;
-		case kTripPurposeSchool:
-			return @"School";
+		case kTripPurposeHome:
+			return kTripPurposeHomeString;
 			break;
 		case kTripPurposeWork:
-			return @"Work-Related";
+			return kTripPurposeWorkString;
 			break;
-		case kTripPurposeExercise:
-			return @"Exercise";
-			break;
-		case kTripPurposeSocial:
-			return @"Social";
+		case kTripPurposeRecreation:
+			return kTripPurposeRecreationString;
 			break;
 		case kTripPurposeShopping:
-			return @"Shopping";
+			return kTripPurposeShoppingString;
 			break;
-		case kTripPurposeErrand:
-			return @"Errand";
+		case kTripPurposeSocial:
+			return kTripPurposeSocialString;
+			break;
+		case kTripPurposeMeal:
+			return kTripPurposeMealString;
+			break;
+		case kTripPurposeSchool:
+			return kTripPurposeSchoolString;
+			break;
+		case kTripPurposeCollege:
+			return kTripPurposeCollegeString;
+			break;
+		case kTripPurposeDaycare:
+			return kTripPurposeDaycareString;
 			break;
 		case kTripPurposeOther:
 		default:
-			return @"Other";
+			return kTripPurposeOtherString;
 			break;
 	}
 }

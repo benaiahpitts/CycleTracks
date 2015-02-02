@@ -71,7 +71,7 @@
 #define kConnecting			@"Contacting server..."
 #define kPreparingData		@"Preparing your trip data for transfer."
 #define kRetryMessage		@"This trip has not yet been uploaded successfully. Try again?"
-#define kSaveSuccess		@"Your trip has been uploaded successfully. Thank you."
+#define kSaveSuccess		@"Your trip has been uploaded successfully. Thank you. If you are finished with your trips today, close the app."
 #define kSaveAccepted		@"Your trip has already been uploaded. Thank you."
 #define kSaveError			@"Your trip has been saved. Please try uploading again later."
 

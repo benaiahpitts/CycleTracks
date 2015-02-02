@@ -51,6 +51,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *tripDescription;
 //@property (nonatomic, strong) UITextView *description;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UITextField *otherTripPurposeText;
 @property (weak, nonatomic) IBOutlet UIPickerView *travelModePicker;
 @property (weak, nonatomic) IBOutlet UITextField *householdMembers;
 @property (weak, nonatomic) IBOutlet UITextField *nonHouseholdMembers;
