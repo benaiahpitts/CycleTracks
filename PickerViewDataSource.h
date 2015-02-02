@@ -10,11 +10,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PickerViewDataSourceParent.h"
 
 @interface PickerViewDataSource : NSObject <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property NSMutableArray *dataArray;
 @property UIColor *textColor;
+@property id<PickerViewDataSourceParent> parent;
 
 - initWithArray:(NSArray *)array;
 

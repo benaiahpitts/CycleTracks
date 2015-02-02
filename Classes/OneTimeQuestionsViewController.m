@@ -18,9 +18,9 @@
 
 @implementation OneTimeQuestionsViewController
 
-@synthesize agePicker, disabledPassSwitch, empFullTimeSwitch, empHomeMakerSwitch, empPartTimeSwitch, empPartYearSwitch, empRetiredSwitch, empSelfEmployedSwitch, empUnemployedSwitch, empWorkAtHomeSwitch, gender, licenseSwitch, studentStatusPicker, studentStatusLabel, studentSwitch, transitPassSwitch, workTripNumber, workTripStepper;
+@synthesize agePicker, gender, studentStatusPicker, studentStatusLabel, workTripNumber, workTripStepper, disabledPassSegment, fiveMonthSegment, fullTimeSegment, homemakerSegment, licenseSegment, partTimeSegment, retiredSegment, selfEmployedSegment, studentSegment, transitPassSegment, unemployedSegment, workAtHomeSegment;
 @synthesize scrollView;
-@synthesize agePickerDataSource, studentStatusPickerDataSource, test;
+@synthesize agePickerDataSource, studentStatusPickerDataSource;
 @synthesize managedContext;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -51,7 +51,8 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	// Do any additional setup after loading the view from its nib.
-	
+	UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"FDOT"]]];
+	self.navigationItem.rightBarButtonItem = item;
 	
 	/*[scrollView setFrame:[[UIScreen mainScreen] bounds]];
 	CGSize cg;
@@ -62,6 +63,7 @@
 	NSLog(@"content height %f, frame height: %f",cg.height,scrollView.frame.size.height);*/
 	
 	agePickerDataSource= [[PickerViewDataSource alloc] initWithArray:[[NSArray alloc] initWithObjects:@"0-4", @"5-15", @"16-21", @"22-49", @"50-64", @"65 or older", nil]];
+	agePickerDataSource.parent= self;
 	agePicker.dataSource= agePickerDataSource;
 	agePicker.delegate= agePickerDataSource;
 	
@@ -98,18 +100,18 @@
 - (void)loadUserSettings {
 	User *user= [self getNewOrExistingUser];
 	
-	[empFullTimeSwitch setOn:[[user empFullTime] boolValue]];
-	[empHomeMakerSwitch setOn:[[user empHomemaker] boolValue]];
-	[empPartYearSwitch setOn:[[user empLess5Months] boolValue]];
-	[empPartTimeSwitch setOn:[[user empPartTime] boolValue]];
-	[empRetiredSwitch setOn:[[user empRetired] boolValue]];
-	[empSelfEmployedSwitch setOn:[[user empSelfEmployed] boolValue]];
-	[empUnemployedSwitch setOn:[[user empUnemployed] boolValue]];
-	[empWorkAtHomeSwitch setOn:[[user empWorkAtHome] boolValue]];
-	[disabledPassSwitch setOn:[[user hasADisabledParkingPass] boolValue]];
-	[licenseSwitch setOn:[[user hasADriversLicense] boolValue]];
-	[transitPassSwitch setOn:[[user hasATransitPass] boolValue]];
-	[studentSwitch setOn:[[user isAStudent] boolValue]];
+	[fullTimeSegment setSelectedSegmentIndex:[[user empFullTime] intValue]];
+	[homemakerSegment setSelectedSegmentIndex:[[user empHomemaker] intValue]];
+	[fiveMonthSegment setSelectedSegmentIndex:[[user empLess5Months]intValue]];
+	[partTimeSegment setSelectedSegmentIndex:[[user empPartTime]intValue]];
+	[retiredSegment setSelectedSegmentIndex:[[user empRetired]intValue]];
+	[selfEmployedSegment setSelectedSegmentIndex:[[user empSelfEmployed]intValue]];
+	[unemployedSegment setSelectedSegmentIndex:[[user empUnemployed]intValue]];
+	[workAtHomeSegment setSelectedSegmentIndex:[[user empWorkAtHome]intValue]];
+	[disabledPassSegment setSelectedSegmentIndex:[[user hasADisabledParkingPass]intValue]];
+	[licenseSegment setSelectedSegmentIndex:[[user hasADriversLicense]intValue]];
+	[transitPassSegment setSelectedSegmentIndex:[[user hasATransitPass]intValue]];
+	[studentSegment setSelectedSegmentIndex:[[user isAStudent]intValue]];
 	
 	[workTripNumber setText:[[user numWorkTrips] stringValue]];
 	
@@ -153,18 +155,67 @@
 	[workTripNumber setText:[NSString stringWithFormat:@"%d",(int)[workTripStepper value]]];
 }
 
-- (IBAction)studentSwitchChanged:(id)sender {
-	if ([studentSwitch isOn]) {
+- (IBAction)studentSegmentChanged:(id)sender {
+	if ([studentSegment selectedSegmentIndex] == 1) {
 		[studentStatusLabel setTextColor:[UIColor blackColor]];
 		[studentStatusPicker setUserInteractionEnabled:YES];
 		PickerViewDataSource *ds= (PickerViewDataSource *)[studentStatusPicker delegate];
-		[ds setTextColor:[UIColor blackColor]];
+		[ds setTextColor:[UIColor whiteColor]];
 	}
 	else {
 		[studentStatusLabel setTextColor:[UIColor grayColor]];
 		[studentStatusPicker setUserInteractionEnabled:NO];
 		PickerViewDataSource *ds= (PickerViewDataSource *)[studentStatusPicker delegate];
 		[ds setTextColor:[UIColor grayColor]];
+	}
+}
+
+#pragma mark UIPickerViewDelegate
+
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+	if (pickerView == agePicker) {
+		if (row < 2) {
+			[fullTimeSegment setSelectedSegmentIndex:0];
+			[partTimeSegment setSelectedSegmentIndex:0];
+			[fiveMonthSegment setSelectedSegmentIndex:0];
+			[unemployedSegment setSelectedSegmentIndex:0];
+			[retiredSegment setSelectedSegmentIndex:0];
+			[workAtHomeSegment setSelectedSegmentIndex:0];
+			[homemakerSegment setSelectedSegmentIndex:0];
+			[selfEmployedSegment setSelectedSegmentIndex:0];
+			[licenseSegment setSelectedSegmentIndex:0];
+			[fullTimeSegment setEnabled:NO];
+			[partTimeSegment setEnabled:NO];
+			[fiveMonthSegment setEnabled:NO];
+			[unemployedSegment setEnabled:NO];
+			[retiredSegment setEnabled:NO];
+			[workAtHomeSegment setEnabled:NO];
+			[homemakerSegment setEnabled:NO];
+			[selfEmployedSegment setEnabled:NO];
+			[licenseSegment setEnabled:NO];
+		}
+		
+		else {
+			[fullTimeSegment setSelectedSegmentIndex:UISegmentedControlNoSegment];
+			[partTimeSegment setSelectedSegmentIndex:UISegmentedControlNoSegment];
+			[fiveMonthSegment setSelectedSegmentIndex:UISegmentedControlNoSegment];
+			[unemployedSegment setSelectedSegmentIndex:UISegmentedControlNoSegment];
+			[retiredSegment setSelectedSegmentIndex:UISegmentedControlNoSegment];
+			[workAtHomeSegment setSelectedSegmentIndex:UISegmentedControlNoSegment];
+			[homemakerSegment setSelectedSegmentIndex:UISegmentedControlNoSegment];
+			[selfEmployedSegment setSelectedSegmentIndex:UISegmentedControlNoSegment];
+			[licenseSegment setSelectedSegmentIndex:UISegmentedControlNoSegment];
+			[fullTimeSegment setEnabled:YES];
+			[partTimeSegment setEnabled:YES];
+			[fiveMonthSegment setEnabled:YES];
+			[unemployedSegment setEnabled:YES];
+			[retiredSegment setEnabled:YES];
+			[workAtHomeSegment setEnabled:YES];
+			[homemakerSegment setEnabled:YES];
+			[selfEmployedSegment setEnabled:YES];
+			[licenseSegment setEnabled:YES];
+		}
 	}
 }
 
@@ -215,7 +266,81 @@
 	User *user= [self getNewOrExistingUser];
 	if ( user != nil )
 	{
-		[user setAge:[[agePicker delegate] pickerView:agePicker titleForRow:[agePicker selectedRowInComponent:0] forComponent:0]];
+		NSString *errors= @"";
+		
+		if ([gender selectedSegmentIndex] == UISegmentedControlNoSegment) {
+			errors= [errors stringByAppendingString:@"Please select a gender.\n"];
+		}
+		if ([fullTimeSegment selectedSegmentIndex] == UISegmentedControlNoSegment) {
+			errors= [errors stringByAppendingString:@"Please select whether you work full-time.\n"];
+		}
+		if ([partTimeSegment selectedSegmentIndex] == UISegmentedControlNoSegment) {
+			errors= [errors stringByAppendingString:@"Please select whether you work part-time.\n"];
+		}
+		if ([fiveMonthSegment selectedSegmentIndex] == UISegmentedControlNoSegment) {
+			errors= [errors stringByAppendingString:@"Please select whether you work less than 5 months or not.\n"];
+		}
+		if ([unemployedSegment selectedSegmentIndex] == UISegmentedControlNoSegment) {
+			errors= [errors stringByAppendingString:@"Please select whether you are unemployed or not.\n"];
+		}
+		if ([retiredSegment selectedSegmentIndex] == UISegmentedControlNoSegment) {
+			errors= [errors stringByAppendingString:@"Please select whether you are retired or not.\n"];
+		}
+		if ([workAtHomeSegment selectedSegmentIndex] == UISegmentedControlNoSegment) {
+			errors= [errors stringByAppendingString:@"Please select whether you work at home or not.\n"];
+		}
+		if ([homemakerSegment selectedSegmentIndex] == UISegmentedControlNoSegment) {
+			errors= [errors stringByAppendingString:@"Please select you are a homemaker or not.\n"];
+		}
+		if ([selfEmployedSegment selectedSegmentIndex] == UISegmentedControlNoSegment) {
+			errors= [errors stringByAppendingString:@"Please select whether you are self-employed or not.\n"];
+		}
+		if ([studentSegment selectedSegmentIndex] == UISegmentedControlNoSegment) {
+			errors= [errors stringByAppendingString:@"Please select whether you are a student or not.\n"];
+		}
+		if ([licenseSegment selectedSegmentIndex] == UISegmentedControlNoSegment) {
+			errors= [errors stringByAppendingString:@"Please select whether you have a personal driver's license or not.\n"];
+		}
+		if ([transitPassSegment selectedSegmentIndex] == UISegmentedControlNoSegment) {
+			errors= [errors stringByAppendingString:@"Please select whether you have a transit pass or not.\n"];
+		}
+		if ([disabledPassSegment selectedSegmentIndex] == UISegmentedControlNoSegment) {
+			errors= [errors stringByAppendingString:@"Please select whether you have a disabled parking pass or not.\n"];
+		}
+		
+		if (errors.length == 0) {
+			
+			[user setAge:[[agePicker delegate] pickerView:agePicker titleForRow:[agePicker selectedRowInComponent:0] forComponent:0]];
+			[user setGender: ([gender selectedSegmentIndex] == 0) ? (@"M") : (@"F")];
+			[user setNumWorkTrips:[NSNumber numberWithInt:[[workTripNumber text] intValue]]];
+			
+			[user setEmpFullTime:[NSNumber numberWithInt:[fullTimeSegment selectedSegmentIndex]]];
+			[user setEmpHomemaker:[NSNumber numberWithInt:[homemakerSegment selectedSegmentIndex]]];
+			[user setEmpLess5Months:[NSNumber numberWithInt:[fiveMonthSegment selectedSegmentIndex]]];
+			[user setEmpPartTime:[NSNumber numberWithInt:[partTimeSegment selectedSegmentIndex]]];
+			[user setEmpRetired:[NSNumber numberWithInt:[retiredSegment selectedSegmentIndex]]];
+			[user setEmpSelfEmployed:[NSNumber numberWithInt:[selfEmployedSegment selectedSegmentIndex]]];
+			[user setEmpUnemployed:[NSNumber numberWithInt:[unemployedSegment selectedSegmentIndex]]];
+			[user setEmpWorkAtHome:[NSNumber numberWithInt:[workAtHomeSegment selectedSegmentIndex]]];
+			[user setHasADisabledParkingPass:[NSNumber numberWithInt:[disabledPassSegment selectedSegmentIndex]]];
+			[user setHasADriversLicense:[NSNumber numberWithInt:[licenseSegment selectedSegmentIndex]]];
+			[user setHasATransitPass:[NSNumber numberWithInt:[transitPassSegment selectedSegmentIndex]]];
+			[user setIsAStudent:[NSNumber numberWithInt:[studentSegment selectedSegmentIndex]]];
+			
+			
+			FloridaTripTrackerAppDelegate *delegate= [[UIApplication sharedApplication] delegate];
+			[delegate createMainView];
+			[managedContext save:nil];
+		}
+		
+		else {
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Information!"
+															message:errors
+														   delegate:self
+												  cancelButtonTitle:@"OK"
+												  otherButtonTitles:nil];
+			[alert show];
+		}
 		//value = (expression) ? (if true) : (if false);
 		/*[user setEmpFullTime: ([empFullTimeSwitch isOn]) ? (@"YES") : (@"NO")];
 		[user setEmpHomemaker: ([empHomeMakerSwitch isOn]) ? (@"YES") : (@"NO")];
@@ -226,14 +351,14 @@
 		[user setEmpUnemployed: ([empUnemployedSwitch isOn]) ? (@"YES") : (@"NO")];
 		[user setEmpWorkAtHome: ([empWorkAtHomeSwitch isOn]) ? (@"YES") : (@"NO")];*/
 		
-		[user setGender: ([gender selectedSegmentIndex] == 0) ? (@"M") : (@"F")];
+		
 		/*[user setHasADisabledParkingPass: ([disabledPassSwitch isOn]) ? (@"YES") : (@"NO")];
 		[user setHasADriversLicense: ([licenseSwitch isOn]) ? (@"YES") : (@"NO")];
 		[user setHasATransitPass: ([transitPassSwitch isOn]) ? (@"YES") : (@"NO")];
 		[user setIsAStudent: ([studentSwitch isOn]) ? (@"YES") : (@"NO")];*/
 		
-		[user setNumWorkTrips:[NSNumber numberWithInt:[[workTripNumber text] intValue]]];
-		if ([studentSwitch isOn]) {
+		
+		/*if ([studentSwitch isOn]) {
 			[user setStudentStatus:[[studentStatusPicker delegate] pickerView:studentStatusPicker titleForRow:[studentStatusPicker selectedRowInComponent:0] forComponent:0]];
 		}
 		else [user setStudentStatus:@"N/A"];
@@ -246,23 +371,12 @@
 		[user setEmpSelfEmployed:[NSNumber numberWithBool:[empSelfEmployedSwitch isOn]]];
 		[user setEmpUnemployed:[NSNumber numberWithBool:[empUnemployedSwitch isOn]]];
 		[user setEmpWorkAtHome:[NSNumber numberWithBool:[empWorkAtHomeSwitch isOn]]];
-		/*
-		if (gender.selectedSegmentIndex == 0) {
-			[user setGender:@"M"];
-		}
-		else
-			[user setGender:@"F"];
-		*/
 		[user setHasADisabledParkingPass:[NSNumber numberWithBool:[disabledPassSwitch isOn]]];
 		[user setHasADriversLicense:[NSNumber numberWithBool:[licenseSwitch isOn]]];
 		[user setHasATransitPass:[NSNumber numberWithBool:[transitPassSwitch isOn]]];
-		[user setIsAStudent:[NSNumber numberWithBool:[studentSwitch isOn]]];
+		[user setIsAStudent:[NSNumber numberWithBool:[studentSwitch isOn]]];*/
 	}
 	else
 		NSLog(@"SAVE FAIL");
-	
-	FloridaTripTrackerAppDelegate *delegate= [[UIApplication sharedApplication] delegate];
-	[delegate createMainView];
-	[managedContext save:nil];
 }
 @end

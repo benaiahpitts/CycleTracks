@@ -118,6 +118,9 @@
 	if (purposeAnswer == kTripPurposeOther && otherText.length == 0) {
 		errors= [errors stringByAppendingString:@"Please type in your trip purpose.\n"];
 	}
+	if (otherText.length > 255) {
+		errors= [errors stringByAppendingString:@"Please limit your answer to 255 characters.\n"];
+	}
 	if (householdAnswer.length == 0) {
 		errors= [errors stringByAppendingString:@"Please enter the number of household members.\n"];
 	}

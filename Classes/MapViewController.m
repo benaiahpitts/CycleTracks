@@ -131,6 +131,9 @@
 {
     [super viewDidLoad];
 	self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+	
+	UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"FDOT"]]];
+	self.navigationItem.rightBarButtonItem = item;
 
 	if ( trip )
 	{

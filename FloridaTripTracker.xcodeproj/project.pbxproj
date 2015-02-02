@@ -68,6 +68,8 @@
 		64F824E6106AFFA4001413F8 /* PersonalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F824E5106AFFA4001413F8 /* PersonalInfoViewController.m */; };
 		64FCC5B411352242000FA1B6 /* PersonalInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64FCC5B311352242000FA1B6 /* PersonalInfo.xib */; };
 		64FCC5B811352371000FA1B6 /* 20-gear2.png in Resources */ = {isa = PBXBuildFile; fileRef = 64FCC5B711352371000FA1B6 /* 20-gear2.png */; };
+		A309D4801A80088500BF9733 /* FDOT.png in Resources */ = {isa = PBXBuildFile; fileRef = A309D47F1A80088500BF9733 /* FDOT.png */; };
+		A309D4821A80098500BF9733 /* FDOT@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A309D4811A80098500BF9733 /* FDOT@2x.png */; };
 		A355CAC81A72E7C1000FE72F /* Launch.xib in Resources */ = {isa = PBXBuildFile; fileRef = A355CAC71A72E7C1000FE72F /* Launch.xib */; };
 		A3643AC51A76B65F0048A922 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3643AC41A76B65F0048A922 /* Images.xcassets */; };
 		A380224C1A433DA500F7AD3C /* TravelModePickerViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A380224B1A433DA500F7AD3C /* TravelModePickerViewDataSource.m */; };
@@ -76,7 +78,6 @@
 		A3C8ECB81A5338810040FBAB /* PickerViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C8ECB71A5338810040FBAB /* PickerViewDataSource.m */; };
 		A3C8ECC11A66D3050040FBAB /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C8ECBF1A66D3050040FBAB /* WelcomeViewController.m */; };
 		A3C8ECC21A66D3050040FBAB /* WelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3C8ECC01A66D3050040FBAB /* WelcomeViewController.xib */; };
-		A3C8ECC41A69645D0040FBAB /* FDOT_Logo_color.png in Resources */ = {isa = PBXBuildFile; fileRef = A3C8ECC31A69645D0040FBAB /* FDOT_Logo_color.png */; };
 		EE2D2BD3169CC1BF0059BCC0 /* tabbar_instructions@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2D2BCF169CC1BF0059BCC0 /* tabbar_instructions@2x.png */; };
 		EE2D2BD4169CC1BF0059BCC0 /* tabbar_record@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2D2BD0169CC1BF0059BCC0 /* tabbar_record@2x.png */; };
 		EE2D2BD5169CC1BF0059BCC0 /* tabbar_settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2D2BD1169CC1BF0059BCC0 /* tabbar_settings@2x.png */; };
@@ -197,6 +198,9 @@
 		64FCC5B311352242000FA1B6 /* PersonalInfo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonalInfo.xib; sourceTree = "<group>"; };
 		64FCC5B711352371000FA1B6 /* 20-gear2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "20-gear2.png"; path = "../20-gear2.png"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* FloridaTripTracker-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FloridaTripTracker-Info.plist"; sourceTree = "<group>"; };
+		A309D47A1A7FE05700BF9733 /* PickerViewDataSourceParent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerViewDataSourceParent.h; sourceTree = "<group>"; };
+		A309D47F1A80088500BF9733 /* FDOT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FDOT.png; sourceTree = "<group>"; };
+		A309D4811A80098500BF9733 /* FDOT@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FDOT@2x.png"; sourceTree = "<group>"; };
 		A355CAC71A72E7C1000FE72F /* Launch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Launch.xib; sourceTree = "<group>"; };
 		A3643AC41A76B65F0048A922 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = FloridaTripTracker/Images.xcassets; sourceTree = "<group>"; };
 		A380224A1A433DA500F7AD3C /* TravelModePickerViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelModePickerViewDataSource.h; sourceTree = "<group>"; };
@@ -209,7 +213,6 @@
 		A3C8ECBE1A66D3050040FBAB /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
 		A3C8ECBF1A66D3050040FBAB /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
 		A3C8ECC01A66D3050040FBAB /* WelcomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WelcomeViewController.xib; path = Classes/WelcomeViewController.xib; sourceTree = "<group>"; };
-		A3C8ECC31A69645D0040FBAB /* FDOT_Logo_color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FDOT_Logo_color.png; sourceTree = "<group>"; };
 		EE2D2BCF169CC1BF0059BCC0 /* tabbar_instructions@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_instructions@2x.png"; sourceTree = "<group>"; };
 		EE2D2BD0169CC1BF0059BCC0 /* tabbar_record@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_record@2x.png"; sourceTree = "<group>"; };
 		EE2D2BD1169CC1BF0059BCC0 /* tabbar_settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_settings@2x.png"; sourceTree = "<group>"; };
@@ -292,6 +295,7 @@
 				A380224B1A433DA500F7AD3C /* TravelModePickerViewDataSource.m */,
 				A3C8ECB61A5338810040FBAB /* PickerViewDataSource.h */,
 				A3C8ECB71A5338810040FBAB /* PickerViewDataSource.m */,
+				A309D47A1A7FE05700BF9733 /* PickerViewDataSourceParent.h */,
 				A3C8ECBE1A66D3050040FBAB /* WelcomeViewController.h */,
 				A3C8ECBF1A66D3050040FBAB /* WelcomeViewController.m */,
 			);
@@ -399,7 +403,8 @@
 		6411A16A106A05DE00C201F0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				A3C8ECC31A69645D0040FBAB /* FDOT_Logo_color.png */,
+				A309D4811A80098500BF9733 /* FDOT@2x.png */,
+				A309D47F1A80088500BF9733 /* FDOT.png */,
 				64C8D40411386C9F008BCADE /* LCD-screen-288x126.png */,
 				64C8D41B11387949008BCADE /* record-map-frame-288x141.png */,
 				6405FB45107E9038004B453B /* GreenCheckMark3.png */,
@@ -583,7 +588,6 @@
 				64C8D40311386B26008BCADE /* RecordMap.xib in Resources */,
 				64C8D40511386C9F008BCADE /* LCD-screen-288x126.png in Resources */,
 				64C8D41C11387949008BCADE /* record-map-frame-288x141.png in Resources */,
-				A3C8ECC41A69645D0040FBAB /* FDOT_Logo_color.png in Resources */,
 				64C8D433113889B1008BCADE /* settings_icon2.png in Resources */,
 				64BEA66B1145857E00BF8E94 /* tabbar_instructions.png in Resources */,
 				A3C8ECB21A5201EE0040FBAB /* OneTimeQuestionsViewController.xib in Resources */,
@@ -597,6 +601,7 @@
 				EE2D2BE6169CC41E0059BCC0 /* errands@2x.png in Resources */,
 				EE2D2BE7169CC41E0059BCC0 /* exercise.png in Resources */,
 				EE2D2BE8169CC41E0059BCC0 /* exercise@2x.png in Resources */,
+				A309D4821A80098500BF9733 /* FDOT@2x.png in Resources */,
 				EE2D2BE9169CC41E0059BCC0 /* other.png in Resources */,
 				EE2D2BEA169CC41E0059BCC0 /* other@2x.png in Resources */,
 				EE2D2BEB169CC41E0059BCC0 /* school.png in Resources */,
@@ -610,6 +615,7 @@
 				A355CAC81A72E7C1000FE72F /* Launch.xib in Resources */,
 				EE2D2BF4169CC4A50059BCC0 /* exclamation_point@2x.png in Resources */,
 				EE2D2BF6169CCE1E0059BCC0 /* commute2@2x.png in Resources */,
+				A309D4801A80088500BF9733 /* FDOT.png in Resources */,
 				EE2D2BF8169CD17F0059BCC0 /* start_button@2x.png in Resources */,
 				EE2D2BFA169CD1EE0059BCC0 /* save_button@2x.png in Resources */,
 			);

@@ -131,9 +131,6 @@
 
 		// select Record tab at launch
 		tabBarController.selectedIndex = 1;
-	
-		//PersonalInfoViewController *vc	= (PersonalInfoViewController *)[nav topViewController];
-		//vc.managedObjectContext			= context;
 		
 		[window setFrame:[[UIScreen mainScreen] bounds]];
 		[window addSubview:tabBarController.view];

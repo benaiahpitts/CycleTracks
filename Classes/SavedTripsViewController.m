@@ -207,8 +207,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-	NSLog(@"SavedTripsViewController viewWillAppear");
-
+	UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"FDOT"]]];
+	self.navigationItem.rightBarButtonItem = item;
 	// update conditionally as needed
 	/*
 	if ( tripManager.dirty )
