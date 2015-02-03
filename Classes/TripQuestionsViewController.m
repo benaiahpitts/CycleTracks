@@ -128,6 +128,15 @@
 		
 		errors= [errors stringByAppendingString:@"Please enter the number of nonhousehold members.\n"];
 	}
+	if ([accidentSegment selectedSegmentIndex]==UISegmentedControlNoSegment) {
+		errors= [errors stringByAppendingString:@"Please select whether you experienced any delays or not.\n"];
+	}
+	if ([tollSegment selectedSegmentIndex]==UISegmentedControlNoSegment) {
+		errors= [errors stringByAppendingString:@"Please select whether you paid a toll or not.\n"];
+	}
+	if ([parkingSegment selectedSegmentIndex]==UISegmentedControlNoSegment) {
+		errors= [errors stringByAppendingString:@"Please select whether you paid for parking or not.\n"];
+	}
 	if (payTollAnswer && tollAmtAnswer.length == 0) {
 		errors= [errors stringByAppendingString:@"Please enter the cost of the toll.\n"];
 	}
@@ -383,16 +392,18 @@
 #pragma mark UITextFieldDelegate Functions
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
 	
-	UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarStyleBlack target:textField action:@selector(resignFirstResponder)];
-	[barButton setTitle:@"Done"];
-	UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-	UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-	toolbar.items = [NSArray arrayWithObjects: flex, barButton, nil];
-	
-	[toolbar setBarStyle:UIBarStyleBlack];
-	
-	[textField setInputAccessoryView:toolbar];
-	
+	if (textField != otherTripPurposeText) {
+		
+		UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarStyleBlack target:textField action:@selector(resignFirstResponder)];
+		[barButton setTitle:@"Done"];
+		UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+		UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+		toolbar.items = [NSArray arrayWithObjects: flex, barButton, nil];
+		
+		[toolbar setBarStyle:UIBarStyleBlack];
+		
+		[textField setInputAccessoryView:toolbar];
+	}
 	//oldPosition= scrollView.contentOffset;
 	//[[self scrollView] setContentOffset:CGPointMake(0, textField.frame.origin.y) animated:YES];
 	

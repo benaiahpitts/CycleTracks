@@ -314,18 +314,18 @@
 			[user setGender: ([gender selectedSegmentIndex] == 0) ? (@"M") : (@"F")];
 			[user setNumWorkTrips:[NSNumber numberWithInt:[[workTripNumber text] intValue]]];
 			
-			[user setEmpFullTime:[NSNumber numberWithInt:[fullTimeSegment selectedSegmentIndex]]];
-			[user setEmpHomemaker:[NSNumber numberWithInt:[homemakerSegment selectedSegmentIndex]]];
-			[user setEmpLess5Months:[NSNumber numberWithInt:[fiveMonthSegment selectedSegmentIndex]]];
-			[user setEmpPartTime:[NSNumber numberWithInt:[partTimeSegment selectedSegmentIndex]]];
-			[user setEmpRetired:[NSNumber numberWithInt:[retiredSegment selectedSegmentIndex]]];
-			[user setEmpSelfEmployed:[NSNumber numberWithInt:[selfEmployedSegment selectedSegmentIndex]]];
-			[user setEmpUnemployed:[NSNumber numberWithInt:[unemployedSegment selectedSegmentIndex]]];
-			[user setEmpWorkAtHome:[NSNumber numberWithInt:[workAtHomeSegment selectedSegmentIndex]]];
-			[user setHasADisabledParkingPass:[NSNumber numberWithInt:[disabledPassSegment selectedSegmentIndex]]];
-			[user setHasADriversLicense:[NSNumber numberWithInt:[licenseSegment selectedSegmentIndex]]];
-			[user setHasATransitPass:[NSNumber numberWithInt:[transitPassSegment selectedSegmentIndex]]];
-			[user setIsAStudent:[NSNumber numberWithInt:[studentSegment selectedSegmentIndex]]];
+			[user setEmpFullTime:[NSNumber numberWithInt:(int)[fullTimeSegment selectedSegmentIndex]]];
+			[user setEmpHomemaker:[NSNumber numberWithInt:(int)[homemakerSegment selectedSegmentIndex]]];
+			[user setEmpLess5Months:[NSNumber numberWithInt:(int)[fiveMonthSegment selectedSegmentIndex]]];
+			[user setEmpPartTime:[NSNumber numberWithInt:(int)[partTimeSegment selectedSegmentIndex]]];
+			[user setEmpRetired:[NSNumber numberWithInt:(int)[retiredSegment selectedSegmentIndex]]];
+			[user setEmpSelfEmployed:[NSNumber numberWithInt:(int)[selfEmployedSegment selectedSegmentIndex]]];
+			[user setEmpUnemployed:[NSNumber numberWithInt:(int)[unemployedSegment selectedSegmentIndex]]];
+			[user setEmpWorkAtHome:[NSNumber numberWithInt:(int)[workAtHomeSegment selectedSegmentIndex]]];
+			[user setHasADisabledParkingPass:[NSNumber numberWithInt:(int)[disabledPassSegment selectedSegmentIndex]]];
+			[user setHasADriversLicense:[NSNumber numberWithInt:(int)[licenseSegment selectedSegmentIndex]]];
+			[user setHasATransitPass:[NSNumber numberWithInt:(int)[transitPassSegment selectedSegmentIndex]]];
+			[user setIsAStudent:[NSNumber numberWithInt:(int)[studentSegment selectedSegmentIndex]]];
 			
 			
 			FloridaTripTrackerAppDelegate *delegate= [[UIApplication sharedApplication] delegate];
