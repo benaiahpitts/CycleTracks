@@ -327,6 +327,10 @@
 			[user setHasATransitPass:[NSNumber numberWithInt:(int)[transitPassSegment selectedSegmentIndex]]];
 			[user setIsAStudent:[NSNumber numberWithInt:(int)[studentSegment selectedSegmentIndex]]];
 			
+			if ([studentSegment selectedSegmentIndex] == 1) {
+				[user setStudentStatus:[[studentStatusPicker delegate] pickerView:studentStatusPicker titleForRow:[studentStatusPicker selectedRowInComponent:0] forComponent:0]];
+			}
+			else [user setStudentStatus:@"N/A"];
 			
 			FloridaTripTrackerAppDelegate *delegate= [[UIApplication sharedApplication] delegate];
 			[delegate createMainView];

@@ -81,7 +81,7 @@
 		self.managedObjectContext	= [_trip managedObjectContext];
 		
 		// NOTE: loading coords can be expensive for a large trip
-		NSLog(@"loading %fm trip started at %@...", distance, _trip.startTime);
+		//NSLog(@"loading %fm trip started at %@...", distance, _trip.startTime);
 
 		// sort coords by recorded date ASCENDING so that the coord at index=0 is the first
 		
@@ -97,7 +97,7 @@
 			Coord *first= [coords objectAtIndex:0];
 			Coord *last= [coords lastObject];
 			NSTimeInterval duration = [last.recorded timeIntervalSinceDate:first.recorded];
-			NSLog(@"duration = %.0fs", duration);
+			//NSLog(@"duration = %.0fs", duration);
 			[trip setDuration:[NSNumber numberWithDouble:duration]];
 		}
 		
@@ -105,7 +105,7 @@
 		NSError *error;
 		if (![self.managedObjectContext save:&error]) {
 			// Handle the error.
-			NSLog(@"loadTrip error %@, %@", error, [error localizedDescription]);
+			//NSLog(@"loadTrip error %@, %@", error, [error localizedDescription]);
 		}
 		
 		/*
@@ -175,7 +175,7 @@
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-	NSLog(@"textViewDidBeginEditing");
+	//NSLog(@"textViewDidBeginEditing");
 	
 	if ( [textView.text compare:kTripNotesPlaceholder] == NSOrderedSame )
 	{
@@ -187,7 +187,7 @@
 
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView
 {
-	NSLog(@"textViewShouldEndEditing: \"%@\"", textView.text);
+	//NSLog(@"textViewShouldEndEditing: \"%@\"", textView.text);
 	
 	if ( [textView.text compare:@""] == NSOrderedSame )
 	{
@@ -263,12 +263,13 @@
 				NSLog(@"WARNING speed exceeds epsilon: %f => throw out deltaDist: %f, deltaTime: %f", 
 					  deltaDist / deltaTime, deltaDist, deltaTime);*/
 		}
-		else
-			NSLog(@"WARNING deltaTime exceeds epsilon: %f => throw out deltaDist: %f", deltaTime, deltaDist);
+		else {
+			//NSLog(@"WARNING deltaTime exceeds epsilon: %f => throw out deltaDist: %f", deltaTime, deltaDist);
+		}
 	}
-	else
-		NSLog(@"WARNING accuracy exceeds epsilon: %f => throw out deltaDist: %f", 
-			  MAX([prev.hAccuracy doubleValue], [next.hAccuracy doubleValue]) , deltaDist);
+	else {
+		//NSLog(@"WARNING accuracy exceeds epsilon: %f => throw out deltaDist: %f", MAX([prev.hAccuracy doubleValue], [next.hAccuracy doubleValue]) , deltaDist);
+	}
 	
 	return newDist;
 }
@@ -302,7 +303,7 @@
 	// check to see if the coords array is empty
 	if ( [coords count] == 0 )
 	{
-		NSLog(@"updated trip start time");
+		//NSLog(@"updated trip start time");
 		// this is the first coord of a new trip => update start
 		[trip setStartTime:[coord recorded]];
 		dirty = YES;
@@ -325,7 +326,7 @@
 	NSError *error;
 	if (![managedObjectContext save:&error]) {
 		// Handle the error.
-		NSLog(@"TripManager addCoord error %@, %@", error, [error localizedDescription]);
+		//NSLog(@"TripManager addCoord error %@, %@", error, [error localizedDescription]);
 	}
 
 	[coords insertObject:coord atIndex:0];
@@ -356,9 +357,10 @@
 		NSMutableArray *mutableFetchResults = [[managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
 		if (mutableFetchResults == nil) {
 			// Handle the error.
-			NSLog(@"no saved user");
-			if ( error != nil )
-				NSLog(@"TripManager fetch saved user data error %@, %@", error, [error localizedDescription]);
+			//NSLog(@"no saved user");
+			if ( error != nil ) {
+				//NSLog(@"TripManager fetch saved user data error %@, %@", error, [error localizedDescription]);
+			}
 		}
 		
 		User *user = [mutableFetchResults objectAtIndex:0];
@@ -384,13 +386,13 @@
 		}
 		
 		else {
-			NSLog(@"TripManager fetch user FAIL");
+			//NSLog(@"TripManager fetch user FAIL");
 			userDict= nil;
 		}
 		
 	}
 	else {
-		NSLog(@"TripManager WARNING no saved user data to encode");
+		//NSLog(@"TripManager WARNING no saved user data to encode");
 		userDict= nil;
 	}
 	
@@ -400,7 +402,7 @@
 
 - (NSString*)jsonEncodeUserData
 {
-	NSLog(@"jsonEncodeUserData");
+	//NSLog(@"jsonEncodeUserData");
 	NSMutableDictionary *userDict = [NSMutableDictionary dictionaryWithCapacity:7];
 	
 	NSFetchRequest		*request = [[NSFetchRequest alloc] init];
@@ -416,9 +418,10 @@
 		NSMutableArray *mutableFetchResults = [[managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
 		if (mutableFetchResults == nil) {
 			// Handle the error.
-			NSLog(@"no saved user");
-			if ( error != nil )
-				NSLog(@"TripManager fetch saved user data error %@, %@", error, [error localizedDescription]);
+			//NSLog(@"no saved user");
+			if ( error != nil ) {
+				//NSLog(@"TripManager fetch saved user data error %@, %@", error, [error localizedDescription]);
+			}
 		}
 		
 		User *user = [mutableFetchResults objectAtIndex:0];
@@ -442,16 +445,19 @@
 			[userDict setValue:user.isAStudent forKey:@"student"];
 			[userDict setValue:user.numWorkTrips forKey:@"workdays"];
 		}
-		else
-			NSLog(@"TripManager fetch user FAIL");
+		else {
+			//NSLog(@"TripManager fetch user FAIL");
+		}
 		
 	}
-	else
-		NSLog(@"TripManager WARNING no saved user data to encode");
+	else {
+		// NOTE: This should never happen
+		//NSLog(@"TripManager WARNING no saved user data to encode");
+	}
 	
-	NSLog(@"serializing user data to JSON...");
+	//NSLog(@"serializing user data to JSON...");
 	NSString *jsonUserData = [[CJSONSerializer serializer] serializeObject:userDict];
-	NSLog(@"%@", jsonUserData );
+	//NSLog(@"%@", jsonUserData );
 	
 	return jsonUserData;
 }
@@ -472,7 +478,7 @@
 							  cancelButtonTitle:nil
 							  otherButtonTitles:nil];
 	
-	NSLog(@"created saving dialog: %@", saving);
+	//NSLog(@"created saving dialog: %@", saving);
 	
 	[self createActivityIndicator];
 	[activityIndicator startAnimating];
@@ -481,7 +487,7 @@
 	
 	//NSLog(@"about to save trip with %d coords...", [coords count]);
 	[activityDelegate updateSavingMessage:kPreparingData];
-	NSLog(@"%@", trip);
+	//NSLog(@"%@", trip);
 
 	// close out Trip record
 	// NOTE: this code assumes we're saving the current recording in progress
@@ -495,8 +501,8 @@
 	if ( trip && [coords count] )
 	{
 		CLLocationDistance newDist = [self calculateTripDistance:trip];
-		NSLog(@"real-time distance = %.0fm", distance);
-		NSLog(@"post-processing    = %.0fm", newDist);
+		//NSLog(@"real-time distance = %.0fm", distance);
+		//NSLog(@"post-processing    = %.0fm", newDist);
 		
 		distance = newDist;
 		[trip setDistance:[NSNumber numberWithDouble:distance]];
@@ -504,7 +510,7 @@
 		Coord *last		= [coords objectAtIndex:0];
 		Coord *first	= [coords lastObject];
 		NSTimeInterval duration = [last.recorded timeIntervalSinceDate:first.recorded];
-		NSLog(@"duration = %.0fs", duration);
+		//NSLog(@"duration = %.0fs", duration);
 		[trip setDuration:[NSNumber numberWithDouble:duration]];
 		[trip setStopTime:[last recorded]];
 	}
@@ -515,10 +521,10 @@
 	if (![managedObjectContext save:&error])
 	{
 		// Handle the error.
-		NSLog(@"TripManager setSaved error %@, %@", error, [error localizedDescription]);
+		//NSLog(@"TripManager setSaved error %@, %@", error, [error localizedDescription]);
 	}
 	else
-		NSLog(@"Saved trip: %@ (%@m, %@s)", trip.purpose, trip.distance, trip.duration );
+	{ /*NSLog(@"Saved trip: %@ (%@m, %@s)", trip.purpose, trip.distance, trip.duration );*/}
 
 	dirty = YES;
 	
@@ -534,7 +540,7 @@
 	// TODO: test more campact float representations with NSString, NSNumberFormatter
 
 #if kSaveProtocolVersion == kSaveProtocolVersion_2
-	NSLog(@"saving using protocol version 2");
+	//NSLog(@"saving using protocol version 2");
 	NSMutableArray *trips= [[NSMutableArray alloc] init];
 	
 	// create a tripDict entry for each coord
@@ -631,7 +637,7 @@
 	
 	if ( theConnection )
 	{
-		receivedData=[NSMutableData data];		
+		receivedData=[NSMutableData data];
 	}
 	else
 	{
@@ -687,6 +693,7 @@
 		}
 		
 		NSLog(@"%@: %@", title, message);
+		NSLog(@"%@",httpResponse);
 		
 		// update trip.uploaded 
 		if ( success )
@@ -724,6 +731,7 @@
     // receivedData is declared as a method instance elsewhere
 	[receivedData appendData:data];	
 	[activityDelegate startAnimating];
+	//NSLog(@"Data so far:%@",[[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding]);
 }
 
 - (void)connection:(NSURLConnection *)connection
@@ -804,7 +812,6 @@
 
 - (void)createTrip
 {
-	NSLog(@"createTrip");
 	
 	// Create and configure a new instance of the Trip entity
 	trip = (Trip *)[NSEntityDescription insertNewObjectForEntityForName:@"Trip" 
@@ -814,7 +821,7 @@
 	NSError *error;
 	if (![managedObjectContext save:&error]) {
 		// Handle the error.
-		NSLog(@"createTrip error %@, %@", error, [error localizedDescription]);
+		//NSLog(@"createTrip error %@, %@", error, [error localizedDescription]);
 	}
 }
 
@@ -823,7 +830,7 @@
 - (void)createTrip:(unsigned int)index
 {
 	NSString *purpose = [self getPurposeString:index];
-	NSLog(@"createTrip: %@", purpose);
+	//NSLog(@"createTrip: %@", purpose);
 	
 	// Create and configure a new instance of the Trip entity
 	trip = (Trip *)[NSEntityDescription insertNewObjectForEntityForName:@"Trip" 
@@ -835,7 +842,7 @@
 	NSError *error;
 	if (![managedObjectContext save:&error]) {
 		// Handle the error.
-		NSLog(@"createTrip error %@, %@", error, [error localizedDescription]);
+		//NSLog(@"createTrip error %@, %@", error, [error localizedDescription]);
 	}
 }
 
@@ -869,7 +876,7 @@
 		{
 			if ( [tripNotesText.text compare:kTripNotesPlaceholder] != NSOrderedSame )
 			{
-				NSLog(@"saving trip notes: %@", tripNotesText.text);
+				//NSLog(@"saving trip notes: %@", tripNotesText.text);
 				[self saveNotes:tripNotesText.text];
 			}
 		}
@@ -881,7 +888,7 @@
 								  cancelButtonTitle:nil
 								  otherButtonTitles:nil];
 		
-		NSLog(@"created saving dialog: %@", saving);
+		//NSLog(@"created saving dialog: %@", saving);
 		
 		[self createActivityIndicator];
 		[activityIndicator startAnimating];
@@ -1018,13 +1025,13 @@
 	NSMutableArray *mutableFetchResults = [[managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
 	if (mutableFetchResults == nil) {
 		// Handle the error.
-		NSLog(@"no UNSAVED trips");
-		if ( error != nil )
-			NSLog(@"Unresolved error2 %@, %@", error, [error userInfo]);
+		//NSLog(@"no UNSAVED trips");
+		if ( error != nil ) {}
+			//NSLog(@"Unresolved error2 %@, %@", error, [error userInfo]);
 	}
 	else if ( [mutableFetchResults count] )
 	{
-		NSLog(@"UNSAVED trip(s) found");
+		//NSLog(@"UNSAVED trip(s) found");
 
 		// NOTE: this will sort the trip's coords and make it ready to continue recording
 		success = [self loadTrip:[mutableFetchResults objectAtIndex:0]];
@@ -1071,7 +1078,7 @@
 		}
 	}
 	
-	NSLog(@"oldDist: %f => newDist: %f", distance, newDist);	
+	//NSLog(@"oldDist: %f => newDist: %f", distance, newDist);
 	return newDist;
 }
 
@@ -1094,13 +1101,13 @@
 	NSMutableArray *mutableFetchResults = [[managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
 	if (mutableFetchResults == nil) {
 		// Handle the error.
-		NSLog(@"no trips with zero distance found");
+		//NSLog(@"no trips with zero distance found");
 		if ( error != nil )
 			NSLog(@"Unresolved error2 %@, %@", error, [error userInfo]);
 	}
 	int count = (int)[mutableFetchResults count];
 
-	NSLog(@"found %d trip(s) in need of distance recalcuation", count);
+	//NSLog(@"found %d trip(s) in need of distance recalcuation", count);
 
 	for (Trip *_trip in mutableFetchResults)
 	{
@@ -1110,7 +1117,7 @@
 		NSError *error;
 		if (![managedObjectContext save:&error]) {
 			// Handle the error.
-			NSLog(@"TripManager addCoord error %@, %@", error, [error localizedDescription]);
+			//NSLog(@"TripManager addCoord error %@, %@", error, [error localizedDescription]);
 		}
 		break;
 	}
