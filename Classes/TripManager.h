@@ -82,6 +82,7 @@ UITextViewDelegate>
 @property (nonatomic, strong) NSMutableArray *coords;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
+@property (nonatomic, strong) NSMutableDictionary *postVars;
 @property (nonatomic, strong) NSMutableData *receivedData;
 
 

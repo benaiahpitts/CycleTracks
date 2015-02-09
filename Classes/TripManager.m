@@ -36,6 +36,7 @@
 #import "Trip.h"
 #import "TripManager.h"
 #import "User.h"
+#import "WebServiceConnectionTest.h"
 
 
 // use this epsilon for both real-time and post-processing distance calculations
@@ -54,7 +55,7 @@
 @implementation TripManager
 
 @synthesize activityDelegate, activityIndicator, alertDelegate, saving, tripNotes, tripNotesText;
-@synthesize coords, dirty, trip, managedObjectContext, receivedData;
+@synthesize coords, dirty, trip, managedObjectContext, receivedData, postVars;
 
 
 - (id)initWithManagedObjectContext:(NSManagedObjectContext*)context
@@ -605,7 +606,7 @@
 		//  NSString *jsonUserData = [self jsonEncodeUserData];
 
 		// NOTE: device hash added by SaveRequest initWithPostVars
-		NSMutableDictionary *postVars = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+		postVars = [NSMutableDictionary dictionaryWithObjectsAndKeys:
 								  trips, @"coords",
 								  purpose, @"purpose", nil];
 		
@@ -627,22 +628,39 @@
 		[postVars setValue:[self userDictionary] forKey:@"user"];
 		NSString *versionString= [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
 		[postVars setValue:[NSNumber numberWithInt:[versionString intValue]] forKey:@"version"];
-								 
-		// create save request
-		SaveRequest *saveRequest = [[SaveRequest alloc] initWithPostVars:postVars];
 		
-		// create the connection with the request and start loading the data
-		NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:[saveRequest request]
-																	   delegate:self];
-		
-		if ( theConnection )
+		NSMutableURLRequest *testRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kTestURL]];
+		//[testRequest setHTTPMethod:@"POST"];
+		NSURLConnection *testConnection=[[NSURLConnection alloc] initWithRequest:testRequest delegate:self];
+		if ( testConnection )
 		{
 			receivedData=[NSMutableData data];
 		}
-		else
-		{
-			// inform the user that the download could not be made
+		
+		/*if (test.available) {
+			
+			// create save request
+			SaveRequest *saveRequest = [[SaveRequest alloc] initWithPostVars:postVars];
+			
+			// create the connection with the request and start loading the data
+			NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:[saveRequest request]
+																		   delegate:self];
+			
+			if ( theConnection )
+			{
+				receivedData=[NSMutableData data];
+			}
+			else
+			{
+				// inform the user that the download could not be made
+			}
 		}
+		
+		else {
+			// Web Service should create the error.
+			[activityDelegate dismissSaving];
+			[activityDelegate stopAnimating];
+		}*/
 	}
 	else {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!"
@@ -658,7 +676,7 @@
 }
 
 
-#pragma mark NSURLConnection delegate methods
+#pragma mark NSURLConnectionDataDelegate delegate methods
 
 
 - (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten 
@@ -677,58 +695,68 @@
     // has enough information to create the NSURLResponse
 	//NSLog(@"didReceiveResponse: %@", response);
 	
-	NSHTTPURLResponse *httpResponse = nil;
-	if ( [response isKindOfClass:[NSHTTPURLResponse class]] &&
-		( httpResponse = (NSHTTPURLResponse*)response ) )
-	{
-		BOOL success = NO;
-		NSString *title   = nil;
-		NSString *message = nil;
-		switch ( [httpResponse statusCode] )
+	// if we're just testing the connection, only stop if there is an error
+	if ([connection.currentRequest.URL.absoluteString compare:kTestURL] == NSOrderedSame) {
+		NSHTTPURLResponse *httpResponse = nil;
+		if ( [response isKindOfClass:[NSHTTPURLResponse class]] &&
+			( httpResponse = (NSHTTPURLResponse*)response ) )
 		{
-			case 200:
-			case 201:
-				success = YES;
-				title	= kSuccessTitle;
-				message = kSaveSuccess;
-				break;
-			case 202:
-				success = YES;
-				title	= kSuccessTitle;
-				message = kSaveAccepted;
-				break;
-			case 500:
-			default:
-				title = @"Internal Server Error";
-				message = [NSString stringWithFormat:@"%ld", (long)[httpResponse statusCode]];
-				//message = kServerError;
-		}
-		
-		NSLog(@"%@: %@", title, message);
-		NSLog(@"%@",httpResponse);
-		
-		// update trip.uploaded 
-		if ( success )
-		{
-			[trip setUploaded:[NSDate date]];
-			
-			NSError *error;
-			if (![managedObjectContext save:&error]) {
-				// Handle the error.
-				NSLog(@"TripManager setUploaded error %@, %@", error, [error localizedDescription]);
+			NSString *title   = nil;
+			NSString *message = nil;
+			switch ( [httpResponse statusCode] )
+			{
+				case 200:
+				case 201:
+				case 202:
+					break;
+				case 500:
+				default:
+					title = @"Internal Server Error";
+					message = [NSString stringWithFormat:@"%ld", (long)[httpResponse statusCode]];
+					UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+																	message:message
+																   delegate:alertDelegate
+														  cancelButtonTitle:@"OK"
+														  otherButtonTitles:nil];
+					[alert show];
+					[activityDelegate dismissSaving];
+					[activityDelegate stopAnimating];
+					break;
 			}
 		}
-		
-		else {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-															message:message
-														   delegate:alertDelegate
-												  cancelButtonTitle:@"OK"
-												  otherButtonTitles:nil];
-			[alert show];
-			
-			[activityDelegate dismissSaving];
-			[activityDelegate stopAnimating];
+	}
+		 
+	else {
+	
+		NSHTTPURLResponse *httpResponse = nil;
+		if ( [response isKindOfClass:[NSHTTPURLResponse class]] &&
+			( httpResponse = (NSHTTPURLResponse*)response ) )
+		{
+			BOOL success = NO;
+			NSString *title   = nil;
+			NSString *message = nil;
+			switch ( [httpResponse statusCode] )
+			{
+				case 200:
+				case 201:
+				case 202:
+					success = YES;
+					break;
+				case 500:
+				default:
+					title = @"Internal Server Error";
+					message = [NSString stringWithFormat:@"%ld", (long)[httpResponse statusCode]];
+					UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+																	message:message
+																   delegate:alertDelegate
+														  cancelButtonTitle:@"OK"
+														  otherButtonTitles:nil];
+					[alert show];
+					break;
+					
+					[activityDelegate dismissSaving];
+					[activityDelegate stopAnimating];
+			}
 		}
 	}
 }
@@ -743,33 +771,73 @@
 	NSString *response= [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding];
 	
 	if (response.length > 0) {
-		NSRange range= [response rangeOfString:kWebServiceSave];
-
-		BOOL success = NO;
-		NSString *title   = nil;
-		NSString *message = nil;
-	
-	
-		if (range.location != NSNotFound) {
-			success = YES;
-			title	= kSuccessTitle;
-			message = kSaveSuccess;
+		
+		if ([connection.currentRequest.URL.absoluteString compare:kTestURL] == NSOrderedSame) {
+			NSRange range= [response rangeOfString:kWebServiceContactOK];
+			
+			if (range.location != NSNotFound) {
+				// create save request
+				SaveRequest *saveRequest = [[SaveRequest alloc] initWithPostVars:postVars];
+				
+				// create the connection with the request and start loading the data
+				NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:[saveRequest request]
+																			   delegate:self];
+				
+				if ( theConnection )
+				{
+					receivedData=[NSMutableData data];
+				}
+			}
+			
+			else {
+			
+				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
+																message:@"Cannot connect to database. Please check your wifi/cellular signal and try again."
+															   delegate:self
+													  cancelButtonTitle:@"OK"
+													  otherButtonTitles:nil];
+				[alert show];
+			}
 		}
 		
 		else {
-			title = @"Web Service Error";
-			message = [NSString stringWithFormat:@"%@", kWebServiceErrorAlert];
+			NSRange range= [response rangeOfString:kWebServiceSave];
+
+			BOOL success = NO;
+			NSString *title   = nil;
+			NSString *message = nil;
+		
+		
+			if (range.location != NSNotFound) {
+				success = YES;
+				title	= kSuccessTitle;
+				message = kSaveSuccess;
+				
+				// update trip.uploaded
+				[trip setUploaded:[NSDate date]];
+				
+				NSError *error;
+				if (![managedObjectContext save:&error]) {
+					// Handle the error.
+					NSLog(@"TripManager setUploaded error %@, %@", error, [error localizedDescription]);
+				}
+			}
+			
+			else {
+				title = @"Web Service Error";
+				message = [NSString stringWithFormat:@"%@", kWebServiceErrorAlert];
+			}
+			
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+														message:message
+													   delegate:alertDelegate
+											  cancelButtonTitle:@"OK"
+											  otherButtonTitles:nil];
+			[alert show];
+			
+			[activityDelegate dismissSaving];
+			[activityDelegate stopAnimating];
 		}
-		
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-													message:message
-												   delegate:alertDelegate
-										  cancelButtonTitle:@"OK"
-										  otherButtonTitles:nil];
-		[alert show];
-		
-		[activityDelegate dismissSaving];
-		[activityDelegate stopAnimating];
 	}
 
 }

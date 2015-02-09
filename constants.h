@@ -67,24 +67,26 @@
 #define kZeroDistanceMessage	@"Your trip distance estimates may need to be recalculated..."
 
 // alert messages
-#define kBatteryMessage		@"Recording of your trip has been halted to preserve battery life."
-#define kConnecting			@"Contacting server..."
-#define kPreparingData		@"Preparing your trip data for transfer."
-#define kRetryMessage		@"This trip has not yet been uploaded successfully. Try again?"
-#define kSaveSuccess		@"Your trip has been uploaded successfully. Thank you. If you are finished with your trips today, close the app."
-#define kSaveAccepted		@"Your trip has already been uploaded. Thank you."
-#define kSaveError			@"Your trip has been saved. Please try uploading again later."
+#define kBatteryMessage			@"Recording of your trip has been halted to preserve battery life."
+#define kConnecting				@"Contacting server..."
+#define kPreparingData			@"Preparing your trip data for transfer."
+#define kRetryMessage			@"This trip has not yet been uploaded successfully. Try again?"
+#define kSaveSuccess			@"Your trip has been uploaded successfully. Thank you. If you are finished with your trips today, close the app."
+#define kSaveAccepted			@"Your trip has already been uploaded. Thank you."
+#define kSaveError				@"Your trip has been saved. Please try uploading again later."
 
-#define kInfoURL			@"http://www.aecom.com"
-#define kInstructionsURL	@"http://benaiahpitts.github.io/FloridaTripTracker/"
+#define kInfoURL				@"http://benaiahpitts.github.io/FloridaTripTracker/"
+#define kInstructionsURL		@"http://benaiahpitts.github.io/FloridaTripTracker/"
 
-#define kSaveURL			@"https://fdotrts.ursokr.com/TripTracker_WCF_Rest_Service_ursokr/TripTracker.svc/SaveTrip"
+#define kSaveURL				@"https://fdotrts.ursokr.com/TripTracker_WCF_Rest_Service_ursokr/TripTracker.svc/SaveTrip"
+#define kTestURL				@"https://fdotrts.ursokr.com/TripTracker_WCF_Rest_Service_ursokr/TripTracker.svc/OpenConnTest"
 
 #define kTripNotesPlaceholder	@"Comments"
 
 // webservice responses
 #define kWebServiceSave			@"Trip data was saved"
 #define kWebServiceError		@"Problem saving"
+#define kWebServiceContactOK	@"Success connecting to the database"
 #define kWebServiceErrorAlert	@"Problem saving trip, try again later. Please contact us if the problem persists."
 
 // CustomView metrics used by UIPickerViewDataSource, UIPickerViewDelegate
