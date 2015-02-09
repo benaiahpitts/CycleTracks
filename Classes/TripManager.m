@@ -36,7 +36,6 @@
 #import "Trip.h"
 #import "TripManager.h"
 #import "User.h"
-#import "WebServiceConnectionTest.h"
 
 
 // use this epsilon for both real-time and post-processing distance calculations
