@@ -82,6 +82,11 @@
 
 #define kTripNotesPlaceholder	@"Comments"
 
+// webservice responses
+#define kWebServiceSave			@"Trip data was saved"
+#define kWebServiceError		@"Problem saving"
+#define kWebServiceErrorAlert	@"Problem saving trip, try again later. Please contact us if the problem persists."
+
 // CustomView metrics used by UIPickerViewDataSource, UIPickerViewDelegate
 #define MAIN_FONT_SIZE		18
 #define MIN_MAIN_FONT_SIZE	16

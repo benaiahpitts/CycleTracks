@@ -498,6 +498,7 @@
 	   incrementally tally delta time if < epsilon instead
 	 o recalculate distance
 	 */
+	// we don't want anything saved unless coords exist
 	if ( trip && [coords count] )
 	{
 		CLLocationDistance newDist = [self calculateTripDistance:trip];
@@ -513,135 +514,146 @@
 		//NSLog(@"duration = %.0fs", duration);
 		[trip setDuration:[NSNumber numberWithDouble:duration]];
 		[trip setStopTime:[last recorded]];
-	}
 	
-	[trip setSaved:[NSDate date]];
-	
-	NSError *error;
-	if (![managedObjectContext save:&error])
-	{
-		// Handle the error.
-		//NSLog(@"TripManager setSaved error %@, %@", error, [error localizedDescription]);
-	}
-	else
-	{ /*NSLog(@"Saved trip: %@ (%@m, %@s)", trip.purpose, trip.distance, trip.duration );*/}
-
-	dirty = YES;
-	
-	// get array of coords
-	NSMutableDictionary *tripDict = [NSMutableDictionary dictionaryWithCapacity:[coords count]];
-	NSEnumerator *enumerator = [coords objectEnumerator];
-	Coord *coord;
-	
-	// format date as a string
-	NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];		
-	[outputFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-
-	// TODO: test more campact float representations with NSString, NSNumberFormatter
-
-#if kSaveProtocolVersion == kSaveProtocolVersion_2
-	//NSLog(@"saving using protocol version 2");
-	NSMutableArray *trips= [[NSMutableArray alloc] init];
-	
-	// create a tripDict entry for each coord
-	while (coord = [enumerator nextObject])
-	{
-		NSMutableDictionary *coordsDict = [NSMutableDictionary dictionaryWithCapacity:7];
-		NSMutableDictionary *coordsKeyDict = [NSMutableDictionary dictionaryWithCapacity:1];
-		[coordsDict setValue:coord.altitude  forKey:@"alt"];
-		[coordsDict setValue:coord.latitude  forKey:@"lat"];
-		[coordsDict setValue:coord.longitude forKey:@"lon"];
-		[coordsDict setValue:coord.speed     forKey:@"spd"];
-		[coordsDict setValue:coord.hAccuracy forKey:@"hac"];
-		[coordsDict setValue:coord.vAccuracy forKey:@"vac"];
+		[trip setSaved:[NSDate date]];
 		
-		NSString *newDateString = [outputFormatter stringFromDate:coord.recorded];
-		[coordsDict setValue:newDateString forKey:@"rec"];
-		[tripDict setValue:coordsDict forKey:newDateString];
-		[coordsKeyDict setValue:coordsDict forKey:@"coord"];
-		[trips addObject:coordsKeyDict];
-		//[tripDict setValue:coordsDict forKey:@"coord"];
-	}
-#else
-	NSLog(@"saving using protocol version 1");
-	
-	// create a tripDict entry for each coord
-	while (coord = [enumerator nextObject])
-	{
-		NSMutableDictionary *coordsDict = [NSMutableDictionary dictionaryWithCapacity:7];
-		[coordsDict setValue:coord.altitude  forKey:@"altitude"];
-		[coordsDict setValue:coord.latitude  forKey:@"latitude"];
-		[coordsDict setValue:coord.longitude forKey:@"longitude"];
-		[coordsDict setValue:coord.speed     forKey:@"speed"];
-		[coordsDict setValue:coord.hAccuracy forKey:@"hAccuracy"];
-		[coordsDict setValue:coord.vAccuracy forKey:@"vAccuracy"];
+		NSError *error;
+		if (![managedObjectContext save:&error])
+		{
+			// Handle the error.
+			//NSLog(@"TripManager setSaved error %@, %@", error, [error localizedDescription]);
+		}
+		else
+		{ /*NSLog(@"Saved trip: %@ (%@m, %@s)", trip.purpose, trip.distance, trip.duration );*/}
+
+		dirty = YES;
 		
-		NSString *newDateString = [outputFormatter stringFromDate:coord.recorded];
-		[coordsDict setValue:newDateString forKey:@"recorded"];
-		[trips addObject:coordsDict];
-		[tripDict setValue:coordsDict forKey:newDateString];
+		// get array of coords
+		NSMutableDictionary *tripDict = [NSMutableDictionary dictionaryWithCapacity:[coords count]];
+		NSEnumerator *enumerator = [coords objectEnumerator];
+		Coord *coord;
+		
+		// format date as a string
+		NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];		
+		[outputFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+
+		// TODO: test more campact float representations with NSString, NSNumberFormatter
+
+	#if kSaveProtocolVersion == kSaveProtocolVersion_2
+		//NSLog(@"saving using protocol version 2");
+		NSMutableArray *trips= [[NSMutableArray alloc] init];
+		
+		// create a tripDict entry for each coord
+		while (coord = [enumerator nextObject])
+		{
+			NSMutableDictionary *coordsDict = [NSMutableDictionary dictionaryWithCapacity:7];
+			NSMutableDictionary *coordsKeyDict = [NSMutableDictionary dictionaryWithCapacity:1];
+			[coordsDict setValue:coord.altitude  forKey:@"alt"];
+			[coordsDict setValue:coord.latitude  forKey:@"lat"];
+			[coordsDict setValue:coord.longitude forKey:@"lon"];
+			[coordsDict setValue:coord.speed     forKey:@"spd"];
+			[coordsDict setValue:coord.hAccuracy forKey:@"hac"];
+			[coordsDict setValue:coord.vAccuracy forKey:@"vac"];
+			
+			NSString *newDateString = [outputFormatter stringFromDate:coord.recorded];
+			[coordsDict setValue:newDateString forKey:@"rec"];
+			[tripDict setValue:coordsDict forKey:newDateString];
+			[coordsKeyDict setValue:coordsDict forKey:@"coord"];
+			[trips addObject:coordsKeyDict];
+			//[tripDict setValue:coordsDict forKey:@"coord"];
+		}
+	#else
+		NSLog(@"saving using protocol version 1");
+		
+		// create a tripDict entry for each coord
+		while (coord = [enumerator nextObject])
+		{
+			NSMutableDictionary *coordsDict = [NSMutableDictionary dictionaryWithCapacity:7];
+			[coordsDict setValue:coord.altitude  forKey:@"altitude"];
+			[coordsDict setValue:coord.latitude  forKey:@"latitude"];
+			[coordsDict setValue:coord.longitude forKey:@"longitude"];
+			[coordsDict setValue:coord.speed     forKey:@"speed"];
+			[coordsDict setValue:coord.hAccuracy forKey:@"hAccuracy"];
+			[coordsDict setValue:coord.vAccuracy forKey:@"vAccuracy"];
+			
+			NSString *newDateString = [outputFormatter stringFromDate:coord.recorded];
+			[coordsDict setValue:newDateString forKey:@"recorded"];
+			[trips addObject:coordsDict];
+			[tripDict setValue:coordsDict forKey:newDateString];
+		}
+	#endif
+
+		NSLog(@"serializing trip data to JSON...");
+		//NSString *jsonTripData = [[CJSONSerializer serializer] serializeObject:tripDict];
+		
+		//NSData *jsonTripData= [NSJSONSerialization dataWithJSONObject:allCords options:nil error:nil];
+		//NSLog(@"NSJSON DATA: %@", [[NSString alloc] initWithData:jsonTripData encoding:NSUTF8StringEncoding]);
+		
+		// get trip purpose
+		NSString *purpose;
+		if ( trip.purpose )
+			purpose = trip.purpose;
+		else
+			purpose = @"unknown";
+		
+		// get start date
+		NSString *start = [outputFormatter stringFromDate:trip.startTime];
+		NSLog(@"start: %@", start);
+		
+
+		// encode user data
+		//  NSString *jsonUserData = [self jsonEncodeUserData];
+
+		// NOTE: device hash added by SaveRequest initWithPostVars
+		NSMutableDictionary *postVars = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+								  trips, @"coords",
+								  purpose, @"purpose", nil];
+		
+		NSArray *tripQKeys = [[[trip entity] attributesByName] allKeys];
+		NSDictionary *tripQDict = [trip dictionaryWithValuesForKeys:tripQKeys];
+		[postVars setValuesForKeysWithDictionary:tripQDict];
+		
+		// change all dates to strings
+		[postVars setValue:start forKey:@"startTime"];
+		[postVars setValue:[outputFormatter stringFromDate:trip.stopTime] forKey:@"stopTime"];
+		// we don't send "saved", "uploaded", distance, or duration
+		[postVars removeObjectForKey:@"saved"];
+		[postVars removeObjectForKey:@"uploaded"];
+		[postVars removeObjectForKey:@"duration"];
+		[postVars removeObjectForKey:@"distance"];
+		// temporarily hiding fare; do not send this removal to production
+		//[postVars removeObjectForKey:@"fare"];
+		
+		[postVars setValue:[self userDictionary] forKey:@"user"];
+		NSString *versionString= [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
+		[postVars setValue:[NSNumber numberWithInt:[versionString intValue]] forKey:@"version"];
+								 
+		// create save request
+		SaveRequest *saveRequest = [[SaveRequest alloc] initWithPostVars:postVars];
+		
+		// create the connection with the request and start loading the data
+		NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:[saveRequest request]
+																	   delegate:self];
+		
+		if ( theConnection )
+		{
+			receivedData=[NSMutableData data];
+		}
+		else
+		{
+			// inform the user that the download could not be made
+		}
 	}
-#endif
-
-	NSLog(@"serializing trip data to JSON...");
-	//NSString *jsonTripData = [[CJSONSerializer serializer] serializeObject:tripDict];
-	
-	//NSData *jsonTripData= [NSJSONSerialization dataWithJSONObject:allCords options:nil error:nil];
-	//NSLog(@"NSJSON DATA: %@", [[NSString alloc] initWithData:jsonTripData encoding:NSUTF8StringEncoding]);
-	
-	// get trip purpose
-	NSString *purpose;
-	if ( trip.purpose )
-		purpose = trip.purpose;
-	else
-		purpose = @"unknown";
-	
-	// get start date
-	NSString *start = [outputFormatter stringFromDate:trip.startTime];
-	NSLog(@"start: %@", start);
-	
-
-	// encode user data
-	//  NSString *jsonUserData = [self jsonEncodeUserData];
-
-	// NOTE: device hash added by SaveRequest initWithPostVars
-	NSMutableDictionary *postVars = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-							  trips, @"coords",
-							  purpose, @"purpose", nil];
-	
-	NSArray *tripQKeys = [[[trip entity] attributesByName] allKeys];
-	NSDictionary *tripQDict = [trip dictionaryWithValuesForKeys:tripQKeys];
-	[postVars setValuesForKeysWithDictionary:tripQDict];
-	
-	// change all dates to strings
-	[postVars setValue:start forKey:@"startTime"];
-	[postVars setValue:[outputFormatter stringFromDate:trip.stopTime] forKey:@"stopTime"];
-	// we don't send "saved", "uploaded", distance, or duration
-	[postVars removeObjectForKey:@"saved"];
-	[postVars removeObjectForKey:@"uploaded"];
-	[postVars removeObjectForKey:@"duration"];
-	[postVars removeObjectForKey:@"distance"];
-	// temporarily hiding fare; do not send this removal to production
-	//[postVars removeObjectForKey:@"fare"];
-	
-	[postVars setValue:[self userDictionary] forKey:@"user"];
-	NSString *versionString= [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
-	[postVars setValue:[NSNumber numberWithInt:[versionString intValue]] forKey:@"version"];
-							 
-	// create save request
-	SaveRequest *saveRequest = [[SaveRequest alloc] initWithPostVars:postVars];
-	
-	// create the connection with the request and start loading the data
-	NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:[saveRequest request]
-																   delegate:self];
-	
-	if ( theConnection )
-	{
-		receivedData=[NSMutableData data];
-	}
-	else
-	{
-		// inform the user that the download could not be made
+	else {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!"
+														message:@"There is no trip data to save. Please log a trip with a distance > 0 miles."
+													   delegate:alertDelegate
+											  cancelButtonTitle:@"OK"
+											  otherButtonTitles:nil];
+		[alert show];
+		
+		[activityDelegate dismissSaving];
+		[activityDelegate stopAnimating];
 	}
 }
 
@@ -707,22 +719,18 @@
 			}
 		}
 		
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-														message:message
-													   delegate:alertDelegate
-											  cancelButtonTitle:@"OK"
-											  otherButtonTitles:nil];
-		[alert show];
-		
-		[activityDelegate dismissSaving];
-		[activityDelegate stopAnimating];
+		else {
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+															message:message
+														   delegate:alertDelegate
+												  cancelButtonTitle:@"OK"
+												  otherButtonTitles:nil];
+			[alert show];
+			
+			[activityDelegate dismissSaving];
+			[activityDelegate stopAnimating];
+		}
 	}
-	
-    // it can be called multiple times, for example in the case of a
-	// redirect, so each time we reset the data.
-	
-    // receivedData is declared as a method instance elsewhere
-    [receivedData setLength:0];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
@@ -731,7 +739,39 @@
     // receivedData is declared as a method instance elsewhere
 	[receivedData appendData:data];	
 	[activityDelegate startAnimating];
-	//NSLog(@"Data so far:%@",[[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding]);
+	
+	NSString *response= [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding];
+	
+	if (response.length > 0) {
+		NSRange range= [response rangeOfString:kWebServiceSave];
+
+		BOOL success = NO;
+		NSString *title   = nil;
+		NSString *message = nil;
+	
+	
+		if (range.location != NSNotFound) {
+			success = YES;
+			title	= kSuccessTitle;
+			message = kSaveSuccess;
+		}
+		
+		else {
+			title = @"Web Service Error";
+			message = [NSString stringWithFormat:@"%@", kWebServiceErrorAlert];
+		}
+		
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+													message:message
+												   delegate:alertDelegate
+										  cancelButtonTitle:@"OK"
+										  otherButtonTitles:nil];
+		[alert show];
+		
+		[activityDelegate dismissSaving];
+		[activityDelegate stopAnimating];
+	}
+
 }
 
 - (void)connection:(NSURLConnection *)connection

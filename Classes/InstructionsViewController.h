@@ -30,7 +30,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface AboutViewController : UIViewController <UIWebViewDelegate> {
+@interface InstructionsViewController : UIViewController <UIWebViewDelegate> {
 	IBOutlet UIWebView	*webView;
 }
 

@@ -27,11 +27,11 @@
 //  Copyright 2010 mopimp productions. All rights reserved.
 //
 
-#import "AboutViewController.h"
+#import "InstructionsViewController.h"
 #import "constants.h"
 
 
-@implementation AboutViewController
+@implementation InstructionsViewController
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
