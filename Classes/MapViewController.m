@@ -28,7 +28,7 @@
 //	For more information on the project, 
 //	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
 
-
+#import "constants.h"
 #import "Coord.h"
 #import "LoadingView.h"
 #import "MapCoord.h"
@@ -132,7 +132,7 @@
     [super viewDidLoad];
 	self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
 	
-	UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"FDOT"]]];
+	UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:kLogo]]];
 	self.navigationItem.rightBarButtonItem = item;
 
 	if ( trip )

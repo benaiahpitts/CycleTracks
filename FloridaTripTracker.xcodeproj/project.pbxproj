@@ -70,6 +70,7 @@
 		64FCC5B811352371000FA1B6 /* 20-gear2.png in Resources */ = {isa = PBXBuildFile; fileRef = 64FCC5B711352371000FA1B6 /* 20-gear2.png */; };
 		A309D4801A80088500BF9733 /* FDOT.png in Resources */ = {isa = PBXBuildFile; fileRef = A309D47F1A80088500BF9733 /* FDOT.png */; };
 		A309D4821A80098500BF9733 /* FDOT@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A309D4811A80098500BF9733 /* FDOT@2x.png */; };
+		A32FF30D1AB3815E00BF08A4 /* clearpix.png in Resources */ = {isa = PBXBuildFile; fileRef = A32FF30C1AB3815E00BF08A4 /* clearpix.png */; };
 		A355CAC81A72E7C1000FE72F /* Launch.xib in Resources */ = {isa = PBXBuildFile; fileRef = A355CAC71A72E7C1000FE72F /* Launch.xib */; };
 		A3643AC51A76B65F0048A922 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3643AC41A76B65F0048A922 /* Images.xcassets */; };
 		A380224C1A433DA500F7AD3C /* TravelModePickerViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A380224B1A433DA500F7AD3C /* TravelModePickerViewDataSource.m */; };
@@ -201,6 +202,7 @@
 		A309D47A1A7FE05700BF9733 /* PickerViewDataSourceParent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerViewDataSourceParent.h; sourceTree = "<group>"; };
 		A309D47F1A80088500BF9733 /* FDOT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FDOT.png; sourceTree = "<group>"; };
 		A309D4811A80098500BF9733 /* FDOT@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FDOT@2x.png"; sourceTree = "<group>"; };
+		A32FF30C1AB3815E00BF08A4 /* clearpix.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clearpix.png; sourceTree = "<group>"; };
 		A355CAC71A72E7C1000FE72F /* Launch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Launch.xib; sourceTree = "<group>"; };
 		A3643AC41A76B65F0048A922 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = FloridaTripTracker/Images.xcassets; sourceTree = "<group>"; };
 		A380224A1A433DA500F7AD3C /* TravelModePickerViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelModePickerViewDataSource.h; sourceTree = "<group>"; };
@@ -403,6 +405,7 @@
 		6411A16A106A05DE00C201F0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				A32FF30C1AB3815E00BF08A4 /* clearpix.png */,
 				A309D4811A80098500BF9733 /* FDOT@2x.png */,
 				A309D47F1A80088500BF9733 /* FDOT.png */,
 				64C8D40411386C9F008BCADE /* LCD-screen-288x126.png */,
@@ -590,6 +593,7 @@
 				64C8D41C11387949008BCADE /* record-map-frame-288x141.png in Resources */,
 				64C8D433113889B1008BCADE /* settings_icon2.png in Resources */,
 				64BEA66B1145857E00BF8E94 /* tabbar_instructions.png in Resources */,
+				A32FF30D1AB3815E00BF08A4 /* clearpix.png in Resources */,
 				A3C8ECB21A5201EE0040FBAB /* OneTimeQuestionsViewController.xib in Resources */,
 				64BEA66C1145857E00BF8E94 /* tabbar_settings.png in Resources */,
 				EE627CDF1696707300657680 /* cancel_button.png in Resources */,

@@ -294,8 +294,8 @@
 	[coord setRecorded:location.timestamp];
 	
 	[coord setSpeed:[NSNumber numberWithDouble:location.speed]];
-	[coord setHAccuracy:[NSNumber numberWithDouble:location.horizontalAccuracy]];
-	[coord setVAccuracy:[NSNumber numberWithDouble:location.verticalAccuracy]];
+	[coord setHAccuracy:[NSNumber numberWithInt:location.horizontalAccuracy]];
+	[coord setVAccuracy:[NSNumber numberWithInt:location.verticalAccuracy]];
 	
 	[trip addCoordsObject:coord];
 	//[coord setTrip:trip];
@@ -548,6 +548,7 @@
 		{
 			NSMutableDictionary *coordsDict = [NSMutableDictionary dictionaryWithCapacity:7];
 			NSMutableDictionary *coordsKeyDict = [NSMutableDictionary dictionaryWithCapacity:1];
+			
 			[coordsDict setValue:coord.altitude  forKey:@"alt"];
 			[coordsDict setValue:coord.latitude  forKey:@"lat"];
 			[coordsDict setValue:coord.longitude forKey:@"lon"];
@@ -695,6 +696,8 @@
 	//NSLog(@"didReceiveResponse: %@", response);
 	
 	// if we're just testing the connection, only stop if there is an error
+	// This is now just for testing, we're letting didReceiveData do the error handling
+	/*
 	if ([connection.currentRequest.URL.absoluteString compare:kTestURL] == NSOrderedSame) {
 		NSHTTPURLResponse *httpResponse = nil;
 		if ( [response isKindOfClass:[NSHTTPURLResponse class]] &&
@@ -717,7 +720,7 @@
 																   delegate:alertDelegate
 														  cancelButtonTitle:@"OK"
 														  otherButtonTitles:nil];
-					[alert show];
+					//[alert show];
 					[activityDelegate dismissSaving];
 					[activityDelegate stopAnimating];
 					break;
@@ -751,13 +754,13 @@
 														  cancelButtonTitle:@"OK"
 														  otherButtonTitles:nil];
 					[alert show];
-					break;
 					
 					[activityDelegate dismissSaving];
 					[activityDelegate stopAnimating];
+					break;
 			}
 		}
-	}
+	}*/
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data

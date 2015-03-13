@@ -6,6 +6,7 @@
 //
 //
 
+#import "constants.h"
 #import "OneTimeQuestionsViewController.h"
 #import "PickerViewDataSource.h"
 #import "TravelModePickerViewDataSource.h"
@@ -51,7 +52,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	// Do any additional setup after loading the view from its nib.
-	UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"FDOT"]]];
+	UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:kLogo]]];
 	self.navigationItem.rightBarButtonItem = item;
 	
 	/*[scrollView setFrame:[[UIScreen mainScreen] bounds]];

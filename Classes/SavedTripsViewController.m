@@ -207,7 +207,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-	UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"FDOT"]]];
+	UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:kLogo]]];
 	self.navigationItem.rightBarButtonItem = item;
 	// update conditionally as needed
 	/*

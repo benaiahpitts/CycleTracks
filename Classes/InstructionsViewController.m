@@ -54,7 +54,7 @@
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-	UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"FDOT"]]];
+	UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:kLogo]]];
 	self.navigationItem.rightBarButtonItem = item;
 	self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
 	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kInstructionsURL]]];
