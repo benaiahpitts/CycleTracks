@@ -21,9 +21,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 	
-	[textView setText:@"Please enter your personal details so we can learn a bit about you.\n\nThen, try to use Florida Trip Tracks every time you go on a trip for 7 days. Your trip routes will be used for a Florida Travel Survey\n\nThanks!"];
+	[textView setText:@"The Survey Department is conducting a travel survey and your help is greatly appreciated.\n\nPlease enter your personal details and use Florida Trip Tracker for 7 consecutive days to track your travel routes.\n\nYour travel information will then be sent to the Trip Tracker Team for use in studies to improve transportation in Florida.\n\nThank you for your participation!"];
 	
-	[self setTitle:@"Welcome to Florida Trip Tracks App!"];
+	[self setTitle:@"Welcome to Florida Trip Tracker App!"];
 }
 
 - (void)didReceiveMemoryWarning {
