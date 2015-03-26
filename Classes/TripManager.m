@@ -538,7 +538,8 @@
 		[outputFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
 
 		// TODO: test more campact float representations with NSString, NSNumberFormatter
-
+		
+		int currentObjNum= 0;
 	#if kSaveProtocolVersion == kSaveProtocolVersion_2
 		//NSLog(@"saving using protocol version 2");
 		NSMutableArray *trips= [[NSMutableArray alloc] init];
@@ -546,22 +547,25 @@
 		// create a tripDict entry for each coord
 		while (coord = [enumerator nextObject])
 		{
-			NSMutableDictionary *coordsDict = [NSMutableDictionary dictionaryWithCapacity:7];
-			NSMutableDictionary *coordsKeyDict = [NSMutableDictionary dictionaryWithCapacity:1];
-			
-			[coordsDict setValue:coord.altitude  forKey:@"alt"];
-			[coordsDict setValue:coord.latitude  forKey:@"lat"];
-			[coordsDict setValue:coord.longitude forKey:@"lon"];
-			[coordsDict setValue:coord.speed     forKey:@"spd"];
-			[coordsDict setValue:coord.hAccuracy forKey:@"hac"];
-			[coordsDict setValue:coord.vAccuracy forKey:@"vac"];
-			
-			NSString *newDateString = [outputFormatter stringFromDate:coord.recorded];
-			[coordsDict setValue:newDateString forKey:@"rec"];
-			[tripDict setValue:coordsDict forKey:newDateString];
-			[coordsKeyDict setValue:coordsDict forKey:@"coord"];
-			[trips addObject:coordsKeyDict];
-			//[tripDict setValue:coordsDict forKey:@"coord"];
+			if (currentObjNum == 0 || currentObjNum % 5 == 0) {
+				NSMutableDictionary *coordsDict = [NSMutableDictionary dictionaryWithCapacity:7];
+				NSMutableDictionary *coordsKeyDict = [NSMutableDictionary dictionaryWithCapacity:1];
+				
+				[coordsDict setValue:coord.altitude  forKey:@"alt"];
+				[coordsDict setValue:coord.latitude  forKey:@"lat"];
+				[coordsDict setValue:coord.longitude forKey:@"lon"];
+				[coordsDict setValue:coord.speed     forKey:@"spd"];
+				[coordsDict setValue:coord.hAccuracy forKey:@"hac"];
+				[coordsDict setValue:coord.vAccuracy forKey:@"vac"];
+				
+				NSString *newDateString = [outputFormatter stringFromDate:coord.recorded];
+				[coordsDict setValue:newDateString forKey:@"rec"];
+				[tripDict setValue:coordsDict forKey:newDateString];
+				[coordsKeyDict setValue:coordsDict forKey:@"coord"];
+				[trips addObject:coordsKeyDict];
+				//[tripDict setValue:coordsDict forKey:@"coord"];
+			}
+			currentObjNum++;
 		}
 	#else
 		NSLog(@"saving using protocol version 1");
@@ -569,18 +573,21 @@
 		// create a tripDict entry for each coord
 		while (coord = [enumerator nextObject])
 		{
-			NSMutableDictionary *coordsDict = [NSMutableDictionary dictionaryWithCapacity:7];
-			[coordsDict setValue:coord.altitude  forKey:@"altitude"];
-			[coordsDict setValue:coord.latitude  forKey:@"latitude"];
-			[coordsDict setValue:coord.longitude forKey:@"longitude"];
-			[coordsDict setValue:coord.speed     forKey:@"speed"];
-			[coordsDict setValue:coord.hAccuracy forKey:@"hAccuracy"];
-			[coordsDict setValue:coord.vAccuracy forKey:@"vAccuracy"];
 			
-			NSString *newDateString = [outputFormatter stringFromDate:coord.recorded];
-			[coordsDict setValue:newDateString forKey:@"recorded"];
-			[trips addObject:coordsDict];
-			[tripDict setValue:coordsDict forKey:newDateString];
+			if (currentObjNum == 0 || currentObjNum % 5 == 0) {
+				NSMutableDictionary *coordsDict = [NSMutableDictionary dictionaryWithCapacity:7];
+				[coordsDict setValue:coord.altitude  forKey:@"altitude"];
+				[coordsDict setValue:coord.latitude  forKey:@"latitude"];
+				[coordsDict setValue:coord.longitude forKey:@"longitude"];
+				[coordsDict setValue:coord.speed     forKey:@"speed"];
+				[coordsDict setValue:coord.hAccuracy forKey:@"hAccuracy"];
+				[coordsDict setValue:coord.vAccuracy forKey:@"vAccuracy"];
+				
+				NSString *newDateString = [outputFormatter stringFromDate:coord.recorded];
+				[coordsDict setValue:newDateString forKey:@"recorded"];
+				[trips addObject:coordsDict];
+				[tripDict setValue:coordsDict forKey:newDateString];
+			}
 		}
 	#endif
 

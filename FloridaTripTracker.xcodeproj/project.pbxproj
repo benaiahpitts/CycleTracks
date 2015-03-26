@@ -71,6 +71,10 @@
 		A309D4801A80088500BF9733 /* FDOT.png in Resources */ = {isa = PBXBuildFile; fileRef = A309D47F1A80088500BF9733 /* FDOT.png */; };
 		A309D4821A80098500BF9733 /* FDOT@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A309D4811A80098500BF9733 /* FDOT@2x.png */; };
 		A32FF30D1AB3815E00BF08A4 /* clearpix.png in Resources */ = {isa = PBXBuildFile; fileRef = A32FF30C1AB3815E00BF08A4 /* clearpix.png */; };
+		A33FD5B51AC45B5C0029CBBC /* tabbar_about.png in Resources */ = {isa = PBXBuildFile; fileRef = A33FD5B31AC45B5C0029CBBC /* tabbar_about.png */; };
+		A33FD5B61AC45B5C0029CBBC /* tabbar_about@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A33FD5B41AC45B5C0029CBBC /* tabbar_about@2x.png */; };
+		A33FD5BA1AC47C910029CBBC /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A33FD5B81AC47C910029CBBC /* AboutViewController.m */; };
+		A33FD5BB1AC47C910029CBBC /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A33FD5B91AC47C910029CBBC /* AboutViewController.xib */; };
 		A355CAC81A72E7C1000FE72F /* Launch.xib in Resources */ = {isa = PBXBuildFile; fileRef = A355CAC71A72E7C1000FE72F /* Launch.xib */; };
 		A3643AC51A76B65F0048A922 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3643AC41A76B65F0048A922 /* Images.xcassets */; };
 		A380224C1A433DA500F7AD3C /* TravelModePickerViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A380224B1A433DA500F7AD3C /* TravelModePickerViewDataSource.m */; };
@@ -203,6 +207,11 @@
 		A309D47F1A80088500BF9733 /* FDOT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FDOT.png; sourceTree = "<group>"; };
 		A309D4811A80098500BF9733 /* FDOT@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FDOT@2x.png"; sourceTree = "<group>"; };
 		A32FF30C1AB3815E00BF08A4 /* clearpix.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clearpix.png; sourceTree = "<group>"; };
+		A33FD5B31AC45B5C0029CBBC /* tabbar_about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_about.png; sourceTree = "<group>"; };
+		A33FD5B41AC45B5C0029CBBC /* tabbar_about@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_about@2x.png"; sourceTree = "<group>"; };
+		A33FD5B71AC47C910029CBBC /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		A33FD5B81AC47C910029CBBC /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		A33FD5B91AC47C910029CBBC /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
 		A355CAC71A72E7C1000FE72F /* Launch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Launch.xib; sourceTree = "<group>"; };
 		A3643AC41A76B65F0048A922 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = FloridaTripTracker/Images.xcassets; sourceTree = "<group>"; };
 		A380224A1A433DA500F7AD3C /* TravelModePickerViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelModePickerViewDataSource.h; sourceTree = "<group>"; };
@@ -300,6 +309,9 @@
 				A309D47A1A7FE05700BF9733 /* PickerViewDataSourceParent.h */,
 				A3C8ECBE1A66D3050040FBAB /* WelcomeViewController.h */,
 				A3C8ECBF1A66D3050040FBAB /* WelcomeViewController.m */,
+				A33FD5B71AC47C910029CBBC /* AboutViewController.h */,
+				A33FD5B81AC47C910029CBBC /* AboutViewController.m */,
+				A33FD5B91AC47C910029CBBC /* AboutViewController.xib */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -452,6 +464,8 @@
 		6411A196106A90FB00C201F0 /* TabBarIcons */ = {
 			isa = PBXGroup;
 			children = (
+				A33FD5B31AC45B5C0029CBBC /* tabbar_about.png */,
+				A33FD5B41AC45B5C0029CBBC /* tabbar_about@2x.png */,
 				EE2D2BCF169CC1BF0059BCC0 /* tabbar_instructions@2x.png */,
 				EE2D2BD0169CC1BF0059BCC0 /* tabbar_record@2x.png */,
 				EE2D2BD1169CC1BF0059BCC0 /* tabbar_settings@2x.png */,
@@ -600,6 +614,8 @@
 				EE2D2BD3169CC1BF0059BCC0 /* tabbar_instructions@2x.png in Resources */,
 				EE2D2BD4169CC1BF0059BCC0 /* tabbar_record@2x.png in Resources */,
 				EE2D2BD5169CC1BF0059BCC0 /* tabbar_settings@2x.png in Resources */,
+				A33FD5B51AC45B5C0029CBBC /* tabbar_about.png in Resources */,
+				A33FD5BB1AC47C910029CBBC /* AboutViewController.xib in Resources */,
 				EE2D2BD6169CC1BF0059BCC0 /* tabbar_view@2x.png in Resources */,
 				EE2D2BE5169CC41E0059BCC0 /* errands.png in Resources */,
 				EE2D2BE6169CC41E0059BCC0 /* errands@2x.png in Resources */,
@@ -621,6 +637,7 @@
 				EE2D2BF6169CCE1E0059BCC0 /* commute2@2x.png in Resources */,
 				A309D4801A80088500BF9733 /* FDOT.png in Resources */,
 				EE2D2BF8169CD17F0059BCC0 /* start_button@2x.png in Resources */,
+				A33FD5B61AC45B5C0029CBBC /* tabbar_about@2x.png in Resources */,
 				EE2D2BFA169CD1EE0059BCC0 /* save_button@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -642,6 +659,7 @@
 				64119AAE1068672100C201F0 /* CustomPickerDataSource.m in Sources */,
 				64119ABF10689ED800C201F0 /* TripQuestionsViewController.m in Sources */,
 				64119EB81069A35C00C201F0 /* Trip.m in Sources */,
+				A33FD5BA1AC47C910029CBBC /* AboutViewController.m in Sources */,
 				64119F041069ACF800C201F0 /* TripManager.m in Sources */,
 				64119FC31069C4CC00C201F0 /* Coord.m in Sources */,
 				A3C8ECC11A66D3050040FBAB /* WelcomeViewController.m in Sources */,

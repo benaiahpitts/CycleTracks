@@ -105,6 +105,11 @@
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
 /*
+ *	Version Number
+ */
+#define VERSION_NUMBER [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
+
+/*
  *	Image Name(s)
  */
 #define kLogo					@"clearpix"
